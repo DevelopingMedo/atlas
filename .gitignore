@@ -1,0 +1,11 @@
+# Lokale Daten und Geheimnisse
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+.claude/settings.local.json
+.codex/auth.json
+work/
