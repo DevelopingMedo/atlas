@@ -2,7 +2,7 @@
 
 **Klare Rollen tragen komplexe Aufgaben.**
 
-Atlas bietet klare Agent-Rollen für OpenCode, Claude Code und Codex. Frische Kontexte, gezielte Delegation und kompakte Übergaben halten größere Aufgaben übersichtlich. Planung, Analyse, Umsetzung und Ausführung greifen ineinander. Wichtige Erkenntnisse bleiben erhalten und erreichen die passende Rolle. Für transparente, fokussierte Zusammenarbeit.
+Atlas bietet klare Agent-Rollen für OpenCode. Frische Kontexte, gezielte Delegation und kompakte Übergaben halten größere Aufgaben übersichtlich. Planung, Analyse, Umsetzung und Ausführung greifen ineinander. Wichtige Erkenntnisse bleiben erhalten und erreichen die passende Rolle. Für transparente, fokussierte Zusammenarbeit.
 
 ## Der Grundgedanke
 
@@ -47,43 +47,28 @@ Develop meldet eine Informationslücke oder eine widerlegte Annahme mit Belegen 
 
 ```text
 .
+├── AGENTS.md
+├── SUBAGENTS.md
+├── agents/       # Native OpenCode-V2-Rollen als Markdown
+├── guide/        # ARTIFACTS.md und REPOSITORIES.md
 ├── README.md
-├── claude
-│   ├── CLAUDE.md
-│   ├── SUBAGENTS.md
-│   ├── agents/       # Native Claude-Code-Rollen als Markdown
-│   └── guide/        # ARTIFACTS.md und REPOSITORIES.md
-├── codex
-│   ├── AGENTS.md
-│   ├── SUBAGENTS.md
-│   ├── agents/       # Native Codex-Rollen als TOML
-│   └── guide/
-└── opencode
-    ├── AGENTS.md
-    ├── SUBAGENTS.md
-    ├── agents/       # Native OpenCode-V2-Rollen als Markdown
-    └── guide/
+├── LICENSE
+└── .gitignore
 ```
 
-Die drei Varianten teilen das Arbeitsmodell, verwenden aber das jeweilige native Rollenformat. Modelle und persönliche MCP-Verbindungen sind nicht festgelegt.
+Die Rollen verwenden das native Rollenformat von OpenCode. Modelle und persönliche MCP-Verbindungen sind nicht festgelegt.
 
 ## Global verwenden
 
-Bestehende globale Regeln zuerst mit den Atlas-Regeln zusammenführen. Kopiere den Inhalt der gewünschten Variante in das entsprechende Konfigurationsverzeichnis:
+Bestehende globale Regeln zuerst mit den Atlas-Regeln zusammenführen. Kopiere den Inhalt dieses Branches in das entsprechende Konfigurationsverzeichnis:
 
 | Variante | Ziel |
 |---|---|
-| `claude/` | `~/.claude/` |
-| `codex/` | `~/.codex/` |
-| `opencode/` | `~/.config/opencode/` |
+| `opencode` | `~/.config/opencode/` |
 
-Die internen Verweise setzen diese Standardpfade voraus. Bei einem anderen Konfigurationsverzeichnis müssen sie angepasst werden. Danach eine neue Session beginnen.
+Die internen Verweise setzen diesen Standardpfad voraus. Bei einem anderen Konfigurationsverzeichnis müssen sie angepasst werden. Danach eine neue Session beginnen.
 
 **OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan und Auto sind als Hauptagent vorgesehen; alle sieben können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
-
-**Claude Code:** Beispielsweise mit `claude --agent Orchestrate` oder `claude --agent Auto` starten. Die YAML-Profile verwenden native Tools und erben das Modell. Auto kann einen freizügigen Berechtigungsmodus der Hauptsession nutzen; ein Rollenprofil allein hebt die Berechtigungen der Hauptsession nicht an.
-
-**Codex:** Die TOML-Dateien registrieren die sieben benannten Subagent-Rollen. Der kurze globale Einstieg ordnet den Hauptchat standardmäßig Orchestrate zu; alternativ ausdrücklich „Arbeite als Auto“ angeben. Berechtigungen, Provider und MCP werden von der Hauptsession geerbt. Die Rollenprofile setzen keine eigene Sandbox; die lesenden Rollen deaktivieren zusätzlich ihr Shell-Werkzeug.
 
 ## Was die Dateien leisten
 
@@ -91,10 +76,8 @@ Atlas liefert Rollen, gemeinsame Arbeitsregeln und Bedarfsanleitungen. Die jewei
 
 Bei tatsächlicher Git-Arbeit gehören nachvollziehbare Commits zur Übergabe. Temporäre Implementierungen ohne autorisierte Originaländerung entstehen in einer separaten Kopie. Ohne Git wird dafür kein Repository automatisch initialisiert.
 
-Die Dateien wurden strukturell auf ihre nativen YAML-/TOML-Formate, Verweise und Rollennamen geprüft. Claude- und Codex-Workflows sind noch nicht mit Modellläufen getestet. Persönliche Konfigurationen werden durch dieses Repository nicht automatisch installiert.
+Die Dateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft. Ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen werden durch dieses Repository nicht automatisch installiert.
 
 ## Dokumentation
 
 - [OpenCode V2: Agents](https://dev.opencode.ai/v2/docs/agents/)
-- [Claude Code: Custom subagents](https://code.claude.com/docs/en/sub-agents)
-- [OpenAI Docs: Codex subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
