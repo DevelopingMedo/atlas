@@ -33,12 +33,28 @@ Rohdaten bleiben beim ausführenden Spezialisten oder in gezielt referenzierten 
 ## Wenn eine Umsetzung neue Fragen aufwirft
 
 ```mermaid
-flowchart LR
-    O[Orchestrate] --> A[Analyze]
-    A --> O
-    O --> D[Develop]
-    D -->|Nachanalyse erforderlich| O
-    O -->|gezielte neue Frage| A
+sequenceDiagram
+    participant O as Orchestrate
+    participant A as Analyze
+    participant D as Develop
+
+    O->>A: neues Feature zur Analyse
+    activate A
+    A-->>O: Analyse erledigt (analyse-ergebnis.md)
+    deactivate A
+
+    O->>D: Umsetzung beauftragen
+    activate D
+    Note over D: liest analyse-ergebnis.md
+    D-->>O: Pause – Nachanalyse nötig
+    deactivate D
+
+    O->>A: erneute Analyse mit gezielter neuer Frage
+    activate A
+    A-->>O: frische Nachanalyse erledigt
+    deactivate A
+
+    O->>D: aktualisierte Umsetzung weitergeben
 ```
 
 Develop meldet eine Informationslücke oder eine widerlegte Annahme mit Belegen und aktuellem Arbeitsstand zurück. Orchestrate beauftragt eine frische Nachanalyse und gibt danach die aktualisierte Umsetzung weiter. Die nächste Rolle erhält gezielte Referenzen; ein kompletter alter Chat wird nicht weitergereicht.
