@@ -6,6 +6,13 @@
 - Gib dem Parent relevante Zusatzfunde mit Beleg, Bedeutung und offenen Folgen weiter; insbesondere bei Analyse und Umsetzung.
 - Lade Anleitungen ausschließlich beim unten genannten Anlass. Lies keine Sammlung aller Rollen oder Anleitungen auf Vorrat.
 
+## Geheimnisse: verbindlich für alle Agents
+
+- `.env` und `.env.*` niemals lesen, durchsuchen, ausgeben, kopieren oder committen — auch nicht über Shell, Skripte, Subagents oder andere Umwege. Keine Ausgabe von Umgebungsvariablen, Prozessumgebungen oder expandierten Auth-Headern; kein Shell-Tracing (`set -x`) bei der Verwendung von Secrets.
+- `~/.config/opencode/.env` bleibt die einzige Quelle für den Langdock-Key. Ausschließlich Bash darf sie zum Laden der Umgebung sourcen (ohne Tracing/Ausgabe); Agents verwenden den Key nur als Umgebungsvariable `$LANGDOCK_API_KEY` zur Authentifizierung gegen `https://api.langdock.com`. OpenCode bezieht ihn über `env: ["LANGDOCK_API_KEY"]`, niemals als Klartext oder Dateisubstitution in der Konfiguration.
+- Secrets niemals in Chat, Logs, Werkzeugrückgaben, Diffs oder Commits übernehmen. Diese Regel in jeden delegierten Auftrag aufnehmen. Die `read`-Permissions und -Policies ersetzen keinen Shell-Sandbox-Schutz.
+- Den laufenden OpenCode-Dienst nicht aus seiner eigenen Agent-Sitzung neu starten. Neustarts führt der Nutzer in einer separaten Bash mit geladener Umgebung aus.
+
 ## Rollenwahl
 
 `Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen · `Review`: unabhängig begutachten · `Auto`: universell selbstständig arbeiten.
