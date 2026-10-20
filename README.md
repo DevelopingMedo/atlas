@@ -86,13 +86,75 @@ Die internen Verweise setzen diesen Standardpfad voraus. Bei einem anderen Konfi
 
 **OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan und Auto sind als Hauptagent vorgesehen; alle sieben können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
 
+## Langdock einrichten (optional)
+
+Die einzelne Datei [`install_langdock.py`](install_langdock.py) richtet den aktuellen
+Langdock-Snapshot mit **18 Modellen** für OpenCode **v2.0.27** ein. Voraussetzungen:
+OpenCode V2 bereits installiert/in `PATH`, Python 3.9+ und ein interaktives Terminal.
+Keine zusätzlichen Python-Pakete und kein Download von OpenCode erforderlich.
+
+```bash
+# Linux / macOS
+python3 install_langdock.py
+```
+
+```powershell
+# Windows, in PowerShell
+py install_langdock.py
+```
+
+Das Skript fragt **nur den API-Key** verdeckt ab. Es erstellt eine `.env` (Unix:
+Modus `600`; Windows: ACL nur für den aktuellen Benutzer), die drei Provider mit
+Umgebungsreferenz in `opencode.json` bzw. einer bestehenden `opencode.jsonc`,
+Git-Ignore-Regeln und die `.env`-Lesesperren samt Agent-Anweisung. Die drei GPT-6-
+Modelle verwenden die stateless Responses-API; GPT-5.6 ist nicht enthalten.
+
+Auf Linux/macOS werden `.bashrc`, die verwendete Bash-Login-Datei und `.zshrc`
+ergänzt (`ZDOTDIR` wird berücksichtigt, wenn exportiert). Unter Windows werden
+die Benutzerprofile der installierten Windows PowerShell/PowerShell 7 ergänzt;
+der Loader parst die Key-Zeile, ohne `.env` als Code auszuführen. CMD/Fish werden
+nicht eingerichtet. Eine Windows-ExecutionPolicy, die Profile blockiert, wird
+**nicht automatisch gelockert**. Bei aktiviertem Unix-Shell-Tracing lädt der
+Loader keine Secrets.
+
+Danach eine **neue Bash/Zsh bzw. PowerShell** öffnen und dort ausführen:
+
+```text
+opencode service restart
+```
+
+Anschließend OpenCode öffnen und `/models` verwenden. Das Skript startet keinen
+Dienst neu und überträgt weder den Key noch andere Daten ins Netzwerk.
+
+**Bestehende Daten:** Eine vorhandene `.env` wird niemals gelesen oder
+überschrieben; dann bricht das Setup ab. Andere Provider, MCPs, Agents und
+`default_agent` bleiben erhalten. Abweichende gleichnamige Langdock-Provider,
+zwei parallele JSON/JSONC-Dateien oder bestehende Setup-Backups führen ebenfalls
+zum Abbruch. Vor Änderungen an vorhandenen Dateien entstehen
+`*.langdock.bak`-Backups (niemals von `.env`). JSONC-Kommentare bleiben im Backup;
+die aktualisierte Datei wird als gültiges JSON formatiert. Die Installation ist
+nicht über alle Dateien hinweg atomar; nach einem Schreibfehler helfen die
+Backups bei der manuellen Wiederherstellung.
+
+Auch auf Windows verwendet v2.0.27 standardmäßig `~/.config/opencode`.
+`XDG_CONFIG_HOME` und `OPENCODE_CONFIG_DIR` werden berücksichtigt. Das Setup
+kopiert **keine persönlichen MCP-Endpunkte oder Atlas-Agent-Dateien**. Die
+Schutzregeln verwenden das in v2.0.27 erforderliche `experimental.policies`;
+sie ersetzen keine Shell-Sandbox.
+
+Tests (nur künstliche Testdaten, keine echte `.env` wird gelesen):
+
+```bash
+python3 -m unittest discover -s tests -p 'test_install_langdock.py' -v
+```
+
 ## Was die Dateien leisten
 
 Atlas liefert Rollen, gemeinsame Arbeitsregeln und Bedarfsanleitungen. Die jeweilige Laufzeit bestimmt verfügbare Werkzeuge, Delegationstiefe und Berechtigungen. Wenn direkte Delegation nicht verfügbar ist, gibt die Rolle dem Parent eine konkrete Folgeanforderung zurück. Frischer Kontext, Zuständigkeiten und knappe Übergaben sind Anweisungen; sie ersetzen keine Laufzeitprüfung.
 
 Bei tatsächlicher Git-Arbeit gehören nachvollziehbare Commits zur Übergabe. Temporäre Implementierungen ohne autorisierte Originaländerung entstehen in einer separaten Kopie. Ohne Git wird dafür kein Repository automatisch initialisiert.
 
-Die Dateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft. Ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen werden durch dieses Repository nicht automatisch installiert.
+Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft. Ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen werden nur durch bewusstes Ausführen des optionalen Langdock-Installers ergänzt.
 
 ## Dokumentation
 
