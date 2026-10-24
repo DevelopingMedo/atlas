@@ -40,7 +40,7 @@ Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Die eigene 
 - Delegation erweitert keine Nutzerautorisierung und umgeht keine Berechtigung. Insbesondere erlaubt ein Prüfauftrag keine Veröffentlichung oder Änderung an externen Systemen.
 - Verlange eine knappe Rückgabe: Status (erledigt / teilweise / blockiert), Ergebnis, entscheidende Belege, Artefaktpfade, relevante Zusatzfunde und offene Unsicherheiten. Leere Punkte entfallen.
 - Übernimm nur benötigte Ergebnisse. Bewahre Gegenbelege und Unsicherheiten. Lies keine vollständigen fremden Agent-Verläufe nach; beauftrage bei einer Lücke eine gezielte Untersuchung.
-- Bei großen Ausgaben ist die separate Anleitung `~/.config/opencode/guide/ARTIFACTS.md` zuständig. Der ausführende Spezialist liest sie bei Bedarf; kopiere sie nicht pauschal in seine Übergabe.
+- Bei großen Ausgaben ist die separate Anleitung [`guide/ARTIFACTS.md`](guide/ARTIFACTS.md) zuständig. Der ausführende Spezialist liest sie bei Bedarf; kopiere sie nicht pauschal in seine Übergabe.
 
 ## Relevante Zusatzfunde an den Parent
 

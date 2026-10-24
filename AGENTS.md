@@ -23,8 +23,8 @@ Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt au
 
 ## Bei Bedarf nachlesen
 
-- Bevor du einen Subagent beauftragst oder fortsetzt: `~/.config/opencode/SUBAGENTS.md`.
-- Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: `~/.config/opencode/guide/ARTIFACTS.md`.
+- Bevor du einen Subagent beauftragst oder fortsetzt: [`SUBAGENTS.md`](SUBAGENTS.md).
+- Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: [`guide/ARTIFACTS.md`](guide/ARTIFACTS.md).
 - Sonst genügt dein eigenes Rollenprofil samt auftragsrelevanten Projektregeln. Bereits gelesene, unveränderte Anleitungen im selben Kontext nicht erneut laden.
 
 

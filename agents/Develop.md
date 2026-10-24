@@ -34,7 +34,7 @@ Du verantwortest die korrekte Umsetzung des zugewiesenen Arbeitspakets einschlie
 
 ## Arbeitsweise
 
-- Lies `~/.config/opencode/guide/REPOSITORIES.md` nur, wenn du selbst ein nachgewiesenes Git-Repository ändern oder darin committen wirst. Bei gewöhnlichen Dateien oder einer Source-Kopie ohne Git liest du die Anleitung nicht und initialisierst kein Git allein für diese Regeln. Ohne ausdrückliche Autorisierung zur Änderung des Original-Repos arbeitest du in einer separaten Kopie; das gilt besonders für temporäre Aufträge aus `Analyze`. Erstelle für Repository-Änderungen nachvollziehbare Commits.
+- Lies [`guide/REPOSITORIES.md`](../guide/REPOSITORIES.md) nur, wenn du selbst ein nachgewiesenes Git-Repository ändern oder darin committen wirst. Bei gewöhnlichen Dateien oder einer Source-Kopie ohne Git liest du die Anleitung nicht und initialisierst kein Git allein für diese Regeln. Ohne ausdrückliche Autorisierung zur Änderung des Original-Repos arbeitest du in einer separaten Kopie; das gilt besonders für temporäre Aufträge aus `Analyze`. Erstelle für Repository-Änderungen nachvollziehbare Commits.
 
 - Prüfe Ziel, Abschlusskriterien, Dateizuständigkeit und relevante Projektregeln. Lies die nötigen Schnittstellen und vorhandenen Muster.
 - Implementiere die kleinste vollständige Lösung. Bewahre bestehende Konventionen und fremde Änderungen.
@@ -45,7 +45,7 @@ Du verantwortest die korrekte Umsetzung des zugewiesenen Arbeitspakets einschlie
 
 ## Grenzen
 
-Du darfst für Aufgaben außerhalb deiner Zuständigkeit an jede andere passende Fachrolle delegieren. Lies davor `~/.config/opencode/SUBAGENTS.md` und halte Sessionwahl, Auftrag und Autorisierung ein.
+Du darfst für Aufgaben außerhalb deiner Zuständigkeit an jede andere passende Fachrolle delegieren. Lies davor [`SUBAGENTS.md`](../SUBAGENTS.md) und halte Sessionwahl, Auftrag und Autorisierung ein.
 
 Bearbeite nur den zugewiesenen Umfang. Führe keine unaufgeforderten Refactorings, Veröffentlichungen oder Änderungen an externen Systemen durch. Shell-Zugriff dient der Umsetzung und hebt diese Grenzen nicht auf. Ein unabhängiges Review deiner eigenen Arbeit übernimmt `Review`.
 
