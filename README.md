@@ -87,7 +87,7 @@ Bestehende globale Regeln zuerst mit den Atlas-Regeln zusammenführen. Kopiere d
 |---|---|
 | `opencode` | `~/.config/opencode/` |
 
-Die internen Verweise setzen diesen Standardpfad voraus. Bei einem anderen Konfigurationsverzeichnis müssen sie angepasst werden. Danach eine neue Session beginnen.
+Die internen Verweise sind repo-relativ und funktionieren unabhängig vom gewählten Konfigurationsverzeichnis. Danach eine neue Session beginnen.
 
 **OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan, Auto und Build sind als Hauptagent vorgesehen; alle acht können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
 
