@@ -4,6 +4,7 @@
 
 - Delegiere fremde Zuständigkeiten an die passende Rolle. Erledige deine eigene Aufgabe selbst; starte keine Kopie deiner Rolle allein wegen ihrer Zuständigkeit.
 - `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für neue Child-Sessions und gezielte Übergaben gelten, sobald er delegiert.
+- MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `MCP`. Nur `Auto` und `MCP` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt lokale Ausführung, nicht MCP-Abfragen.
 - Wähle die kleinste nötige Rollenfolge. Reine Analyse benötigt keine komplette Entwicklungsrunde. Unabhängige Gegenprüfungen sind gesonderte, begrenzte Aufträge.
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
 - Jede Fachrolle darf jede andere passende Fachrolle starten, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, frischer Start, Autorisierung und Delegationsbudget bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.

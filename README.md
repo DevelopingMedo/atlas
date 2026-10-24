@@ -18,8 +18,9 @@ Der Name greift das Bild des Atlas auf: Komplexe Aufgaben werden von einer nachv
 | **Plan** | Architektur, Lösungswege und Arbeitspakete entwickeln |
 | **Analyze** | Zusammenhänge und Ursachen mit Belegen untersuchen |
 | **Develop** | Abgegrenzte Änderungen umsetzen und passende Tests ergänzen |
-| **Run** | Befehle, Tests, Dienste und MCP-Aufträge ausführen; große Ausgaben verdichten |
+| **Run** | Befehle, Tests und Dienste ausführen; große Ausgaben verdichten |
 | **Review** | Ergebnisse unabhängig auf Fehler und Regressionen prüfen |
+| **MCP** | Gezielte Aufträge über konfigurierte MCP-Server ausführen |
 | **Auto** | Einen Auftrag vollständig selbst bearbeiten; Spezialisten optional nutzen |
 
 Nicht jede Aufgabe braucht alle Rollen. Auto eignet sich für zusammenhängende Arbeit in einer Session. Orchestrate koordiniert die Aufgaben, die von gezielter Aufteilung profitieren.
@@ -84,7 +85,9 @@ Bestehende globale Regeln zuerst mit den Atlas-Regeln zusammenführen. Kopiere d
 
 Die internen Verweise setzen diesen Standardpfad voraus. Bei einem anderen Konfigurationsverzeichnis müssen sie angepasst werden. Danach eine neue Session beginnen.
 
-**OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan und Auto sind als Hauptagent vorgesehen; alle sieben können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
+**OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan und Auto sind als Hauptagent vorgesehen; alle acht können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
+
+MCP-Tools und -Ressourcen sind nur für Auto und MCP freigegeben. Diese Rollenregel gilt für alle MCP-Server und alle Betriebssysteme. Andere Rollen delegieren an MCP. Rollenbezogene Berechtigungen blenden die Werkzeuge aus und sperren Aufrufe, schalten aber nicht die Serverprozesse ab. Persönliche Endpunkte, Zugangsdaten und rechnerabhängige Installationen bleiben außerhalb der allgemeinen Agent-Regeln. Details: [guide/MCP.md](guide/MCP.md).
 
 ## Langdock einrichten (optional)
 
