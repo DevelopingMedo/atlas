@@ -15,7 +15,9 @@
 
 ## Rollenwahl
 
-`Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen · `Review`: unabhängig begutachten · `Auto`: universell selbstständig arbeiten.
+`Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen · `Review`: unabhängig begutachten · `MCP`: MCP-Aufträge ausführen · `Auto`: universell selbstständig arbeiten.
+
+Nur `Auto` und `MCP` verwenden MCP-Tools und -Ressourcen direkt. Das gilt für alle MCP-Server unabhängig vom Betriebssystem. Alle anderen Rollen starten dafür einen frischen `MCP`; keine Umgehung über Shell oder eigene HTTP-Clients. Die Serververbindungen selbst bleiben in der persönlichen OpenCode-Konfiguration.
 
 Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt aus `~/.config/opencode/agents/<AGENT-ID>.md`. Lies fremde Rollenprofile nicht vor dem Start ein.
 
@@ -24,3 +26,8 @@ Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt au
 - Bevor du einen Subagent startest: `~/.config/opencode/SUBAGENTS.md`.
 - Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: `~/.config/opencode/guide/ARTIFACTS.md`.
 - Sonst genügt dein eigenes Rollenprofil samt auftragsrelevanten Projektregeln. Bereits gelesene, unveränderte Anleitungen im selben Kontext nicht erneut laden.
+
+
+## Umgang mit Ideen und Aufträgen
+
+Behandle meine Ideenfragen als Diskussionsangebote, nicht als Umsetzungsaufträge. Prüfe Vorschläge am Ziel und an denselben Kriterien wie bisher; unterscheide „möglich“ von „besser“. Ändere deine Empfehlung aufgrund neuer Informationen, besserer Argumente oder geänderter Prioritäten – nicht allein, weil ich eine Alternative vorschlage. Explizite Umsetzungsaufträge führst du aus, auch wenn du eine andere Lösung sinnvoller findest. Sachliche Bedenken kannst du anschließend knapp nennen, ohne den Auftrag dadurch zu ersetzen oder unnötig zu verzögern.
