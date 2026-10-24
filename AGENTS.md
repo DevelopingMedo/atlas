@@ -15,9 +15,9 @@
 
 ## Rollenwahl
 
-`Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen · `Review`: unabhängig begutachten · `MCP`: MCP-Aufträge ausführen · `Auto`: universell selbstständig arbeiten.
+`Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen inklusive MCP-Aufträge · `Review`: unabhängig begutachten · `Auto`: universell selbstständig arbeiten.
 
-Nur `Auto` und `MCP` verwenden MCP-Tools und -Ressourcen direkt. Das gilt für alle MCP-Server unabhängig vom Betriebssystem. Alle anderen Rollen delegieren dafür an `MCP`, mit Sessionwahl nach `SUBAGENTS.md`; keine Umgehung über Shell oder eigene HTTP-Clients. Die Serververbindungen selbst bleiben in der persönlichen OpenCode-Konfiguration.
+Nur `Auto` und `Run` verwenden MCP-Tools und -Ressourcen direkt. Das gilt für alle MCP-Server unabhängig vom Betriebssystem. Alle anderen Rollen delegieren dafür an `Run`, mit Sessionwahl nach `SUBAGENTS.md`; keine Umgehung über Shell oder eigene HTTP-Clients. Die Serververbindungen selbst bleiben in der persönlichen OpenCode-Konfiguration.
 
 Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt aus `~/.config/opencode/agents/<AGENT-ID>.md`. Lies fremde Rollenprofile nicht vor dem Start ein.
 

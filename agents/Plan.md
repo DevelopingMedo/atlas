@@ -24,7 +24,6 @@ permissions:
   - {"action": "subagent", "resource": "Run", "effect": "allow"}
   - {"action": "subagent", "resource": "Review", "effect": "allow"}
   - {"action": "subagent", "resource": "Auto", "effect": "allow"}
-  - {"action": "subagent", "resource": "MCP", "effect": "allow"}
 ---
 
 # Plan
