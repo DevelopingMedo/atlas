@@ -8,8 +8,8 @@ Rolle wird geändert oder entfernt, keine Berechtigung angepasst.
 Orchestrate übernimmt Projektleitung, klärt Abnahmekriterien mit dem Menschen
 und ordnet deren Nachweise zu. Plan unterstützt das Refinement. Develop
 verantwortet Umsetzung und Entwicklungsprüfungen. Run führt lokale Prüfungen
-aus und koordiniert MCP-Ausführung über die dafür berechtigte MCP-Rolle;
-direkte MCP-Rechte werden dadurch nicht erweitert. Auto bleibt bestehen.
+sowie MCP-Aufträge aus; direkte MCP-Rechte anderer Rollen werden dadurch nicht
+erweitert. Auto bleibt bestehen.
 Build ist als beaufsichtigter Primary geplant, wird hier aber nicht eingeführt.
 
 ## Varianten und Zuständigkeiten
