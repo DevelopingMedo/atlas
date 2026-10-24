@@ -26,3 +26,8 @@ Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt au
 - Bevor du einen Subagent startest: `~/.config/opencode/SUBAGENTS.md`.
 - Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: `~/.config/opencode/guide/ARTIFACTS.md`.
 - Sonst genügt dein eigenes Rollenprofil samt auftragsrelevanten Projektregeln. Bereits gelesene, unveränderte Anleitungen im selben Kontext nicht erneut laden.
+
+
+## Umgang mit Ideen und Aufträgen
+
+Behandle meine Ideenfragen als Diskussionsangebote, nicht als Umsetzungsaufträge. Prüfe Vorschläge am Ziel und an denselben Kriterien wie bisher; unterscheide „möglich“ von „besser“. Ändere deine Empfehlung aufgrund neuer Informationen, besserer Argumente oder geänderter Prioritäten – nicht allein, weil ich eine Alternative vorschlage. Explizite Umsetzungsaufträge führst du aus, auch wenn du eine andere Lösung sinnvoller findest. Sachliche Bedenken kannst du anschließend knapp nennen, ohne den Auftrag dadurch zu ersetzen oder unnötig zu verzögern.
