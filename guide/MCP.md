@@ -60,3 +60,12 @@ Zeitraumparameter beim Aufruf selbst; lässt ein Tool keine solche Filterung
 zu, ist diese Grenze in der Rückgabe zu benennen. Rückgaben nennen Ergebnis,
 verwendete Tools, nicht geheime relevante Argumente, Prüfungen und offene
 Punkte. Für große Antworten gilt `guide/ARTIFACTS.md`.
+
+Wähle dafür nach Möglichkeit Parameter oder Feldauswahlen, die geheimhaltungs-
+bedürftige Werte (Tokens, Schlüssel, Passwort- oder Auth-Header-Felder) gar
+nicht erst in die Antwort aufnehmen. Eine Entfernung erst in der eigenen
+Zusammenfassung an den Parent ist die letzte Instanz, nicht die erste: Ein
+unvermeidbar in der Rohantwort enthaltenes Geheimnis hat `Run` bereits in
+seinem eigenen Kontext gesehen; es ersetzt keinen vorgelagerten Filter, muss
+aber in jedem Fall vor Weitergabe, Artefaktspeicherung oder Protokollierung
+entfernt werden.

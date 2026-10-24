@@ -13,7 +13,12 @@ permissions:
   - {"action": "read", "resource": "*.env", "effect": "ask"}
   - {"action": "read", "resource": "*.env.*", "effect": "ask"}
   - {"action": "read", "resource": "*.env.example", "effect": "allow"}
+  - {"action": "grep", "resource": "*.env", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.*", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.example", "effect": "allow"}
   - {"action": "edit", "resource": "*", "effect": "allow"}
+  - {"action": "edit", "resource": "*.env", "effect": "deny"}
+  - {"action": "edit", "resource": "*.env.*", "effect": "deny"}
   - {"action": "shell", "resource": "*", "effect": "allow"}
   - {"action": "subagent", "resource": "Orchestrate", "effect": "allow"}
   - {"action": "subagent", "resource": "Plan", "effect": "allow"}
