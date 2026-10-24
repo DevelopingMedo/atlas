@@ -2,6 +2,7 @@
 
 ## Zuständigkeit
 
+- Verfügbare Rollen: `Orchestrate` (koordinieren) · `Plan` (planen) · `Analyze` (untersuchen) · `Develop` (ändern) · `Run` (ausführen/prüfen inklusive MCP-Aufträge) · `Review` (unabhängig begutachten) · `Auto` (universell selbstständig arbeiten) · `Build` (eigenständiger Modus mit Pflichtbestätigung vor jedem Shell-Befehl). Starte die gewählte Rolle über ihren Agent-Namen; OpenCode lädt dafür deren eigenen Prompt aus `agents/<AGENT-ID>.md`. Lies fremde Rollenprofile nicht vor dem Start ein.
 - Delegiere fremde Zuständigkeiten an die passende Rolle. Erledige deine eigene Aufgabe selbst; starte keine Kopie deiner Rolle allein wegen ihrer Zuständigkeit.
 - `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für Sessionwahl und gezielte Übergaben gelten, sobald er delegiert.
 - MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `Run`. Nur `Auto` und `Run` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt sowohl lokale Ausführung als auch MCP-Abfragen und schirmt dabei die Ausführungsdetails von der delegierenden Rolle ab.
