@@ -7,7 +7,7 @@
 - MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `Run`. Nur `Auto` und `Run` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt sowohl lokale Ausführung als auch MCP-Abfragen und schirmt dabei die Ausführungsdetails von der delegierenden Rolle ab.
 - Wähle die kleinste nötige Rollenfolge. Reine Analyse benötigt keine komplette Entwicklungsrunde. Unabhängige Gegenprüfungen sind gesonderte, begrenzte Aufträge.
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
-- Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl, Autorisierung und Delegationsbudget bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
+- Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl und Autorisierung bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
 ## Neue Aufgabe oder Fortsetzung
 
@@ -24,9 +24,9 @@
 1. Ziel und überprüfbares Abschlusskriterium.
 2. Umfang und relevante Dateien/Quellen/Artefaktpfade.
 3. Notwendige Entscheidungen und Einschränkungen, erlaubte Änderungen und Werkzeuge.
-4. Gewünschte Rückgabe einschließlich relevanter Zusatzfunde sowie bisherige Delegationskette und verbleibendes Budget.
+4. Gewünschte Rückgabe einschließlich relevanter Zusatzfunde.
 
-Standard: höchstens drei Delegationskanten ab Einstieg; keine Rückdelegation an eine Rolle in der aktuellen Kette. Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Eine Rückgabe an den Parent und dessen Weiterarbeit in seiner bestehenden Session sind keine Rückdelegation; eine Fortsetzung setzt das Delegationsbudget nicht zurück. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
+Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
 
 ## Sichtbarer Ablauf
 
