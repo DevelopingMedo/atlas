@@ -20,7 +20,7 @@ Der Name greift das Bild des Atlas auf: Komplexe Aufgaben werden von einer nachv
 | **Develop** | Abgegrenzte Änderungen umsetzen und passende Tests ergänzen |
 | **Run** | Befehle, Tests, Dienste und MCP-Aufträge gemeinsam ausführen; große Ausgaben und Antworten verdichten |
 | **Review** | Ergebnisse unabhängig auf Fehler und Regressionen prüfen |
-| **Auto** | Einen Auftrag vollständig selbst bearbeiten; Spezialisten optional nutzen |
+| **Auto** | Ohne Rückfragen fast alle Werkzeuge nutzen und einen Auftrag eigenständig bearbeiten |
 | **Build** | Wie Auto eigenständig arbeiten, aber vor jedem Shell-Befehl eine Nutzerbestätigung einholen |
 
 Auto und Build eignen sich für zusammenhängende Arbeit in einer Session; Build fügt dabei eine Pflichtbestätigung vor jedem Shell-Befehl hinzu. Orchestrate koordiniert Aufgaben, die von gezielter Aufteilung profitieren. Ob Review dauerhaft als eigenständige Rolle bestehen bleibt oder nur noch begrenzt optional zum Einsatz kommt, ist offen; bis dahin gilt die Rolle unverändert wie oben beschrieben.
