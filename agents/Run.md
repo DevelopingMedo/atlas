@@ -15,6 +15,9 @@ permissions:
   - {"action": "read", "resource": "*.env", "effect": "ask"}
   - {"action": "read", "resource": "*.env.*", "effect": "ask"}
   - {"action": "read", "resource": "*.env.example", "effect": "allow"}
+  - {"action": "grep", "resource": "*.env", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.*", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.example", "effect": "allow"}
   - {"action": "shell", "resource": "*", "effect": "allow"}
   - {"action": "edit", "resource": "work/agent-artifacts/*", "effect": "allow"}
   - {"action": "subagent", "resource": "Orchestrate", "effect": "allow"}

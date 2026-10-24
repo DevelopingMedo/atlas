@@ -18,6 +18,9 @@ permissions:
   - {"action": "read", "resource": "*.env", "effect": "ask"}
   - {"action": "read", "resource": "*.env.*", "effect": "ask"}
   - {"action": "read", "resource": "*.env.example", "effect": "allow"}
+  - {"action": "grep", "resource": "*.env", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.*", "effect": "ask"}
+  - {"action": "grep", "resource": "*.env.example", "effect": "allow"}
   - {"action": "subagent", "resource": "Orchestrate", "effect": "allow"}
   - {"action": "subagent", "resource": "Analyze", "effect": "allow"}
   - {"action": "subagent", "resource": "Develop", "effect": "allow"}
