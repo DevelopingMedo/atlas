@@ -17,7 +17,7 @@ Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die
 - Eine Source-Kopie ohne Git bleibt ohne Git, solange das Anlegen eines Repositorys nicht ausdrücklich beauftragt ist. Keine automatische Git-Initialisierung zur Erfüllung dieser Anleitung. Bei einer Kopie eines vorhandenen Repositorys bewahre einen nachvollziehbaren Git-Ausgangsstand und erstelle für deine Änderungen eigene Commits. Bestehende Nutzeränderungen im Original bleiben unangetastet.
 - Verwende eine vorhandene gültige Git-Identität. Erfinde keine Identität und ändere keine globalen Git-Einstellungen. Fehlt die Identität oder scheitert ein Hook, melde den konkreten Blocker; umgehe ihn nicht stillschweigend.
 - Schreibe keine fremden Commits um. Push, Veröffentlichung und automatische Übernahme einer Kopie ins Original brauchen eine passende ausdrückliche Autorisierung. Die lokale Commit-Pflicht allein erlaubt das nicht.
-- Wenn Tests, Implementierung und Git-Abschluss unterschiedliche Rollen benötigen, darf jede Rolle die passende andere Rolle frisch beauftragen. Die Verantwortung für einen nachvollziehbaren Abschluss bleibt beim aufrufenden Agent.
+- Wenn Tests, Implementierung und Git-Abschluss unterschiedliche Rollen benötigen, darf jede Rolle die passende andere Rolle beauftragen, mit Sessionwahl nach `SUBAGENTS.md`. Die Verantwortung für einen nachvollziehbaren Abschluss bleibt beim aufrufenden Agent.
 
 ## Rückgabe an den Parent
 

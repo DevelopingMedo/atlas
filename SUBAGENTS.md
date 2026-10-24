@@ -3,16 +3,18 @@
 ## Zuständigkeit
 
 - Delegiere fremde Zuständigkeiten an die passende Rolle. Erledige deine eigene Aufgabe selbst; starte keine Kopie deiner Rolle allein wegen ihrer Zuständigkeit.
-- `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für neue Child-Sessions und gezielte Übergaben gelten, sobald er delegiert.
+- `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für Sessionwahl und gezielte Übergaben gelten, sobald er delegiert.
 - MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `MCP`. Nur `Auto` und `MCP` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt lokale Ausführung, nicht MCP-Abfragen.
 - Wähle die kleinste nötige Rollenfolge. Reine Analyse benötigt keine komplette Entwicklungsrunde. Unabhängige Gegenprüfungen sind gesonderte, begrenzte Aufträge.
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
-- Jede Fachrolle darf jede andere passende Fachrolle starten, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, frischer Start, Autorisierung und Delegationsbudget bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
+- Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl, Autorisierung und Delegationsbudget bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
-## Frischer Start
+## Neue Aufgabe oder Fortsetzung
 
-- Starte jeden delegierten Auftrag in einer neuen Child-Session mit der gewählten Rolle. Keine Resume-/Fortsetzungs-ID, kein wiederverwendeter Agent, kein kopierter Gesprächsverlauf. Ein Rollenwechsel im laufenden Chat ersetzt das nicht.
-- Auch ein Folgeauftrag bekommt eine neue Session mit einer knappen Übergabe. Innerhalb seines einzelnen Auftrags darf der Spezialist mehrere Werkzeugaufrufe durchführen.
+- Starte eine neue eigenständige Aufgabe in einer frischen Child-Session mit der gewählten Fachrolle und einem gezielten Auftrag, ohne kopierten Gesamtchat. Ein Rollenwechsel im laufenden Chat ersetzt diese Delegation nicht.
+- Setze für zusammengehörige Folgefragen möglichst dieselbe geeignete Fachsession über ihre tatsächlich verfügbare Session-/Fortsetzungs-ID fort. Aktualisiere sie erst bei erneutem fachlichem Bedarf; keine laufende Synchronisierung und keine Updates nach jeder Codeänderung. Innerhalb ihres Auftrags darf die Fachrolle mehrere Werkzeugaufrufe durchführen.
+- Eine Fortsetzung enthält die konkrete Frage, neue Belege und relevante Änderungen seit dem letzten Einsatz, einschließlich geänderter Randbedingungen. Frühere Annahmen sind bei Gegenbelegen neu zu prüfen; bestehender Kontext ist kein Beweis für ihre Gültigkeit. Übernimm keinen Gesamtchat.
+- Ist die Fachsession nicht verfügbar oder für die Frage ungeeignet, starte eine neue passende Session mit einer gezielten Ersatzübergabe: bisherige Ergebnisse und Referenzen, offene Frage, neue Belege und relevante Änderungen. Benenne den Kontextverlust ausdrücklich und erfinde keine Session-ID.
 - Zum neuen Kontext gehören der eigene Rollenprompt, globale und notwendige Projektregeln sowie der Auftrag. Andere Rollenprompts, gesamte Chats, Logs oder MCP-Payloads gehören nicht hinein.
 
 ## Knappes Auftragspaket
@@ -24,7 +26,7 @@
 3. Notwendige Entscheidungen und Einschränkungen, erlaubte Änderungen und Werkzeuge.
 4. Gewünschte Rückgabe einschließlich relevanter Zusatzfunde sowie bisherige Delegationskette und verbleibendes Budget.
 
-Standard: höchstens drei Delegationskanten ab Einstieg; keine Rückdelegation an eine Rolle in der aktuellen Kette. Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
+Standard: höchstens drei Delegationskanten ab Einstieg; keine Rückdelegation an eine Rolle in der aktuellen Kette. Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Eine Rückgabe an den Parent und dessen Weiterarbeit in seiner bestehenden Session sind keine Rückdelegation; eine Fortsetzung setzt das Delegationsbudget nicht zurück. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
 
 ## Sichtbarer Ablauf
 
@@ -52,4 +54,4 @@ Jeder Subagent berichtet dem unmittelbar aufrufenden Parent auch wichtige Erkenn
 
 ## Gezielte Nachanalyse
 
-Meldet Develop **Nachanalyse erforderlich**, bekommt der Parent die offene Frage, neue Belege, widerlegte Annahmen, bisherige Versuche und den gesicherten Arbeits-/Commitstand. Orchestrate beauftragt einen frischen Analyze mit genau dieser Lücke und der bisherigen Analyse als Referenz. Die aktualisierte Umsetzung wird anschließend gezielt neu beauftragt.
+Meldet Develop **Nachanalyse erforderlich**, bekommt der unmittelbar aufrufende Parent die offene Frage, neue Belege, widerlegte Annahmen, bisherige Versuche und den gesicherten Arbeits-/Commitstand. Ist Orchestrate der Parent, setzt er möglichst die ursprüngliche Analyze-Session mit dieser gezielten Frage, den neuen Belegen und den relevanten Änderungen seit dem letzten Einsatz fort. Ist Analyze selbst der Parent von Develop, geht die Meldung direkt an diesen ursprünglichen Analysten zurück; er prüft die Gegenbelege und seine bisherigen Annahmen in seiner bestehenden Session neu, statt einen weiteren Analyze zu starten. Eine größere Neuplanung oder Umfangserweiterung geht an seinen Auftraggeber zurück. Ist die ursprüngliche Fachsession nicht verfügbar oder ungeeignet, gilt die gezielte Ersatzübergabe mit benanntem Kontextverlust. Nach der Klärung erhält möglichst dieselbe Develop-Session einen aktualisierten Auftrag; Änderungen und Commitstände bleiben erhalten. Zwischen diesen fachlichen Einsätzen ist keine Synchronisierung nötig.
