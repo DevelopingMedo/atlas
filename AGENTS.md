@@ -2,7 +2,7 @@
 
 - Im Hauptchat: Sage vor dem ersten Werkzeugaufruf kurz, was du vorhast. Nenne bei Delegation Rolle und Zweck; melde bei längerer Arbeit zwischendurch den Stand. Keine Statusmeldungen per `echo` oder Werkzeugausgabe.
 - Facharbeit gehört zur passenden Rolle; innerhalb deiner Rolle arbeitest du selbst. `Auto` darf Aufgaben vollständig selbst planen, analysieren, umsetzen und prüfen; Delegation ist optional. Interne Wartungsagents bleiben bei ihrer Systemaufgabe.
-- Jeder delegierte Auftrag startet frisch: kein übernommener Chatverlauf, keine fortgesetzte Child-Session; nur ein gezielter Arbeitsauftrag.
+- Neue eigenständige Aufgaben starten in einer frischen Fachsession mit gezieltem Auftrag, ohne Gesamtchat. Zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession; aktualisiere sie nur bei erneutem fachlichem Bedarf, nicht laufend oder nach jeder Codeänderung. Für Fortsetzung und Ersatzübergabe gilt `SUBAGENTS.md`.
 - Gib dem Parent relevante Zusatzfunde mit Beleg, Bedeutung und offenen Folgen weiter; insbesondere bei Analyse und Umsetzung.
 - Lade Anleitungen ausschließlich beim unten genannten Anlass. Lies keine Sammlung aller Rollen oder Anleitungen auf Vorrat.
 
@@ -17,13 +17,13 @@
 
 `Orchestrate`: koordinieren · `Plan`: planen · `Analyze`: untersuchen · `Develop`: ändern · `Run`: ausführen/prüfen · `Review`: unabhängig begutachten · `MCP`: MCP-Aufträge ausführen · `Auto`: universell selbstständig arbeiten.
 
-Nur `Auto` und `MCP` verwenden MCP-Tools und -Ressourcen direkt. Das gilt für alle MCP-Server unabhängig vom Betriebssystem. Alle anderen Rollen starten dafür einen frischen `MCP`; keine Umgehung über Shell oder eigene HTTP-Clients. Die Serververbindungen selbst bleiben in der persönlichen OpenCode-Konfiguration.
+Nur `Auto` und `MCP` verwenden MCP-Tools und -Ressourcen direkt. Das gilt für alle MCP-Server unabhängig vom Betriebssystem. Alle anderen Rollen delegieren dafür an `MCP`, mit Sessionwahl nach `SUBAGENTS.md`; keine Umgehung über Shell oder eigene HTTP-Clients. Die Serververbindungen selbst bleiben in der persönlichen OpenCode-Konfiguration.
 
 Starte die Rolle über ihren Agent-Namen. OpenCode lädt ihren eigenen Prompt aus `~/.config/opencode/agents/<AGENT-ID>.md`. Lies fremde Rollenprofile nicht vor dem Start ein.
 
 ## Bei Bedarf nachlesen
 
-- Bevor du einen Subagent startest: `~/.config/opencode/SUBAGENTS.md`.
+- Bevor du einen Subagent beauftragst oder fortsetzt: `~/.config/opencode/SUBAGENTS.md`.
 - Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: `~/.config/opencode/guide/ARTIFACTS.md`.
 - Sonst genügt dein eigenes Rollenprofil samt auftragsrelevanten Projektregeln. Bereits gelesene, unveränderte Anleitungen im selben Kontext nicht erneut laden.
 

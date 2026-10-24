@@ -8,7 +8,7 @@ gebunden.
 
 - `Auto` darf MCP-Tools und -Ressourcen direkt verwenden.
 - `MCP` bearbeitet gezielte MCP-Aufträge im autorisierten Umfang.
-- Alle anderen Rollen delegieren MCP-Aufträge an einen frischen `MCP`.
+- Alle anderen Rollen delegieren MCP-Aufträge an `MCP`, mit Sessionwahl nach `SUBAGENTS.md`.
   Sie umgehen diese Trennung nicht über Shell oder eigene HTTP-Clients.
 - Ein Prüfauftrag erlaubt keine Änderungen an externen Systemen.
 
