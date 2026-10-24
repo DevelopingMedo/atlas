@@ -30,7 +30,7 @@ keine Freigabe für `*.md`, `docs/*` oder Produktkonfigurationen ergänzen.
 Bei nachgewiesener Repository-Arbeit gelten auch für Plan die Regeln aus
 `REPOSITORIES.md`: ohne ausdrückliche Originalautorisierung eine separate Kopie,
 nachvollziehbare Commits und keine fremden Änderungen überschreiben. Da Plan
-keine Shell-Freigabe erhält, führt ein frischer `Run` nötige Git-, Kopier- und
+keine Shell-Freigabe erhält, führt `Run`, mit Sessionwahl nach `SUBAGENTS.md`, nötige Git-, Kopier- und
 Commitbefehle im autorisierten Arbeitsbereich aus. Das delegiert nicht das
 Schreiben des Plans und ist kein Grund für einen zusätzlichen Develop-Auftrag.
 
