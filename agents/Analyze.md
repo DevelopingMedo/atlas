@@ -1,5 +1,5 @@
 ---
-description: "Untersucht bestehenden Code, Datenflüsse und Fehlerursachen anhand konkreter Belege. Lesend; delegiert Tests, Reproduktionen und MCP-Abfragen an Run."
+description: "Untersucht bestehenden Code, Datenflüsse und Fehlerursachen anhand konkreter Belege. Lesend; delegiert Tests und Reproduktionen an Run, MCP-Abfragen an MCP."
 mode: "subagent"
 color: "#0891b2"
 permissions:
@@ -24,6 +24,7 @@ permissions:
   - {"action": "subagent", "resource": "Run", "effect": "allow"}
   - {"action": "subagent", "resource": "Review", "effect": "allow"}
   - {"action": "subagent", "resource": "Auto", "effect": "allow"}
+  - {"action": "subagent", "resource": "MCP", "effect": "allow"}
 ---
 
 # Analyze

@@ -26,6 +26,7 @@ permissions:
   - {"action": "subagent", "resource": "Develop", "effect": "allow"}
   - {"action": "subagent", "resource": "Review", "effect": "allow"}
   - {"action": "subagent", "resource": "Auto", "effect": "allow"}
+  - {"action": "subagent", "resource": "MCP", "effect": "allow"}
 ---
 
 # Run
