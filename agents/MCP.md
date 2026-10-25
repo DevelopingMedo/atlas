@@ -9,16 +9,6 @@ permissions:
   - {"action": "read", "resource": "*.env.*", "effect": "deny"}
   - {"action": "external_directory", "resource": "*", "effect": "allow"}
   - {"action": "question", "resource": "*", "effect": "allow"}
-  - {"action": "execute", "resource": "*", "effect": "allow"}
-  - {"action": "mikrotik_*", "resource": "*", "effect": "allow"}
-  - {"action": "omada_*", "resource": "*", "effect": "allow"}
-  - {"action": "modrinth_*", "resource": "*", "effect": "allow"}
-  - {"action": "opencode_list_mcp_resources", "resource": "mikrotik", "effect": "allow"}
-  - {"action": "opencode_list_mcp_resources", "resource": "omada", "effect": "allow"}
-  - {"action": "opencode_list_mcp_resources", "resource": "modrinth", "effect": "allow"}
-  - {"action": "opencode_read_mcp_resource", "resource": "mikrotik:*", "effect": "allow"}
-  - {"action": "opencode_read_mcp_resource", "resource": "omada:*", "effect": "allow"}
-  - {"action": "opencode_read_mcp_resource", "resource": "modrinth:*", "effect": "allow"}
 ---
 
 # MCP

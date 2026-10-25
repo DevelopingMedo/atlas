@@ -22,11 +22,6 @@ permissions:
   - {"action": "subagent", "resource": "Review", "effect": "allow"}
   - {"action": "subagent", "resource": "Auto", "effect": "allow"}
   - {"action": "subagent", "resource": "MCP", "effect": "allow"}
-  - {"action": "mikrotik_*", "resource": "*", "effect": "deny"}
-  - {"action": "omada_*", "resource": "*", "effect": "deny"}
-  - {"action": "modrinth_*", "resource": "*", "effect": "deny"}
-  - {"action": "opencode_list_mcp_resources", "resource": "*", "effect": "deny"}
-  - {"action": "opencode_read_mcp_resource", "resource": "*", "effect": "deny"}
 ---
 
 # Develop
