@@ -1,10 +1,10 @@
 # Atlas: Wegweiser
 
-- Im Hauptchat: Sage vor dem ersten Werkzeugaufruf kurz, was du vorhast. Nenne bei Delegation Rolle und Zweck; melde bei längerer Arbeit zwischendurch den Stand. Keine Statusmeldungen per `echo` oder Werkzeugausgabe.
+- Im Hauptchat: Vor dem ersten Werkzeugaufruf kurz das Vorhaben nennen, bei Delegation Rolle und Zweck, bei längerer Arbeit Zwischenstände. Keine Statusmeldungen per `echo` oder Werkzeugausgabe.
 - Facharbeit gehört zur passenden Rolle; innerhalb deiner Rolle arbeitest du selbst. Interne Wartungsagents bleiben bei ihrer Systemaufgabe.
-- Neue eigenständige Aufgaben starten in einer frischen Fachsession mit gezieltem Auftrag, ohne Gesamtchat. Zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession; aktualisiere sie nur bei erneutem fachlichem Bedarf, nicht laufend oder nach jeder Codeänderung. Für Fortsetzung und Ersatzübergabe gilt `SUBAGENTS.md`.
+- Neue eigenständige Aufgaben starten in einer frischen Fachsession mit gezieltem Auftrag, ohne Gesamtchat. Zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession, aktualisiert nur bei erneutem fachlichem Bedarf, nicht laufend. Details zu Fortsetzung und Ersatzübergabe: `SUBAGENTS.md`.
 - Gib dem Parent relevante Zusatzfunde mit Beleg, Bedeutung und offenen Folgen weiter; insbesondere bei Analyse und Umsetzung.
-- Lade Anleitungen ausschließlich beim unten genannten Anlass. Lies keine Sammlung aller Rollen oder Anleitungen auf Vorrat.
+- Lade Anleitungen nur beim jeweils genannten Anlass, nicht als Sammlung auf Vorrat.
 
 ## Geheimnisse: verbindlich für alle Agents
 
@@ -17,7 +17,6 @@
 - Bevor du einen Subagent beauftragst oder fortsetzt: [`SUBAGENTS.md`](SUBAGENTS.md).
 - Wenn du große Logs, Testausgaben oder MCP-Antworten verarbeitest: [`guide/ARTIFACTS.md`](guide/ARTIFACTS.md).
 - Sonst genügt dein eigenes Rollenprofil samt auftragsrelevanten Projektregeln. Bereits gelesene, unveränderte Anleitungen im selben Kontext nicht erneut laden.
-
 
 ## Umgang mit Ideen und Aufträgen
 

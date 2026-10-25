@@ -41,53 +41,40 @@ und [V2-Permissions](https://dev.opencode.ai/v2/docs/permissions/), geprüft geg
 die installierte CLI `opencode v2.1.3`.
 
 - Markdown-Frontmatter verwendet `permissions` als geordnete Liste von
-  `action`, `resource`, `effect`. Die letzte passende Regel gewinnt.
-- Die Aktion **`edit`** schützt alle drei Werkzeuge **edit, write und patch**.
-  Eine Freigabe für eine erfundene Aktion `patch` würde diesen Schutz nicht
-  korrekt konfigurieren.
-- Ressourcen sind normalisierte Pfade. Interne Pfade sind relativ zur aktiven
-  Location, externe Pfade kanonisch absolut. `*` erfasst auch `/`, daher schließen
-  die drei Muster Unterverzeichnisse ein; es sind keine Shell-Globs.
-- Die grundsätzliche Sperre der Rolle bleibt bestehen. Nur die drei
-  Planungsbereiche erhalten `edit: allow`; danach bleiben umgebungsdateiartige
-  Namen zusätzlich von Edits ausgeschlossen. Bestehende Leseregeln werden durch
-  diese Änderung nicht gelockert.
+  `action`, `resource`, `effect`; die letzte passende Regel gewinnt.
+- Die Aktion **`edit`** schützt alle drei Werkzeuge **edit, write und patch**;
+  eine erfundene Aktion `patch` würde diesen Schutz nicht korrekt konfigurieren.
+- Ressourcen sind normalisierte Pfade (intern relativ zur aktiven Location,
+  extern kanonisch absolut) und keine Shell-Globs; `*` erfasst auch `/`, daher
+  schließen die drei Muster Unterverzeichnisse ein.
+- Die grundsätzliche Sperre der Rolle bleibt bestehen; nur die drei
+  Planungsbereiche erhalten `edit: allow`, umgebungsdateiartige Namen bleiben
+  zusätzlich von Edits ausgeschlossen. Bestehende Leseregeln werden dadurch
+  nicht gelockert.
 - Berührt ein Patch mehrere Ressourcen, genügt ein einziges `deny` für die
-  Ablehnung der Operation. `execute` erlaubt Code Mode, nicht automatisch die
-  darin aufgerufenen Werkzeuge: deren Permissions gelten weiter.
+  Ablehnung. `execute` erlaubt Code Mode, nicht automatisch die darin
+  aufgerufenen Werkzeuge: deren Permissions gelten weiter.
 
-Diese Permissions sind keine Betriebssystem-Sandbox. Insbesondere sind
-inhaltliche Autorisierung und die Unterscheidung „Planungsunterlage statt
-Produktcode“ Rollenregeln. Delegierte Agents verwenden eigene Permissions,
-nicht eine Schnittmenge mit Plan. Ein erlaubter Delegationsweg darf deshalb
-nicht zur Umgehung des Plan-Schreibbereichs dienen. Eine abweichende aktive
-Location, spätere Konfigurations-/Policyänderungen oder projektspezifische
-Freigaben verlangen eine erneute Prüfung.
+Diese Permissions sind keine Betriebssystem-Sandbox. Inhaltliche Autorisierung
+und die Unterscheidung „Planungsunterlage statt Produktcode“ sind Rollenregeln.
+Delegierte Agents verwenden eigene Permissions, nicht eine Schnittmenge mit
+Plan — ein erlaubter Delegationsweg darf deshalb nicht zur Umgehung des
+Plan-Schreibbereichs dienen. Eine abweichende aktive Location, spätere
+Konfigurations-/Policyänderungen oder projektspezifische Freigaben verlangen
+eine erneute Prüfung.
 
 ## Begrenzte Prüfung
 
-Die gezielte Probe unter `tests/plan_permission_probe.py` verwendet ausschließlich
-ein isoliertes HOME, eigene XDG-Verzeichnisse, eine Kopie des Plan-Profils und
-synthetische Dateien. Ein lokaler deterministischer Provider liefert feste
-Werkzeugaufrufe statt eines echten Modells; keine Credentials, MCP-Geräte,
-Installation oder Umschaltung der persönlichen Konfiguration.
+Eine gezielte Probe (`tests/plan_permission_probe.py`, isoliertes HOME/XDG,
+Kopie des Plan-Profils, synthetische Dateien, deterministischer Provider statt
+echtem Modell) prüft Editieren in allen drei Bereichen, Schreiben, die Sperren
+für Produktquellen/sonstige Markdown-/Konfigurationsdateien sowie normalisierte
+Traversal- und absolute Produktpfade — anhand tatsächlicher Dateiinhalte und
+Permission-Fehler, nicht nur des Exitcodes.
 
-```bash
-python3 tests/plan_permission_probe.py --opencode /absoluter/pfad/zu/opencode
-```
-
-Die Probe prüft Editieren in allen drei Bereichen (auch verschachtelt), Schreiben,
-die Sperren für Produktquellen, sonstige Markdown- und Konfigurationsdateien
-sowie normalisierte Traversal- und absolute Produktpfade. Sie prüft Dateiinhalte
-und tatsächliche Permission-Fehler statt nur den Exitcode. Logs und `report.json`
-bleiben im ignorierten `work/agent-artifacts/pkg03/probe-*/` der Source-Kopie.
-
-Strukturprüfung (Regeln und Profilladen), tatsächliche Werkzeugausführung in
-der installierten Laufzeit und Modellverhalten sind getrennte Nachweise.
-Ein synthetischer Provider belegt Permission-Durchsetzung, aber nicht, dass
-ein echtes Modell Aufgaben richtig als Planung einordnet, unbekannte Ziele
-nachfragt oder nicht delegiert. Solche Modellläufe bleiben separat zu prüfen.
-Patch-/Mehrdatei-Operationen und Code-Mode-Verschachtelung sind durch die
-offizielle Permissions-Dokumentation beschrieben, aber nicht durch diese
-Edit-/Write-Probe ausgeführt. Sie ist ebenso wenig eine Symlink-/Hardlink-
-oder Betriebssystem-Sandbox-Prüfung.
+Das ist eine reine Strukturprüfung: Sie belegt Permission-Durchsetzung, aber
+nicht, dass ein echtes Modell Aufgaben richtig als Planung einordnet,
+unbekannte Ziele nachfragt oder nicht delegiert; solche Modellläufe bleiben
+separat zu prüfen. Patch-/Mehrdatei-Operationen, Code-Mode-Verschachtelung,
+Symlinks/Hardlinks und Betriebssystem-Sandboxing sind durch diese Probe
+ebenfalls nicht abgedeckt.

@@ -6,7 +6,7 @@ Atlas bietet klare Agent-Rollen für OpenCode. Frische Kontexte, gezielte Delega
 
 ## Der Grundgedanke
 
-Ein guter Agent muss nicht die gesamte Unterhaltung, jeden Build-Log und alle Werkzeugantworten gleichzeitig im Kopf behalten. Atlas verteilt Arbeit auf klar beschriebene Rollen. Dabei geht es nicht darum, Tokens um jeden Preis zu sparen oder möglichst viele kleine Sessions zu erzeugen, sondern den Kontext einer Rolle so groß zu halten, wie die jeweilige Aufgabe es erfordert — bei einer komplexen Aufgabe darf und muss der Kontext entsprechend groß ausfallen. Neue eigenständige Aufgaben beginnen mit frischem Kontext und einer gezielten Übergabe, ohne Gesamtchat. Zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession. Zurück kommen das Ergebnis, belastbare Belege und wichtige neue Erkenntnisse.
+Ein guter Agent muss nicht die gesamte Unterhaltung, jeden Build-Log und alle Werkzeugantworten gleichzeitig im Kopf behalten. Atlas verteilt Arbeit auf klar beschriebene Rollen — nicht um Tokens um jeden Preis zu sparen, sondern um den Kontext einer Rolle so groß zu halten, wie die Aufgabe es erfordert. Neue eigenständige Aufgaben beginnen mit frischem Kontext und gezielter Übergabe, ohne Gesamtchat; zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession. Zurück kommen Ergebnis, belastbare Belege und wichtige neue Erkenntnisse.
 
 Der Name greift das Bild des Atlas auf: Komplexe Aufgaben werden von einer nachvollziehbaren Struktur getragen. Die Rollen unterstützen einander; der Orchestrator hält den Gesamtauftrag zusammen.
 
@@ -27,13 +27,11 @@ Auto und Build eignen sich für zusammenhängende Arbeit in einer Session; Build
 
 ## Kontext wird bei Bedarf geladen
 
-Der globale Einstieg bleibt kurz. Ein Agent erhält sein eigenes Rollenprofil. Die Delegationsanleitung wird erst vor einer Delegation gelesen, die Artefaktanleitung bei großen Ausgaben. Git-Regeln sind bei Develop und Auto verankert und werden erst bei tatsächlicher Repository-Arbeit relevant.
+Der globale Einstieg bleibt kurz. Ein Agent erhält sein eigenes Rollenprofil; die Delegationsanleitung wird erst vor einer Delegation gelesen, die Artefaktanleitung bei großen Ausgaben, Git-Regeln erst bei tatsächlicher Repository-Arbeit.
 
-Rohdaten bleiben beim ausführenden Spezialisten oder in gezielt referenzierten Artefakten. Wichtige Zusatzfunde dürfen dabei nicht verloren gehen: Der Parent bekommt Beleg, Bedeutung, Auswirkungen und offene Fragen. Im Hauptchat erscheinen kurze Ankündigungen und relevante Zwischenstände; der Nutzer muss keine Child-Sessions durchsuchen.
+Rohdaten bleiben beim ausführenden Spezialisten oder in gezielt referenzierten Artefakten. Wichtige Zusatzfunde gehen als Beleg, Bedeutung, Auswirkung und offene Fragen an den Parent. Im Hauptchat erscheinen kurze Ankündigungen und relevante Zwischenstände; der Nutzer muss keine Child-Sessions durchsuchen.
 
-Eine Fachsession wird nur bei erneutem fachlichem Bedarf aktualisiert, nicht laufend oder nach jeder Codeänderung. Eine Fortsetzung enthält die konkrete Frage, neue Belege und relevante Änderungen seit dem letzten Einsatz; Gegenbelege erfordern eine neue Prüfung bisheriger Annahmen. Ist die Session nicht verfügbar oder ungeeignet, gibt es eine neue gezielte Ersatzübergabe mit benanntem Kontextverlust, keine erfundene Session-ID. Die Einzelregeln stehen in [SUBAGENTS.md](SUBAGENTS.md).
-
-Orchestrate ist die zuständige Stelle für diese Zuordnung: Es hält zu jedem Thema oder Arbeitspaket Rolle, tatsächliche Session-ID, Arbeitsstand, offene Fragen und Abhängigkeiten fest, damit ein neuer Befund der passenden bestehenden Fachsession zugeordnet werden kann statt einer austauschbaren Nummerierung. Bei längeren oder vielteiligen Vorgängen kommt dafür ein kleiner externer Checkpoint nach bestehender Projektkonvention hinzu, kein neues Verwaltungsframework.
+Eine Fachsession wird nur bei erneutem fachlichem Bedarf fortgesetzt, nicht laufend. Die genauen Regeln zu Fortsetzung, Ersatzübergabe und Session-Zuordnung durch Orchestrate stehen in [SUBAGENTS.md](SUBAGENTS.md).
 
 ## Wenn eine Umsetzung neue Fragen aufwirft
 
@@ -62,7 +60,7 @@ sequenceDiagram
     O->>D: möglichst dieselbe Session mit aktualisiertem Auftrag fortsetzen
 ```
 
-Develop meldet eine Informationslücke oder eine widerlegte Annahme mit neuen Belegen, relevanten Änderungen seit der letzten Analyse und aktuellem Arbeits-/Commitstand an seinen Parent zurück. Orchestrate setzt möglichst die ursprüngliche Analyze-Session fort und gibt danach die aktualisierte Umsetzung an möglichst dieselbe Develop-Session weiter. Hat Analyze selbst Develop beauftragt, geht die Meldung direkt an diesen ursprünglichen Analysten zurück: Er prüft seine Annahmen in seiner bestehenden Session neu und setzt danach möglichst dieselbe Develop-Session fort. Das ist eine Rückgabe an den Parent, keine Rückdelegation an einen weiteren Analyze. Größere Neuplanung oder Umfangserweiterung geht an den Auftraggeber zurück. Bei nicht verfügbaren oder ungeeigneten Sessions gilt die gezielte Ersatzübergabe mit benanntem Kontextverlust. Ein kompletter alter Chat wird nicht weitergereicht; zwischen den Einsätzen ist keine Synchronisierung nötig.
+Develop meldet eine Informationslücke oder widerlegte Annahme mit neuen Belegen und aktuellem Arbeits-/Commitstand an seinen Parent zurück; dieser setzt möglichst die ursprüngliche Analyze-Session fort und danach möglichst dieselbe Develop-Session mit aktualisiertem Auftrag. Das ist eine Rückgabe an den Parent, keine Rückdelegation an einen weiteren Analyze. Die genauen Regeln dazu (Ersatzübergabe, Zuständigkeiten, Umfangserweiterung) stehen in [SUBAGENTS.md](SUBAGENTS.md#gezielte-nachanalyse).
 
 ## Repository-Struktur
 
@@ -95,11 +93,11 @@ MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenre
 
 ## Was die Dateien leisten
 
-Atlas liefert Rollen, gemeinsame Arbeitsregeln und Bedarfsanleitungen. Die jeweilige Laufzeit bestimmt verfügbare Werkzeuge, Delegationstiefe und Berechtigungen. Wenn direkte Delegation nicht verfügbar ist, gibt die Rolle dem Parent eine konkrete Folgeanforderung zurück. Frischer Kontext, Zuständigkeiten und knappe Übergaben sind Anweisungen; sie ersetzen keine Laufzeitprüfung.
+Atlas liefert Rollen, gemeinsame Arbeitsregeln und Bedarfsanleitungen. Die jeweilige Laufzeit bestimmt verfügbare Werkzeuge, Delegationstiefe und Berechtigungen; ist direkte Delegation nicht verfügbar, gibt die Rolle dem Parent eine konkrete Folgeanforderung zurück. Frischer Kontext, Zuständigkeiten und knappe Übergaben sind Anweisungen, keine Laufzeitprüfung.
 
-Bei tatsächlicher Git-Arbeit gehören nachvollziehbare Commits zur Übergabe. Temporäre Implementierungen ohne autorisierte Originaländerung entstehen in einer separaten Kopie. Ohne Git wird dafür kein Repository automatisch initialisiert.
+Bei tatsächlicher Git-Arbeit gehören nachvollziehbare Commits zur Übergabe; eine temporäre Implementierung ohne autorisierte Originaländerung entsteht in einer separaten Kopie, ohne automatische Git-Initialisierung.
 
-Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft. Ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen (Modelle, Provider, MCP-Verbindungen) bleiben Sache der eigenen OpenCode-Installation und sind nicht Teil dieses Repositorys.
+Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft; ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen (Modelle, Provider, MCP-Verbindungen) sind nicht Teil dieses Repositorys.
 
 ## Dokumentation
 

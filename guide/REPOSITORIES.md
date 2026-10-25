@@ -1,6 +1,6 @@
 # Repository-Arbeit: Kopie, Original und Commits
 
-Nur durch die tatsächlich ausführende Rolle lesen, wenn ein Git-Repository nachgewiesen ist und konkrete Änderungen, Commits oder eine Git-Arbeitskopie daran anstehen. Als Nachweis genügen bereits bekannte Repository-Metadaten oder eine passende `.git`-Datei bzw. ein `.git`-Verzeichnis am Ziel oder in dessen bekanntem Projektstamm. Keine pauschale Dateisystemsuche zur Auslösung dieser Anleitung.
+Nur durch die tatsächlich ausführende Rolle lesen, wenn ein Git-Repository nachgewiesen ist und konkrete Änderungen, Commits oder eine Git-Arbeitskopie daran anstehen. Als Nachweis genügen bekannte Repository-Metadaten oder eine passende `.git`-Datei bzw. ein `.git`-Verzeichnis am Ziel oder im bekannten Projektstamm. Keine pauschale Dateisystemsuche zur Auslösung dieser Anleitung.
 
 Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die Arbeit ihrer Subagents. Reine Analyse, einfache Datei-/Konfigurationsarbeit ohne Git, MCP-Abfragen und ein bloß möglicher Repository-Bezug sind kein Leseanlass.
 
