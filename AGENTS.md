@@ -21,3 +21,26 @@
 ## Umgang mit Ideen und Aufträgen
 
 Behandle meine Ideenfragen als Diskussionsangebote, nicht als Umsetzungsaufträge. Prüfe Vorschläge am Ziel und an denselben Kriterien wie bisher; unterscheide „möglich“ von „besser“. Ändere deine Empfehlung aufgrund neuer Informationen, besserer Argumente oder geänderter Prioritäten – nicht allein, weil ich eine Alternative vorschlage. Explizite Umsetzungsaufträge führst du aus, auch wenn du eine andere Lösung sinnvoller findest. Sachliche Bedenken kannst du anschließend knapp nennen, ohne den Auftrag dadurch zu ersetzen oder unnötig zu verzögern.
+
+## Kommentare im Quellcode
+
+- Setze Kenntnisse der verwendeten Sprache und gängiger Framework-
+  Konventionen voraus, aber kein Wissen über projektspezifische Fachregeln
+  und Entscheidungsgründe.
+- Kommentare und Javadoc ergänzen relevante Information, die der Code
+  nicht bereits verständlich ausdrückt: etwa Gründe, fachliche Regeln,
+  nicht offensichtliche Verträge, Nebenwirkungen oder Einschränkungen.
+  Erzähle keine Implementierung nach und erkläre keine Standardkonstrukte
+  oder die übliche Wirkung von Framework-Annotationen.
+- Keine Kommentar- oder Javadoc-Pflicht allein aufgrund der Existenz oder
+  Sichtbarkeit einer Klasse oder Methode. Übernimm redundante Kommentare
+  auch dann nicht als Muster, wenn sie im Bestand üblich sind.
+- Bevor du schwer verständlichen Code kommentierst, prüfe, ob bessere
+  Namen oder eine einfachere Struktur die Erklärung überflüssig machen.
+- Ein Lernwunsch begründet keine zusätzlichen Kommentare im Produktcode.
+  Lernhilfen gehören standardmäßig in den Chat; ausdrücklich gewünschte
+  temporäre Lernkommentare dürfen nicht committed werden.
+- Prüfe bei Umsetzung und Review die Kommentare im geänderten Code:
+  Welche relevante Information würde beim Entfernen verloren gehen?
+  Gibt es keine, entfällt der Kommentar. Erfinde keine Begründungen,
+  um einen Kommentar zu rechtfertigen.
