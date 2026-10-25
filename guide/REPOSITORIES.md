@@ -1,6 +1,6 @@
 # Repository-Arbeit: Kopie, Original und Commits
 
-Nur durch die tatsächlich ausführende Rolle lesen, wenn ein Git-Repository nachgewiesen ist und konkrete Änderungen, Commits oder eine Git-Arbeitskopie daran anstehen. Als Nachweis genügen bereits bekannte Repository-Metadaten oder eine passende `.git`-Datei bzw. ein `.git`-Verzeichnis am Ziel oder in dessen bekanntem Projektstamm. Keine pauschale Dateisystemsuche zur Auslösung dieser Anleitung.
+Nur durch die tatsächlich ausführende Rolle lesen, wenn ein Git-Repository nachgewiesen ist und konkrete Änderungen, Commits oder eine Git-Arbeitskopie daran anstehen. Als Nachweis genügen bekannte Repository-Metadaten oder eine passende `.git`-Datei bzw. ein `.git`-Verzeichnis am Ziel oder im bekannten Projektstamm. Keine pauschale Dateisystemsuche zur Auslösung dieser Anleitung.
 
 Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die Arbeit ihrer Subagents. Reine Analyse, einfache Datei-/Konfigurationsarbeit ohne Git, MCP-Abfragen und ein bloß möglicher Repository-Bezug sind kein Leseanlass.
 
@@ -17,7 +17,7 @@ Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die
 - Eine Source-Kopie ohne Git bleibt ohne Git, solange das Anlegen eines Repositorys nicht ausdrücklich beauftragt ist. Keine automatische Git-Initialisierung zur Erfüllung dieser Anleitung. Bei einer Kopie eines vorhandenen Repositorys bewahre einen nachvollziehbaren Git-Ausgangsstand und erstelle für deine Änderungen eigene Commits. Bestehende Nutzeränderungen im Original bleiben unangetastet.
 - Verwende eine vorhandene gültige Git-Identität. Erfinde keine Identität und ändere keine globalen Git-Einstellungen. Fehlt die Identität oder scheitert ein Hook, melde den konkreten Blocker; umgehe ihn nicht stillschweigend.
 - Schreibe keine fremden Commits um. Push, Veröffentlichung und automatische Übernahme einer Kopie ins Original brauchen eine passende ausdrückliche Autorisierung. Die lokale Commit-Pflicht allein erlaubt das nicht.
-- Wenn Tests, Implementierung und Git-Abschluss unterschiedliche Rollen benötigen, darf jede Rolle die passende andere Rolle frisch beauftragen. Die Verantwortung für einen nachvollziehbaren Abschluss bleibt beim aufrufenden Agent.
+- Wenn Tests, Implementierung und Git-Abschluss unterschiedliche Rollen benötigen, darf jede Rolle die passende andere Rolle beauftragen, mit Sessionwahl nach `SUBAGENTS.md`. Die Verantwortung für einen nachvollziehbaren Abschluss bleibt beim aufrufenden Agent.
 
 ## Rückgabe an den Parent
 

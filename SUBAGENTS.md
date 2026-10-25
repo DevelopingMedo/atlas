@@ -2,18 +2,20 @@
 
 ## Zuständigkeit
 
+- Verfügbare Rollen: `Orchestrate` (koordinieren) · `Plan` (planen) · `Analyze` (untersuchen) · `Develop` (ändern) · `Run` (ausführen/prüfen inklusive MCP-Aufträge) · `Review` (unabhängig begutachten) · `Auto` (universell selbstständig arbeiten) · `Build` (eigenständiger Modus mit Pflichtbestätigung vor jedem Shell-Befehl). Starte die gewählte Rolle über ihren Agent-Namen; OpenCode lädt dafür ihren eigenen Prompt aus `agents/<AGENT-ID>.md`. Fremde Rollenprofile nicht vor dem Start einlesen.
 - Delegiere fremde Zuständigkeiten an die passende Rolle. Erledige deine eigene Aufgabe selbst; starte keine Kopie deiner Rolle allein wegen ihrer Zuständigkeit.
-- `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für neue Child-Sessions und gezielte Übergaben gelten, sobald er delegiert.
-- MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `MCP`. Nur `Auto` und `MCP` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt lokale Ausführung, nicht MCP-Abfragen.
+- `Auto` ist der universelle Modus mit allen Werkzeugrechten. Er darf Aufgaben vollständig selbst bearbeiten; Spezialisten und Delegation sind optional. Die Regeln für Sessionwahl und gezielte Übergaben gelten, sobald er delegiert.
+- MCP-Aufträge gehen unabhängig von Serverprodukt und Betriebssystem an `Run`. Nur `Auto` und `Run` dürfen MCP-Tools und -Ressourcen direkt nutzen; `Run` übernimmt sowohl lokale Ausführung als auch MCP-Abfragen und schirmt dabei die Ausführungsdetails von der delegierenden Rolle ab.
 - Wähle die kleinste nötige Rollenfolge. Reine Analyse benötigt keine komplette Entwicklungsrunde. Unabhängige Gegenprüfungen sind gesonderte, begrenzte Aufträge.
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
-- Jede Fachrolle darf jede andere passende Fachrolle starten, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, frischer Start, Autorisierung und Delegationsbudget bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
+- Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl und Autorisierung bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
-## Frischer Start
+## Neue Aufgabe oder Fortsetzung
 
-- Starte jeden delegierten Auftrag in einer neuen Child-Session mit der gewählten Rolle. Keine Resume-/Fortsetzungs-ID, kein wiederverwendeter Agent, kein kopierter Gesprächsverlauf. Ein Rollenwechsel im laufenden Chat ersetzt das nicht.
-- Auch ein Folgeauftrag bekommt eine neue Session mit einer knappen Übergabe. Innerhalb seines einzelnen Auftrags darf der Spezialist mehrere Werkzeugaufrufe durchführen.
-- Zum neuen Kontext gehören der eigene Rollenprompt, globale und notwendige Projektregeln sowie der Auftrag. Andere Rollenprompts, gesamte Chats, Logs oder MCP-Payloads gehören nicht hinein.
+- Neue eigenständige Aufgabe: frische Child-Session mit gewählter Fachrolle und gezieltem Auftrag, ohne kopierten Gesamtchat. Ein Rollenwechsel im laufenden Chat ersetzt diese Delegation nicht. Innerhalb ihres Auftrags darf die Fachrolle mehrere Werkzeugaufrufe durchführen.
+- Zusammengehörige Folgefragen: möglichst dieselbe Fachsession über ihre tatsächlich verfügbare Session-/Fortsetzungs-ID fortsetzen, aktualisiert erst bei erneutem fachlichem Bedarf, nicht laufend oder nach jeder Codeänderung. Die Fortsetzung nennt die konkrete Frage, neue Belege und relevante Änderungen seit dem letzten Einsatz, einschließlich geänderter Randbedingungen. Gegenbelege erfordern eine Neuprüfung früherer Annahmen; bestehender Kontext beweist ihre Gültigkeit nicht. Keinen Gesamtchat übernehmen.
+- Ist die Fachsession nicht verfügbar oder für die Frage ungeeignet, starte eine neue passende Session mit gezielter Ersatzübergabe: bisherige Ergebnisse und Referenzen, offene Frage, neue Belege, relevante Änderungen. Kontextverlust ausdrücklich benennen, keine Session-ID erfinden.
+- Zum neuen Kontext gehören nur der eigene Rollenprompt, globale und notwendige Projektregeln sowie der Auftrag — keine fremden Rollenprompts, Gesamtchats, Logs oder MCP-Payloads.
 
 ## Knappes Auftragspaket
 
@@ -22,15 +24,15 @@
 1. Ziel und überprüfbares Abschlusskriterium.
 2. Umfang und relevante Dateien/Quellen/Artefaktpfade.
 3. Notwendige Entscheidungen und Einschränkungen, erlaubte Änderungen und Werkzeuge.
-4. Gewünschte Rückgabe einschließlich relevanter Zusatzfunde sowie bisherige Delegationskette und verbleibendes Budget.
+4. Gewünschte Rückgabe einschließlich relevanter Zusatzfunde.
 
-Standard: höchstens drei Delegationskanten ab Einstieg; keine Rückdelegation an eine Rolle in der aktuellen Kette. Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
+Bei nötiger Neuaufteilung zunächst zum Auftraggeber zurückkehren. Die eigene Rolle bestimmt ihre nötigen Fachdetails; der Elternagent kopiert dafür keine Handbücher in den Auftrag.
 
 ## Sichtbarer Ablauf
 
-- Wer den Hauptchat führt, kündigt einen Agent-Start kurz mit Rolle und Zweck an und meldet relevante Ergebnisse, Phasenwechsel und Blocker dort zurück. Bei längerer Arbeit gibt es kurze Zwischenstände; der Nutzer muss nicht in Child-Sessions nachsehen.
-- Subagents geben wichtige Fortschritte über einen vorhandenen Rückkanal an den Parent. Ist keine laufende Rückmeldung möglich, liefern sie eine klare Abschlussrückgabe; der Parent stellt den Wartezustand ehrlich dar.
-- Nutze Chat-Nachrichten statt `echo`, `printf`, Logdateien oder Werkzeugausgaben als Statusanzeige. Kopiere keine vollständigen Child-Protokolle in den Hauptchat.
+- Wer den Hauptchat führt, kündigt einen Agent-Start kurz mit Rolle und Zweck an und meldet relevante Ergebnisse, Phasenwechsel und Blocker dort zurück. Bei längerer Arbeit kurze Zwischenstände; der Nutzer muss nicht in Child-Sessions nachsehen.
+- Subagents geben wichtige Fortschritte über einen vorhandenen Rückkanal an den Parent, sonst eine klare Abschlussrückgabe; der Parent stellt den Wartezustand ehrlich dar.
+- Chat-Nachrichten statt `echo`, `printf`, Logdateien oder Werkzeugausgaben als Statusanzeige. Keine vollständigen Child-Protokolle in den Hauptchat kopieren.
 
 ## Zusammenarbeit und Ergebnis
 
@@ -38,18 +40,23 @@ Standard: höchstens drei Delegationskanten ab Einstieg; keine Rückdelegation a
 - Delegation erweitert keine Nutzerautorisierung und umgeht keine Berechtigung. Insbesondere erlaubt ein Prüfauftrag keine Veröffentlichung oder Änderung an externen Systemen.
 - Verlange eine knappe Rückgabe: Status (erledigt / teilweise / blockiert), Ergebnis, entscheidende Belege, Artefaktpfade, relevante Zusatzfunde und offene Unsicherheiten. Leere Punkte entfallen.
 - Übernimm nur benötigte Ergebnisse. Bewahre Gegenbelege und Unsicherheiten. Lies keine vollständigen fremden Agent-Verläufe nach; beauftrage bei einer Lücke eine gezielte Untersuchung.
-- Bei großen Ausgaben ist die separate Anleitung `~/.config/opencode/guide/ARTIFACTS.md` zuständig. Der ausführende Spezialist liest sie bei Bedarf; kopiere sie nicht pauschal in seine Übergabe.
+- Bei großen Ausgaben ist die separate Anleitung [`guide/ARTIFACTS.md`](guide/ARTIFACTS.md) zuständig. Der ausführende Spezialist liest sie bei Bedarf; kopiere sie nicht pauschal in seine Übergabe.
 
 ## Relevante Zusatzfunde an den Parent
 
-Jeder Subagent berichtet dem unmittelbar aufrufenden Parent auch wichtige Erkenntnisse, die bei der Arbeit zusätzlich entstehen. Das gilt insbesondere für Analyse und Implementierung. Kontextsparsamkeit darf keine wichtige Information abschneiden.
+Jeder Subagent berichtet dem unmittelbar aufrufenden Parent auch wichtige Erkenntnisse, die bei der Arbeit zusätzlich entstehen, insbesondere bei Analyse und Implementierung. Kontextsparsamkeit darf keine wichtige Information abschneiden.
 
-- Berichte wesentliche Fehler, Risiken, unerwartete Zusammenhänge, Abhängigkeiten oder widersprechende Belege, wenn sie für Korrektheit, Sicherheit, Architektur, Betrieb oder nächste Entscheidungen wichtig sind. Sammle keine beiläufigen Stilideen.
-- Erkläre den Befund ausreichend genau: Was wurde gefunden? Wo liegt der Beleg (Datei/Zeile, Quelle oder Artefakt)? Warum ist er wichtig? Was ist die konkrete Auswirkung? Was ist bestätigt, was vermutet? Was wurde schon behoben, was sollte folgen?
-- Kennzeichne dies als **Relevante Zusatzfunde**. Gibt es keine, entfällt der Abschnitt. Priorisiere mehrere Funde nach ihrer Bedeutung. Ein entscheidender Zusammenhang darf mehr Platz bekommen als eine knappe Ein-Zeilen-Zusammenfassung.
-- Der Parent berücksichtigt die Funde bei seiner Entscheidung und bewahrt wichtige Informationen in seiner weiteren Zusammenführung. Bei einer weiteren Delegation übergibt er nur die jeweils benötigten Erkenntnisse.
-- Ein Zusatzfund erweitert keine Änderungsbefugnis. Melde nötige Folgearbeit und bleibe beim zugewiesenen Umfang. Bei einem akut blockierenden Fund informiere den Parent bereits vor dem Abschluss über den vorhandenen Rückkanal.
+- Berichte wesentliche Fehler, Risiken, unerwartete Zusammenhänge, Abhängigkeiten oder widersprechende Belege, wenn sie für Korrektheit, Sicherheit, Architektur, Betrieb oder nächste Entscheidungen wichtig sind — keine beiläufigen Stilideen.
+- Erkläre den Befund ausreichend genau: Was wurde gefunden, wo liegt der Beleg (Datei/Zeile, Quelle, Artefakt), warum ist er wichtig, was ist die Auswirkung, was ist bestätigt oder vermutet, was wurde schon behoben und was bleibt offen?
+- Kennzeichne dies als **Relevante Zusatzfunde**; ohne Fund entfällt der Abschnitt. Priorisiere nach Bedeutung — ein entscheidender Zusammenhang darf mehr Platz bekommen als eine Ein-Zeilen-Zusammenfassung.
+- Der Parent berücksichtigt die Funde bei seiner Entscheidung, bewahrt sie bei der Zusammenführung und gibt bei weiterer Delegation nur die jeweils benötigten Erkenntnisse weiter.
+- Ein Zusatzfund erweitert keine Änderungsbefugnis: nötige Folgearbeit melden, zugewiesenen Umfang einhalten. Bei akut blockierendem Fund den Parent schon vor Abschluss über den vorhandenen Rückkanal informieren.
 
 ## Gezielte Nachanalyse
 
-Meldet Develop **Nachanalyse erforderlich**, bekommt der Parent die offene Frage, neue Belege, widerlegte Annahmen, bisherige Versuche und den gesicherten Arbeits-/Commitstand. Orchestrate beauftragt einen frischen Analyze mit genau dieser Lücke und der bisherigen Analyse als Referenz. Die aktualisierte Umsetzung wird anschließend gezielt neu beauftragt.
+Meldet Develop **Nachanalyse erforderlich**, bekommt der unmittelbar aufrufende Parent die offene Frage, neue Belege, widerlegte Annahmen, bisherige Versuche und den gesicherten Arbeits-/Commitstand.
+
+- Ist Orchestrate der Parent, setzt er möglichst die ursprüngliche Analyze-Session mit dieser Frage, den neuen Belegen und den relevanten Änderungen seit dem letzten Einsatz fort.
+- Ist Analyze selbst der Parent von Develop, geht die Meldung direkt an diesen ursprünglichen Analysten zurück; er prüft Gegenbelege und bisherige Annahmen in seiner bestehenden Session neu, statt einen weiteren Analyze zu starten. Größere Neuplanung oder Umfangserweiterung geht an seinen eigenen Auftraggeber zurück.
+- Ist die ursprüngliche Fachsession nicht verfügbar oder ungeeignet, gilt die gezielte Ersatzübergabe mit benanntem Kontextverlust.
+- Nach der Klärung erhält möglichst dieselbe Develop-Session einen aktualisierten Auftrag; Änderungen und Commitstände bleiben erhalten. Zwischen den fachlichen Einsätzen ist keine Synchronisierung nötig.
