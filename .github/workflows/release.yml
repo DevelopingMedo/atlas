@@ -1,41 +1,26 @@
-name: Atlas package
+name: Atlas release
+
 on:
-  pull_request:
-    branches: [opencode]
   push:
     tags: ['v*']
-  workflow_dispatch:
+
 permissions:
-  contents: read
+  contents: write
+
 jobs:
-  package:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-      - run: python -m unittest discover -s checks -v
-      - env:
-          ATLAS_REF: ${{ github.ref_name }}
-        run: python skills/atlas/scripts/atlas.py package --source . --ref "$ATLAS_REF" --output dist
-      - uses: actions/upload-artifact@v4
-        with:
-          name: atlas
-          path: dist/
-  release:
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: package
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: atlas
-          path: dist
-      - env:
+      - name: Build installation ZIP
+        run: |
+          git archive --format=zip --output=atlas.zip HEAD
+          zip -d atlas.zip .gitignore LICENSE README.md '.github/*'
+      - name: Publish release
+        env:
           GH_TOKEN: ${{ github.token }}
-          ATLAS_TAG: ${{ github.ref_name }}
           GH_REPO: ${{ github.repository }}
-        run: gh release create "$ATLAS_TAG" dist/atlas-skill.zip dist/atlas-package.zip dist/atlas.py --generate-notes --verify-tag
+          ATLAS_TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$ATLAS_TAG" atlas.zip --verify-tag --generate-notes \
+            --notes "Lizenz: https://github.com/${GH_REPO}/blob/${ATLAS_TAG}/LICENSE"

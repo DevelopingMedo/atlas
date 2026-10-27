@@ -69,12 +69,11 @@ Develop meldet eine Informationslücke oder widerlegte Annahme mit neuen Belegen
 ├── AGENTS.md
 ├── SUBAGENTS.md
 ├── agents/       # Native OpenCode-V2-Rollen als Markdown
-├── commands/     # /atlas und /setup-atlas
-├── skills/atlas/ # Ein Einstiegsskill mit Installer und Modell-Setup
+├── commands/     # /setup-atlas
+├── skills/       # Wiederverwendbarer Setup-Ablauf
 ├── atlas.json.example  # Vorlage für persönliche Modellpräferenzen
 ├── guide/        # Bedarfsanleitungen: ARTIFACTS.md, MCP.md, PLANNING.md, REPOSITORIES.md
-├── checks/       # Installer-Regressionstests
-├── .github/workflows/release.yml # Pakete und versionierte Releases
+├── .github/workflows/release.yml  # Erstellt das Installations-ZIP und Release
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -84,70 +83,65 @@ Die Rollen verwenden das native Rollenformat von OpenCode. Modelle und persönli
 
 ## Installieren
 
-Voraussetzung: **OpenCode V2 und Python 3.9 oder neuer**. Du brauchst keinen
-Atlas-Klon. Lade einmal den kleinen Installer und registriere damit Skill
-und Command (nach dem Merge dieses PRs in `opencode`):
+Atlas wird als ZIP heruntergeladen und direkt in das OpenCode-
+Konfigurationsverzeichnis entpackt. Voraussetzung ist OpenCode V2.
+
+### Linux und macOS
 
 ```sh
-curl -fL https://raw.githubusercontent.com/DevelopingMedo/atlas/opencode/skills/atlas/scripts/atlas.py -o atlas-installer.py
-python3 atlas-installer.py bootstrap --global --ref opencode
+curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
+mkdir -p "$HOME/.config/opencode"
+unzip -n atlas.zip -d "$HOME/.config/opencode/"
 ```
 
-Rufe danach in OpenCode auf:
+### Windows (PowerShell)
 
-```text
-/atlas
+```powershell
+Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
+Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
 ```
 
-Der Dialog klärt Projekt oder global und deine Modellpräferenzen. Danach
-richtet er alle acht Rollen, gemeinsame Regeln, vier Guides und Commands ein.
-Die Installation ist wiederholbar; vorhandene eigene Dateien werden erhalten.
-Ein optionaler Standardagent wird nicht automatisch umgestellt.
+Diese Befehle installieren das neueste veröffentlichte Release. Für eine
+bestimmte Version ersetzt du die Download-URL durch beispielsweise
+`https://github.com/DevelopingMedo/atlas/releases/download/v1.0.0/atlas.zip`.
+Die URLs funktionieren, sobald das entsprechende Release veröffentlicht ist.
+Bei einem abweichenden OpenCode-Konfigurationsverzeichnis passe das Ziel an.
 
-Für einen rein projektlokalen Einstieg ersetzt du `--global` durch
-`--project /pfad/zum/projekt`. Bei einem abweichenden aktiven globalen
-Konfigurationsverzeichnis kannst du `--target /pfad/zur/config` verwenden.
+Im ZIP liegen `agents/`, `commands/`, `skills/`, `guide/`, `AGENTS.md`,
+`SUBAGENTS.md` und `atlas.json.example` direkt an der Wurzel. Nach dem
+Entpacken befinden sich diese Dateien direkt unter `~/.config/opencode/`.
+Es gibt keinen zusätzlichen `atlas-opencode/`-Ordner und kein Installationsskript.
 
-**Diesen noch nicht gemergten PR testen:** In beiden Installationszeilen
-`opencode` durch `docs/atlas-skill-distribution` ersetzen. Dadurch stammen
-Installer und Paket aus demselben Implementierungsbranch.
+Bestehende eigene Regeln in `AGENTS.md` führst du mit den Atlas-Regeln zusammen.
+`unzip -n` überspringt vorhandene Dateien; PowerShell überschreibt sie ohne
+`-Force` ebenfalls nicht. Zum Aktualisieren entpackst du die neue Version
+zunächst separat und übernimmst die Änderungen zusammen mit deinen Anpassungen.
+Die persönliche `atlas.json` ist kein ZIP-Inhalt und wird dadurch nicht ersetzt.
+Danach eine neue OpenCode-Session beginnen und `/setup-atlas` aufrufen.
 
-### Aktualisieren
+### Ein Release veröffentlichen
 
-```text
-/atlas update opencode
-/atlas update v1.0.0
+Nach dem Merge in `opencode` löst ein gepushter Versions-Tag den Workflow aus:
+
+```sh
+git switch opencode
+git pull --ff-only
+git tag v1.0.0
+git push origin v1.0.0
 ```
 
-Der zweite Aufruf setzt einen tatsächlich veröffentlichten Tag voraus.
-Eine Quelle ist Pflicht. Branches werden einmalig auf einen Commit aufgelöst;
-alle Dateien kommen aus diesem Stand. Persönliche `atlas.json` und eigene
-Dateien bleiben erhalten. Bei kollidierenden Änderungen stoppt der Installer
-**vor dem Schreiben** und nennt die betroffenen Pfade. Es gibt keinen
-Force-Schalter und keinen automatischen Merge durch das Modell.
+`v1.0.0` ist ein Beispiel; verwende die gewünschte neue Versionsnummer.
+Der Workflow erstellt ein GitHub-Release mit dem Asset **atlas.zip** aus
+exakt dem getaggten Stand. `.gitignore`, `LICENSE` und `README.md` werden
+nicht eingepackt, ebenso wenig die Workflow-Dateien unter `.github/`.
+Die Lizenz bleibt im Repository und wird in der Release-Beschreibung verlinkt.
 
-Der Nachweis `.atlas-install.json` enthält Quelle, Commit und Prüfsummen der
-Originaldateien. Er ist getrennt von deinen Modellpräferenzen. Eigene
-Änderungen und Löschungen bleiben erhalten, solange der neue Paketstand nicht
-mit ihnen kollidiert. Vorhandene identische manuelle Kopien können übernommen
-werden; abweichende Altdateien werden als Konflikte gemeldet.
+Verwende zur Installation das Asset `atlas.zip`. GitHubs automatisch erzeugtes
+„Source code (zip)“ enthält dagegen das vollständige Repository in einem
+zusätzlichen Ordner.
 
-### Skill-Paket und Releases
-
-Bei einem `v*`-Tag baut der Workflow ein Release mit `atlas-skill.zip`
-(ein Skill einschließlich Payload), `atlas-package.zip` und dem standalone
-Installer `atlas.py`. Ein eigenes Marketplace-Repo ist nicht nötig.
-Die Veröffentlichung erfolgt erst, wenn du einen Tag pushst.
-
-Für Skill-Installer gibt es genau den Einstieg `atlas`. Nach dem Merge kann
-er auch mit `npx skills add https://github.com/DevelopingMedo/atlas/tree/opencode/skills/atlas -a opencode -g --copy`
-installiert werden. Der erste Aufruf ist dann `@atlas Richte Atlas ein`;
-dieser registriert bei der vollständigen Einrichtung auch `/atlas`.
-Verwende dabei `--copy`, da der Atlas-Installer keine Skill-Symlinks überschreibt.
-Der Bootstrap oben stellt `/atlas` bereits vor dem ersten Setup bereit.
-
-Alle Dateipfade, CLI-Aufrufe und Grenzen stehen in
-[Installation und Updates](docs/installation.md).
+**OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan, Auto und Build sind als Hauptagent vorgesehen; alle acht können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
 
 MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenregel gilt für alle MCP-Server und alle Betriebssysteme. Andere Rollen delegieren MCP-Aufträge an Run. Rollenbezogene Berechtigungen blenden die Werkzeuge aus und sperren Aufrufe, schalten aber nicht die Serverprozesse ab. Persönliche Endpunkte, Zugangsdaten und rechnerabhängige Installationen bleiben außerhalb der allgemeinen Agent-Regeln. Details: [guide/MCP.md](guide/MCP.md).
 
@@ -155,7 +149,7 @@ MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenre
 
 Mit `/setup-atlas` stimmst du Atlas auf deine verfügbaren Modelle ab. Wir empfehlen, das Setup nach der Installation durchzuführen. Steht in `atlas.json` der boolesche Wert `"atlas-setup": true`, entfällt der Setup-Hinweis. Fehlt die Datei oder ist das Flag nicht gesetzt, empfiehlt der Agent das Setup einmal pro Hauptsession und bearbeitet den Auftrag weiter. Subagents wiederholen den Hinweis nicht.
 
-`/setup-atlas` wechselt in die vorhandene Rolle `Auto` und lädt den Skill [`atlas`](skills/atlas/SKILL.md) im Ablauf für Modellpräferenzen. Er ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren. Anschließend kann wieder die vorherige Rolle ausgewählt werden.
+`/setup-atlas` wechselt in die vorhandene Rolle `Auto` und lädt den Skill [`setup-atlas`](skills/setup-atlas/SKILL.md). Er ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren. Anschließend kann wieder die vorherige Rolle ausgewählt werden.
 
 Der Aufruf benötigt keine Argumente. Zusätzlicher Text wird als freier Einrichtungshinweis übernommen, beispielsweise `/setup-atlas Bitte nur Modelle meines OpenAI-Providers vorschlagen`. Es gibt keine festen Parameter oder Flags; offene Angaben werden im Dialog geklärt.
 
@@ -168,25 +162,16 @@ Der Aufruf benötigt keine Argumente. Zusätzlicher Text wird als freier Einrich
 
 Die Vorlage enthält `null` als Modellwerte: Es gibt damit keine persönliche Vorgabe. Modell-IDs haben die Form `provider/model`, gegebenenfalls mit einer unterstützten `#variant`. Die Stufe richtet sich nach dem Arbeitspaket, nicht nach der Rolle.
 
-`atlas.json` wird von Git ignoriert; `atlas.json.example` wird mitgeliefert. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Bei manueller Einrichtung setze abschließend `"atlas-setup": true` und belasse den Eintrag am Dateianfang, damit der Startcheck kurz bleibt. Die Datei speichert den Setup-Status und persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
+`atlas.json` bleibt lokal; `atlas.json.example` wird mitgeliefert. Den passenden
+Git-Ignore-Eintrag für eine Projektinstallation findest du unten. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Bei manueller Einrichtung setze abschließend `"atlas-setup": true` und belasse den Eintrag am Dateianfang, damit der Startcheck kurz bleibt. Die Datei speichert den Setup-Status und persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
 
 ### Im Projekt verwenden
 
-Wähle im `/atlas`-Dialog das Projekt oder verwende den Installer direkt:
+Entpacke das Release-ZIP nach `<projekt>/.opencode/`, um Rollen, Command und Skill nur in diesem Projekt bereitzustellen. Ergänze in der bestehenden `opencode.json` bzw. `opencode.jsonc` des Projektstamms den Eintrag `".opencode/AGENTS.md"` im Array `instructions`, damit die gemeinsamen Regeln bereits beim Start geladen werden. Erhalte vorhandene Einträge. Die relativen Verweise der Atlas-Anleitung beziehen sich auf `.opencode/`.
 
-```sh
-python3 atlas-installer.py install --project /pfad/zum/projekt --ref opencode
-```
-
-Atlas liegt dann unter `.opencode/`. Der Installer ergänzt dort die lokale
-`opencode.json` bzw. `opencode.jsonc` um die Atlas-Instruction, erhält vorhandene
-JSONC-Kommentare und eigene Einstellungen und ergänzt gezielte Ignore-Einträge.
-Die `.gitignore` des Atlas-Quellrepos wird nicht in dein Projekt kopiert.
-Eigene globale Regeln stehen außerhalb eines markierten Atlas-Blocks in
-`AGENTS.md` und bleiben bei Updates erhalten.
-
-Projektlokale Atlas-Einstellungen haben Vorrang vor globalen. Die persönliche
-Datei `.opencode/atlas.json` bleibt lokal und wird nicht vom Installer verändert.
+Die persönliche Datei liegt dann in `.opencode/atlas.json`. Ergänze dafür
+`.opencode/atlas.json` in der vorhandenen `.gitignore` des Projekts; das
+Installations-ZIP enthält keine `.gitignore`. Bei einer globalen und einer projektlokalen Atlas-Installation wird die projektlokale verwendet, einschließlich ihrer eigenen `atlas.json`. Die Einstellungen beider Installationen werden nicht zusammengeführt.
 
 ## Was die Dateien leisten
 
@@ -194,7 +179,7 @@ Atlas liefert Rollen, gemeinsame Arbeitsregeln und Bedarfsanleitungen. Die jewei
 
 Bei tatsächlicher Git-Arbeit gehören nachvollziehbare Commits zur Übergabe; eine temporäre Implementierung ohne autorisierte Originaländerung entsteht in einer separaten Kopie, ohne automatische Git-Initialisierung.
 
-Installer, Paketbau und Konfliktfälle werden automatisiert unter `checks/` geprüft. Ein vollständiger Dialog in einer laufenden OpenCode-V2-Instanz ist nicht automatisiert geprüft. Persönliche Konfigurationen (Modelle, Provider, MCP-Verbindungen) sind nicht Teil dieses Repositorys.
+Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise und Rollennamen geprüft; ein vollständiger Modelllauf ist nicht dokumentiert. Persönliche Konfigurationen (Modelle, Provider, MCP-Verbindungen) sind nicht Teil dieses Repositorys.
 
 ## Dokumentation
 
