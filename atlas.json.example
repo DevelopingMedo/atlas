@@ -1,0 +1,8 @@
+{
+  "atlas-setup": false,
+  "models": {
+    "fast": null,
+    "standard": null,
+    "deep": null
+  }
+}
