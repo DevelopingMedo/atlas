@@ -130,3 +130,7 @@ Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise
 ## Dokumentation
 
 - [OpenCode V2: Agents](https://dev.opencode.ai/v2/docs/agents/)
+
+## Entwurf: Installation über einen Skill
+
+Der [Entwurf für ein installierbares Atlas-Gesamtpaket](docs/planning/architecture/atlas-distribution.md) beschreibt die Einrichtung aller Rollen, Regeln, Anleitungen und des persönlichen Setups über einen Einstieg `atlas`. Er klärt auch den einmaligen Bootstrap für `/atlas`, Release-Pakete und die Nutzung vorhandener Skill-Kataloge. Das ist noch kein implementierter Installationsweg.
