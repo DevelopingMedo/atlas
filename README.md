@@ -39,7 +39,7 @@ Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\open
 
 </details>
 
-Starte danach eine neue OpenCode-Session und rufe `/setup-atlas` auf, um deine Modelle auszuwählen.
+Starte danach eine neue OpenCode-Session und rufe `/atlas init` auf, um deine Modelle auszuwählen.
 
 Das Ziel ist das OpenCode-Konfigurationsverzeichnis, da das ZIP auch Rollen, Commands und Regeln enthält. Hinweise zu eigenen Dateien und bestimmten Versionen stehen unter [Installieren](#installieren).
 
@@ -114,8 +114,8 @@ Develop meldet eine Informationslücke oder widerlegte Annahme mit neuen Belegen
 ├── AGENTS.md
 ├── SUBAGENTS.md
 ├── agents/       # Native OpenCode-V2-Rollen als Markdown
-├── commands/     # /setup-atlas
-├── skills/       # Wiederverwendbarer Setup-Ablauf
+├── commands/     # /atlas init, update, models, config
+├── skills/       # Atlas-Verwaltung
 ├── atlas.json.example  # Vorlage für persönliche Modellpräferenzen
 ├── guide/        # Bedarfsanleitungen: ARTIFACTS.md, MCP.md, PLANNING.md, REPOSITORIES.md
 ├── .github/workflows/release.yml  # Erstellt das Installations-ZIP und Release
@@ -144,10 +144,15 @@ Es gibt keinen zusätzlichen `atlas-opencode/`-Ordner und kein Installationsskri
 
 Bestehende eigene Regeln in `AGENTS.md` führst du mit den Atlas-Regeln zusammen.
 `unzip -n` überspringt vorhandene Dateien; PowerShell überschreibt sie ohne
-`-Force` ebenfalls nicht. Zum Aktualisieren entpackst du die neue Version
-zunächst separat und übernimmst die Änderungen zusammen mit deinen Anpassungen.
-Die persönliche `atlas.json` ist kein ZIP-Inhalt und wird dadurch nicht ersetzt.
-Danach eine neue OpenCode-Session beginnen und `/setup-atlas` aufrufen.
+`-Force` ebenfalls nicht. Für spätere Aktualisierungen verwendest du `/atlas update`.
+Der Agent lädt das passende OpenCode-Release separat, sichert betroffene Dateien
+und führt Änderungen mit deinen Anpassungen zusammen. Unklare Konflikte klärt
+er vor der Übernahme. Die persönliche `atlas.json` bleibt erhalten.
+Nach einem Update eine neue OpenCode-Session beginnen; ein erneutes Init ist nicht nötig.
+Bei älteren Installationen ohne `/atlas` übernimmst du die Änderungen zunächst
+manuell aus einem separat entpackten Release, einschließlich des neuen Commands
+und Skills. Entferne dabei den alten Command `commands/setup-atlas.md` und den
+alten Skill `skills/setup-atlas/SKILL.md` erst nach Übernahme eigener Anpassungen.
 
 ### Ein Release veröffentlichen
 
@@ -174,13 +179,33 @@ zusätzlichen Ordner.
 
 MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenregel gilt für alle MCP-Server und alle Betriebssysteme. Andere Rollen delegieren MCP-Aufträge an Run. Rollenbezogene Berechtigungen blenden die Werkzeuge aus und sperren Aufrufe, schalten aber nicht die Serverprozesse ab. Persönliche Endpunkte, Zugangsdaten und rechnerabhängige Installationen bleiben außerhalb der allgemeinen Agent-Regeln. Details: [guide/MCP.md](guide/MCP.md).
 
-## Persönliches Setup
+## Atlas verwalten
 
-Mit `/setup-atlas` stimmst du Atlas auf deine verfügbaren Modelle ab. Wir empfehlen, das Setup nach der Installation durchzuführen. Steht in `atlas.json` der boolesche Wert `"atlas-setup": true`, entfällt der Setup-Hinweis. Fehlt die Datei oder ist das Flag nicht gesetzt, empfiehlt der Agent das Setup einmal pro Hauptsession und bearbeitet den Auftrag weiter. Subagents wiederholen den Hinweis nicht.
+Der Command `/atlas` wechselt in die vorhandene Rolle `Auto` und lädt den
+Skill [`atlas`](skills/atlas/SKILL.md). Das erste Wort wählt die Aktion:
 
-`/setup-atlas` wechselt in die vorhandene Rolle `Auto` und lädt den Skill [`setup-atlas`](skills/setup-atlas/SKILL.md). Er ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren. Anschließend kann wieder die vorherige Rolle ausgewählt werden.
+| Aufruf | Funktion |
+|---|---|
+| `/atlas init` | Persönliche Modellpräferenzen einrichten oder ändern |
+| `/atlas update` | Das neueste passende stabile OpenCode-Release von Atlas übernehmen |
+| `/atlas update <Release-Tag>` | Ein bestimmtes kompatibles Release übernehmen |
+| `/atlas models` | Die von OpenCode gelisteten Modelle nach Provider anzeigen |
+| `/atlas models <Filter>` | Die Liste nach Provider oder Suchtext filtern |
+| `/atlas config` | Die lokale `atlas.json` mit Setup-Status und Modellpräferenzen lesbar anzeigen |
 
-Der Aufruf benötigt keine Argumente. Zusätzlicher Text wird als freier Einrichtungshinweis übernommen, beispielsweise `/setup-atlas Bitte nur Modelle meines OpenAI-Providers vorschlagen`. Es gibt keine festen Parameter oder Flags; offene Angaben werden im Dialog geklärt.
+`/atlas` ohne Aktion zeigt diese Hilfe. `models` und `config` ändern keine
+Einstellungen. `update` erhält persönliche Einstellungen und lokale Anpassungen;
+es aktualisiert Atlas, nicht OpenCode. Der Agent führt den Ablauf mit seinen
+Werkzeugen aus; Atlas liefert dafür kein separates Installationsprogramm.
+Nach einer Aktion kann wieder die vorherige Rolle ausgewählt werden.
+
+### Persönliches Setup
+
+Mit `/atlas init` stimmst du Atlas auf deine verfügbaren Modelle ab. Wir empfehlen, das Setup nach der Installation durchzuführen. Steht in `atlas.json` der boolesche Wert `"atlas-setup": true`, entfällt der Setup-Hinweis. Fehlt die Datei oder ist das Flag nicht gesetzt, empfiehlt der Agent das Setup einmal pro Hauptsession und bearbeitet den Auftrag weiter. Subagents wiederholen den Hinweis nicht.
+
+`/atlas init` ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren.
+
+`init` benötigt keine weiteren Argumente. Zusätzlicher Text wird als freier Einrichtungshinweis übernommen, beispielsweise `/atlas init Bitte nur Modelle meines OpenAI-Providers vorschlagen`. Offene Angaben werden im Dialog geklärt.
 
 | Einstellung | Bedeutung |
 |---|---|
