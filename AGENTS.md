@@ -6,6 +6,13 @@
 - Gib dem Parent relevante Zusatzfunde mit Beleg, Bedeutung und offenen Folgen weiter; insbesondere bei Analyse und Umsetzung.
 - Lade Anleitungen nur beim jeweils genannten Anlass, nicht als Sammlung auf Vorrat.
 
+## Optionales persönliches Setup
+
+- Prüfe einmal zu Beginn einer Hauptsession nur, ob `atlas.json` im verwendeten Atlas-Verzeichnis vorhanden ist: bei globaler Installation neben dieser Anleitung, bei projektlokaler Installation in `.opencode/`. Eine projektlokale Atlas-Installation hat Vorrang vor der globalen. Nutze eine gezielte Verzeichnisauflistung; lies für diese Prüfung weder den Dateiinhalt noch `.gitignore` und starte dafür keinen Subagent.
+- Ist `atlas.json` vorhanden, entfällt jede Setup-Nachfrage und -Empfehlung. Ihr Inhalt und ein zusätzliches Statusflag sind für diese Entscheidung unerheblich.
+- Fehlt die Datei nachweislich, empfehle einmal knapp: „Optional kannst du mit `/setup-atlas` deine persönlichen Modellpräferenzen einrichten.“ Bearbeite den eigentlichen Auftrag direkt weiter; das Setup ist keine Voraussetzung. Bei unbekanntem Pfad oder fehlendem Lesezugriff nicht behaupten, die Datei fehle.
+- Subagents und interne Wartungsagents wiederholen diese Prüfung und Empfehlung nicht. Bei einem bereits erteilten Setup-Auftrag entfällt die Empfehlung ebenfalls. Lade persönliche Einstellungen erst, wenn sie für den Auftrag benötigt werden.
+
 ## Geheimnisse: verbindlich für alle Agents
 
 - `.env` und `.env.*` niemals lesen, durchsuchen (auch nicht per `grep`), ausgeben, kopieren oder committen — auch nicht über Shell, Skripte, Subagents oder andere Umwege. Keine Ausgabe von Umgebungsvariablen, Prozessumgebungen, expandierten Auth-Headern oder ungefilterten MCP-Rückgaben; kein Shell-Tracing (`set -x`) bei der Verwendung von Secrets. Verboten ist die Offenlegung von Secret-Werten an den Agenten — nicht die Authentifizierung über Umgebungsvariablen als solche; die ist der vorgesehene Weg.

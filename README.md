@@ -69,6 +69,9 @@ Develop meldet eine Informationslücke oder widerlegte Annahme mit neuen Belegen
 ├── AGENTS.md
 ├── SUBAGENTS.md
 ├── agents/       # Native OpenCode-V2-Rollen als Markdown
+├── commands/     # /setup-atlas
+├── skills/       # Wiederverwendbarer Setup-Ablauf
+├── atlas.json.example  # Vorlage für persönliche Modellpräferenzen
 ├── guide/        # Bedarfsanleitungen: ARTIFACTS.md, MCP.md, PLANNING.md, REPOSITORIES.md
 ├── README.md
 ├── LICENSE
@@ -90,6 +93,29 @@ Die internen Verweise sind repo-relativ und funktionieren unabhängig vom gewäh
 **OpenCode V2:** Die Rollendateien werden direkt erkannt. Für den Standardstart kann in der bestehenden `opencode.json` der Wert `"default_agent": "Orchestrate"` ergänzt werden. Orchestrate, Plan, Auto und Build sind als Hauptagent vorgesehen; alle acht können delegiert werden. Eingebaute Rollen bleiben verfügbar, solange sie nicht in der eigenen Konfiguration deaktiviert werden.
 
 MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenregel gilt für alle MCP-Server und alle Betriebssysteme. Andere Rollen delegieren MCP-Aufträge an Run. Rollenbezogene Berechtigungen blenden die Werkzeuge aus und sperren Aufrufe, schalten aber nicht die Serverprozesse ab. Persönliche Endpunkte, Zugangsdaten und rechnerabhängige Installationen bleiben außerhalb der allgemeinen Agent-Regeln. Details: [guide/MCP.md](guide/MCP.md).
+
+## Optionales persönliches Setup
+
+Atlas funktioniert ohne Einrichtung. Fehlt `atlas.json` in der verwendeten Atlas-Installation, empfiehlt der Agent einmal pro Hauptsession `/setup-atlas` und bearbeitet den Auftrag weiter. Ist die Datei vorhanden, entfällt der Hinweis ohne Prüfung ihres Inhalts. Subagents wiederholen ihn nicht.
+
+`/setup-atlas` wechselt in die vorhandene Rolle `Auto` und lädt den Skill [`setup-atlas`](skills/setup-atlas/SKILL.md). Er ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren. Anschließend kann wieder die vorherige Rolle ausgewählt werden.
+
+| Einstellung | Bedeutung |
+|---|---|
+| `models.fast` | Bevorzugtes Modell für einfache Aufgaben |
+| `models.standard` | Bevorzugtes Modell für normale Aufgaben |
+| `models.deep` | Bevorzugtes Modell für anspruchsvolle Aufgaben |
+| `selectionApproval` | `batch`: Modellzuordnung für Arbeitspakete gesammelt bestätigen; `automatic`: Auswahl innerhalb der Präferenzen dem Agenten überlassen |
+
+Die Vorlage enthält `null` als Modellwerte: Es gibt damit keine persönliche Vorgabe. Modell-IDs haben die Form `provider/model`, gegebenenfalls mit einer unterstützten `#variant`. Die Stufe richtet sich nach dem Arbeitspaket, nicht nach der Rolle. Die Auswahlregel erteilt keine zusätzlichen Werkzeug- oder Änderungsrechte.
+
+`atlas.json` wird von Git ignoriert; `atlas.json.example` wird mitgeliefert. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Es gibt kein zusätzliches Setup-Flag. Die Datei speichert ausschließlich persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
+
+### Im Projekt verwenden
+
+Kopiere Atlas nach `<projekt>/.opencode/`, um Rollen, Command und Skill nur in diesem Projekt bereitzustellen. Ergänze in der bestehenden `opencode.json` bzw. `opencode.jsonc` des Projektstamms den Eintrag `".opencode/AGENTS.md"` im Array `instructions`, damit die gemeinsamen Regeln bereits beim Start geladen werden. Erhalte vorhandene Einträge. Die relativen Verweise der Atlas-Anleitung beziehen sich auf `.opencode/`.
+
+Die persönliche Datei liegt dann in `.opencode/atlas.json`; die mitkopierte `.gitignore` schützt sie auch dort. Bei einer globalen und einer projektlokalen Atlas-Installation wird die projektlokale verwendet, einschließlich ihrer eigenen `atlas.json`. Die Einstellungen beider Installationen werden nicht zusammengeführt.
 
 ## Was die Dateien leisten
 

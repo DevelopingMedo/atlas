@@ -1,0 +1,8 @@
+{
+  "selectionApproval": "batch",
+  "models": {
+    "fast": null,
+    "standard": null,
+    "deep": null
+  }
+}
