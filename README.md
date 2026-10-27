@@ -130,3 +130,29 @@ Die Rollendateien wurden strukturell auf ihre nativen Markdown-Formate, Verweise
 ## Dokumentation
 
 - [OpenCode V2: Agents](https://dev.opencode.ai/v2/docs/agents/)
+
+## Lizenz
+
+Atlas steht unter der **Apache License 2.0 mit Commons Clause 1.0**.
+Beide Texte stehen gemeinsam in [LICENSE](LICENSE) und gelten zusammen;
+Apache 2.0 ist keine separate Lizenzoption. Atlas ist damit Source available.
+
+- Private und berufliche Nutzung, auch bei Kunden, ist kostenlos erlaubt.
+- Mit Atlas entwickelte eigene Software darf verkauft werden. Die Lizenz
+  beansprucht keine Rechte an unabhängig erstellten Arbeitsergebnissen.
+- Änderungen und kostenlose Forks sind erlaubt. Bei Weitergabe müssen die
+  Lizenz einschließlich Commons Clause sowie die relevanten Urheber- und
+  Herkunftshinweise erhalten bleiben; geänderte Dateien sind zu kennzeichnen.
+- Atlas oder einen Fork als „Better Atlas“ zu verkaufen, ist ohne gesonderte
+  Erlaubnis nicht gestattet, wenn der Wert des Angebots vollständig oder
+  wesentlich aus Atlas stammt. Das gilt auch für entsprechend geprägte
+  kostenpflichtige Hosting-, Beratungs- und Supportangebote.
+
+Für eine gesonderte Verkaufserlaubnis und die zugehörigen Konditionen kontaktiere
+[Medough / DevelopingMedo](https://github.com/DevelopingMedo).
+Diese Zusammenfassung ersetzt nicht den verbindlichen Text in [LICENSE](LICENSE).
+
+Der Lizenzwechsel gilt ab dem Commit, der ihn einführt. Bereits unter MIT
+veröffentlichte Versionen behalten ihre bisherigen Nutzungsrechte. Der letzte
+Stand vor dem Wechsel ist
+[`2e65061`](https://github.com/DevelopingMedo/atlas/commit/2e650613a5ade4049d4c263888a3132acaed89f4).
