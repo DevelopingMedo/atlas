@@ -4,13 +4,27 @@
 
 ## So startest du
 
-1. Lade `atlas.zip` über den Link oben herunter.
-2. Entpacke den ZIP-Inhalt direkt in dein OpenCode-Konfigurationsverzeichnis:
-   - **Linux / macOS:** `~/.config/opencode/`
-   - **Windows:** `%USERPROFILE%\.config\opencode\`
-3. Starte eine neue OpenCode-Session und führe `/setup-atlas` aus, um deine Modelle auszuwählen.
+Voraussetzung: OpenCode V2. Führe die passenden Download- und Entpackbefehle aus:
 
-Die [Installationsanleitung](#installieren) enthält die passenden Terminal-Befehle und Hinweise zu vorhandenen eigenen Dateien.
+### Linux und macOS
+
+```sh
+curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
+mkdir -p "$HOME/.config/opencode"
+unzip -n atlas.zip -d "$HOME/.config/opencode/"
+```
+
+### Windows (PowerShell)
+
+```powershell
+Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
+Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
+```
+
+Starte danach eine neue OpenCode-Session und rufe `/setup-atlas` auf, um deine Modelle auszuwählen.
+
+Das Ziel ist das OpenCode-Konfigurationsverzeichnis, da das ZIP auch Rollen, Commands und Regeln enthält. Hinweise zu eigenen Dateien und bestimmten Versionen stehen unter [Installieren](#installieren).
 
 ## Was ist Atlas?
 
@@ -99,22 +113,6 @@ Die Rollen verwenden das native Rollenformat von OpenCode. Modelle und persönli
 
 Atlas wird als ZIP heruntergeladen und direkt in das OpenCode-
 Konfigurationsverzeichnis entpackt. Voraussetzung ist OpenCode V2.
-
-### Linux und macOS
-
-```sh
-curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
-mkdir -p "$HOME/.config/opencode"
-unzip -n atlas.zip -d "$HOME/.config/opencode/"
-```
-
-### Windows (PowerShell)
-
-```powershell
-Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
-Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
-```
 
 Diese Befehle installieren das neueste veröffentlichte Release. Für eine
 bestimmte Version ersetzt du die Download-URL durch beispielsweise
