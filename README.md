@@ -108,9 +108,8 @@ Der Aufruf benötigt keine Argumente. Zusätzlicher Text wird als freier Einrich
 | `models.fast` | Bevorzugtes Modell für einfache Aufgaben |
 | `models.standard` | Bevorzugtes Modell für normale Aufgaben |
 | `models.deep` | Bevorzugtes Modell für anspruchsvolle Aufgaben |
-| `selectionApproval` | `batch`: Modellzuordnung für Arbeitspakete gesammelt bestätigen; `automatic`: Auswahl innerhalb der Präferenzen dem Agenten überlassen |
 
-Die Vorlage enthält `null` als Modellwerte: Es gibt damit keine persönliche Vorgabe. Modell-IDs haben die Form `provider/model`, gegebenenfalls mit einer unterstützten `#variant`. Die Stufe richtet sich nach dem Arbeitspaket, nicht nach der Rolle. Die Auswahlregel erteilt keine zusätzlichen Werkzeug- oder Änderungsrechte.
+Die Vorlage enthält `null` als Modellwerte: Es gibt damit keine persönliche Vorgabe. Modell-IDs haben die Form `provider/model`, gegebenenfalls mit einer unterstützten `#variant`. Die Stufe richtet sich nach dem Arbeitspaket, nicht nach der Rolle.
 
 `atlas.json` wird von Git ignoriert; `atlas.json.example` wird mitgeliefert. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Bei manueller Einrichtung setze abschließend `"atlas-setup": true` und belasse den Eintrag am Dateianfang, damit der Startcheck kurz bleibt. Die Datei speichert den Setup-Status und persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
 
