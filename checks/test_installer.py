@@ -187,6 +187,23 @@ class InstallerTest(unittest.TestCase):
             self.install(self.changed('agents/Auto.md', b'new Auto\n'))
         self.assertEqual(self.files(), before)
 
+    def test_release_skill_installs_offline(self):
+        output = Path(self.temp.name) / 'release'
+        with contextlib.redirect_stdout(io.StringIO()):
+            atlas.main(['package', '--source', str(SOURCE), '--ref', 'release-test', '--output', str(output)])
+        extracted = Path(self.temp.name) / 'extracted'
+        with zipfile.ZipFile(output / 'atlas-skill.zip') as archive:
+            archive.extractall(extracted)
+        installer = extracted / 'atlas/scripts/atlas.py'
+        import subprocess
+        result = subprocess.run([atlas.sys.executable, str(installer), 'install', '--project', str(self.root.parent)],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        state = json.loads((self.root / atlas.STATE).read_text())
+        self.assertEqual(state['ref'], 'release-test')
+        self.assertEqual(state['phase'], 'installed')
+        self.assertEqual(len(list((self.root / 'agents').glob('*.md'))), 8)
+
     def test_jsonc_edge_cases_and_duplicate_keys(self):
         for config in [b'{}', b'{/* before */}', b'{"model":"https://example.com" /* comment */}',
                        b'{"instructions": []}', b'{"instructions": [/* comment */]}',
