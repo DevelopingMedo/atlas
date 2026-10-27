@@ -4,9 +4,10 @@
 
 ## So startest du
 
-Voraussetzung: OpenCode V2. Führe die passenden Download- und Entpackbefehle aus:
+Voraussetzung: OpenCode V2. Klicke auf dein Betriebssystem, um die Installationsbefehle anzuzeigen.
 
-### Linux und macOS
+<details open>
+<summary><strong>macOS</strong></summary>
 
 ```sh
 curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
@@ -14,13 +15,29 @@ mkdir -p "$HOME/.config/opencode"
 unzip -n atlas.zip -d "$HOME/.config/opencode/"
 ```
 
-### Windows (PowerShell)
+</details>
+
+<details>
+<summary><strong>Linux</strong></summary>
+
+```sh
+curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
+mkdir -p "$HOME/.config/opencode"
+unzip -n atlas.zip -d "$HOME/.config/opencode/"
+```
+
+</details>
+
+<details>
+<summary><strong>Windows (PowerShell)</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
 Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
 ```
+
+</details>
 
 Starte danach eine neue OpenCode-Session und rufe `/setup-atlas` auf, um deine Modelle auszuwählen.
 
