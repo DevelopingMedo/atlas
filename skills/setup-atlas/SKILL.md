@@ -5,12 +5,12 @@ description: Persönliche Modellpräferenzen für Atlas in atlas.json einrichten
 
 # Atlas einrichten
 
-Speichere die persönlichen Präferenzen in `atlas.json`. Das Setup bleibt optional und kann erneut ausgeführt werden. Die bloße Existenz der Datei unterdrückt die Setup-Empfehlung; verwende weder Statusflag noch Markerdatei.
+Speichere die persönlichen Präferenzen in `atlas.json`. Das Setup kann erneut ausgeführt werden. Setze nach abgeschlossener Einrichtung `"atlas-setup": true` als ersten Eintrag der Datei; die Vorlage enthält den booleschen Wert `false`. Verwende keine Strings für dieses Flag und keine zusätzliche Markerdatei.
 
 ## Ziel und vorhandene Einstellungen
 
 1. Verwende die Atlas-Installation, aus der dieser Skill geladen wurde. Ihr Stamm liegt zwei Verzeichnisse über der Skill-Basis und enthält `atlas.json.example`, `agents/` und `commands/`. Global liegt sie normalerweise in `~/.config/opencode/`, projektlokal in `<projekt>/.opencode/`. Bei beiden Installationen gilt die projektlokale. Löse den Pfad aus der Skill-Basis auf, nicht aus einem angenommenen Shell-Arbeitsverzeichnis.
-2. Lies die Vorlage [`atlas.json.example`](../../atlas.json.example). Ist daneben bereits `atlas.json` vorhanden, übernimm ihre Einstellungen als Vorauswahl. Lies zunächst höchstens 100 Zeilen. Ist die Datei größer, extrahiere mit einem lokalen JSON-Parser ausschließlich `models` und `selectionApproval`, ohne den übrigen Inhalt auszugeben. Erhalte unbekannte Felder bei einer Aktualisierung. Bei ungültigem JSON erkläre den konkreten Fehler und kläre die Korrektur, statt die Datei durch die Vorlage zu ersetzen.
+2. Lies die Vorlage [`atlas.json.example`](../../atlas.json.example). Ist daneben bereits `atlas.json` vorhanden, übernimm ihre Einstellungen als Vorauswahl. Lies zunächst höchstens 100 Zeilen. Ist die Datei größer, extrahiere mit einem lokalen JSON-Parser ausschließlich `atlas-setup`, `models` und `selectionApproval`, ohne den übrigen Inhalt auszugeben. Erhalte unbekannte Felder bei einer Aktualisierung. Bei ungültigem JSON erkläre den konkreten Fehler und kläre die Korrektur, statt die Datei durch die Vorlage zu ersetzen.
 
 ## Modelle und Präferenzen
 
@@ -24,6 +24,6 @@ Speichere die persönlichen Präferenzen in `atlas.json`. Das Setup bleibt optio
 
 ## Speichern und Abschluss
 
-6. Speichere nach der Auswahl gültiges JSON neben der Vorlage als `atlas.json`; bei einem Abbruch lege keine neue Datei an und erhalte eine vorhandene unverändert. Speichere nur Modellpräferenzen und die Auswahlregel, keine Secrets, Modellkataloge oder Gesprächsverläufe. Für eine bestehende Datei erhalte außerdem die unbekannten Felder aus Schritt 2.
-7. Prüfe durch erneutes Parsen die gespeicherten Werte: `selectionApproval` ist `batch` oder `automatic`, `models` enthält `fast`, `standard` und `deep`, jeweils als Modell-ID oder `null`. Prüfe bei einer Git-Installation gezielt, dass `atlas.json` ignoriert und nicht bereits getrackt ist. Committe oder pushe persönliche Einstellungen niemals; falls die Datei bereits getrackt ist, melde das, ohne eigenständig den Git-Index zu ändern.
+6. Prüfe nach der Auswahl die vorgesehenen Werte gemäß Schritt 7. Speichere anschließend gültiges JSON neben der Vorlage als `atlas.json` mit `"atlas-setup": true` als erstem Eintrag; bei einem Abbruch lege keine neue Datei an und erhalte eine vorhandene unverändert. Speichere nur Setup-Status, Modellpräferenzen und die Auswahlregel, keine Secrets, Modellkataloge oder Gesprächsverläufe. Für eine bestehende Datei erhalte außerdem die unbekannten Felder aus Schritt 2.
+7. Prüfe vor dem Speichern die vorgesehenen Werte und danach die Datei durch erneutes Parsen: `atlas-setup` ist der boolesche Wert `true`, `selectionApproval` ist `batch` oder `automatic`, `models` enthält `fast`, `standard` und `deep`, jeweils als Modell-ID oder `null`. Prüfe bei einer Git-Installation gezielt, dass `atlas.json` ignoriert und nicht bereits getrackt ist. Committe oder pushe persönliche Einstellungen niemals; falls die Datei bereits getrackt ist, melde das, ohne eigenständig den Git-Index zu ändern.
 8. Nenne den Speicherort und die gewählten Präferenzen knapp. Erkläre, dass dies Atlas-Präferenzen sind: OpenCode liest `atlas.json` nicht als eigene Konfiguration. Dieses Setup richtet keinen automatischen Modellwechsel ein und verändert weder Agent-Profile noch `opencode.json`. Behaupte keinen angewendeten Modellwechsel. Der Command läuft in `Auto`; weise zum Abschluss kurz darauf hin, dass der Nutzer bei Bedarf wieder seine vorherige Rolle auswählen kann.

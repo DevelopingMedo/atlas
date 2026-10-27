@@ -1,4 +1,5 @@
 {
+  "atlas-setup": false,
   "selectionApproval": "batch",
   "models": {
     "fast": null,

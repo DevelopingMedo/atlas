@@ -94,14 +94,17 @@ Die internen Verweise sind repo-relativ und funktionieren unabhängig vom gewäh
 
 MCP-Tools und -Ressourcen sind nur für Auto und Run freigegeben. Diese Rollenregel gilt für alle MCP-Server und alle Betriebssysteme. Andere Rollen delegieren MCP-Aufträge an Run. Rollenbezogene Berechtigungen blenden die Werkzeuge aus und sperren Aufrufe, schalten aber nicht die Serverprozesse ab. Persönliche Endpunkte, Zugangsdaten und rechnerabhängige Installationen bleiben außerhalb der allgemeinen Agent-Regeln. Details: [guide/MCP.md](guide/MCP.md).
 
-## Optionales persönliches Setup
+## Persönliches Setup
 
-Atlas funktioniert ohne Einrichtung. Fehlt `atlas.json` in der verwendeten Atlas-Installation, empfiehlt der Agent einmal pro Hauptsession `/setup-atlas` und bearbeitet den Auftrag weiter. Ist die Datei vorhanden, entfällt der Hinweis ohne Prüfung ihres Inhalts. Subagents wiederholen ihn nicht.
+Mit `/setup-atlas` stimmst du Atlas auf deine verfügbaren Modelle ab. Wir empfehlen, das Setup nach der Installation durchzuführen. Steht in `atlas.json` der boolesche Wert `"atlas-setup": true`, entfällt der Setup-Hinweis. Fehlt die Datei oder ist das Flag nicht gesetzt, empfiehlt der Agent das Setup einmal pro Hauptsession und bearbeitet den Auftrag weiter. Subagents wiederholen den Hinweis nicht.
 
 `/setup-atlas` wechselt in die vorhandene Rolle `Auto` und lädt den Skill [`setup-atlas`](skills/setup-atlas/SKILL.md). Er ermittelt die verfügbaren Modelle über `opencode models`, fragt die persönlichen Präferenzen gesammelt ab und speichert sie in `atlas.json` neben der mitgelieferten [`atlas.json.example`](atlas.json.example). Der Befehl kann bestehende Einstellungen aktualisieren. Anschließend kann wieder die vorherige Rolle ausgewählt werden.
 
+Der Aufruf benötigt keine Argumente. Zusätzlicher Text wird als freier Einrichtungshinweis übernommen, beispielsweise `/setup-atlas Bitte nur Modelle meines OpenAI-Providers vorschlagen`. Es gibt keine festen Parameter oder Flags; offene Angaben werden im Dialog geklärt.
+
 | Einstellung | Bedeutung |
 |---|---|
+| `atlas-setup` | `false` in der Vorlage; nach abgeschlossener Einrichtung `true`. Nur der boolesche Wert `true` unterdrückt den Setup-Hinweis. |
 | `models.fast` | Bevorzugtes Modell für einfache Aufgaben |
 | `models.standard` | Bevorzugtes Modell für normale Aufgaben |
 | `models.deep` | Bevorzugtes Modell für anspruchsvolle Aufgaben |
@@ -109,7 +112,7 @@ Atlas funktioniert ohne Einrichtung. Fehlt `atlas.json` in der verwendeten Atlas
 
 Die Vorlage enthält `null` als Modellwerte: Es gibt damit keine persönliche Vorgabe. Modell-IDs haben die Form `provider/model`, gegebenenfalls mit einer unterstützten `#variant`. Die Stufe richtet sich nach dem Arbeitspaket, nicht nach der Rolle. Die Auswahlregel erteilt keine zusätzlichen Werkzeug- oder Änderungsrechte.
 
-`atlas.json` wird von Git ignoriert; `atlas.json.example` wird mitgeliefert. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Es gibt kein zusätzliches Setup-Flag. Die Datei speichert ausschließlich persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
+`atlas.json` wird von Git ignoriert; `atlas.json.example` wird mitgeliefert. Alternativ zum Skill kann die Vorlage manuell als `atlas.json` gespeichert und angepasst werden. Bei manueller Einrichtung setze abschließend `"atlas-setup": true` und belasse den Eintrag am Dateianfang, damit der Startcheck kurz bleibt. Die Datei speichert den Setup-Status und persönliche Präferenzen; sie ist keine OpenCode-Konfiguration und bewirkt noch keinen automatischen Modellwechsel oder eine automatische Zuordnung durch den Planner.
 
 ### Im Projekt verwenden
 

@@ -6,12 +6,12 @@
 - Gib dem Parent relevante Zusatzfunde mit Beleg, Bedeutung und offenen Folgen weiter; insbesondere bei Analyse und Umsetzung.
 - Lade Anleitungen nur beim jeweils genannten Anlass, nicht als Sammlung auf Vorrat.
 
-## Optionales persönliches Setup
+## Persönliches Setup
 
-- Prüfe einmal zu Beginn einer Hauptsession nur, ob `atlas.json` im verwendeten Atlas-Verzeichnis vorhanden ist: bei globaler Installation neben dieser Anleitung, bei projektlokaler Installation in `.opencode/`. Eine projektlokale Atlas-Installation hat Vorrang vor der globalen. Nutze eine gezielte Verzeichnisauflistung; lies für diese Prüfung weder den Dateiinhalt noch `.gitignore` und starte dafür keinen Subagent.
-- Ist `atlas.json` vorhanden, entfällt jede Setup-Nachfrage und -Empfehlung. Ihr Inhalt und ein zusätzliches Statusflag sind für diese Entscheidung unerheblich.
-- Fehlt die Datei nachweislich, empfehle einmal knapp: „Optional kannst du mit `/setup-atlas` deine persönlichen Modellpräferenzen einrichten.“ Bearbeite den eigentlichen Auftrag direkt weiter; das Setup ist keine Voraussetzung. Bei unbekanntem Pfad oder fehlendem Lesezugriff nicht behaupten, die Datei fehle.
-- Subagents und interne Wartungsagents wiederholen diese Prüfung und Empfehlung nicht. Bei einem bereits erteilten Setup-Auftrag entfällt die Empfehlung ebenfalls. Lade persönliche Einstellungen erst, wenn sie für den Auftrag benötigt werden.
+- Prüfe einmal zu Beginn einer Hauptsession den Eintrag `atlas-setup` in `atlas.json` der verwendeten Atlas-Installation: global neben dieser Anleitung, projektlokal in `.opencode/`. Eine projektlokale Atlas-Installation hat Vorrang vor der globalen. Lies zunächst höchstens 20 Zeilen; das Setup schreibt den Eintrag an den Dateianfang. Lade für diese Prüfung keine vollständige Konfiguration und starte dafür keinen Subagent.
+- Nur der boolesche Wert `"atlas-setup": true` bestätigt die Einrichtung; dann entfällt die Setup-Empfehlung. Eine bloß vorhandene Datei oder der String `"true"` genügt nicht.
+- Fehlt die Datei nachweislich oder ist der Eintrag `false` bzw. in einer vollständig gelesenen Datei nicht gesetzt, empfehle einmal knapp: „Mit `/setup-atlas` kannst du Atlas auf deine Modelle abstimmen. Ich empfehle dir, das Setup durchzuführen.“ Bearbeite den eigentlichen Auftrag direkt weiter. Bei unbekanntem Pfad, fehlendem Lesezugriff oder nicht eindeutig ermittelbarem Status keine fehlende Einrichtung behaupten und die Datei nicht vollständig auf Verdacht laden.
+- Subagents und interne Wartungsagents wiederholen diese Prüfung und Empfehlung nicht. Bei einem bereits erteilten Setup-Auftrag entfällt die Empfehlung ebenfalls. Lade die übrigen persönlichen Einstellungen erst, wenn sie für den Auftrag benötigt werden.
 
 ## Geheimnisse: verbindlich für alle Agents
 
