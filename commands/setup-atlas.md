@@ -1,5 +1,5 @@
 ---
-description: Persönliche Atlas-Modellpräferenzen einrichten oder aktualisieren
+description: 'Atlas einrichten; Provider eingrenzen mit /setup-atlas "Bitte nur Modelle meines OpenAI-Providers vorschlagen"'
 agent: Auto
 subagent: false
 ---

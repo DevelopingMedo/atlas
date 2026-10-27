@@ -7,6 +7,14 @@ description: Persönliche Modellpräferenzen für Atlas in atlas.json einrichten
 
 Speichere die persönlichen Präferenzen in `atlas.json`. Das Setup kann erneut ausgeführt werden. Setze nach abgeschlossener Einrichtung `"atlas-setup": true` als ersten Eintrag der Datei; die Vorlage enthält den booleschen Wert `false`. Verwende keine Strings für dieses Flag und keine zusätzliche Markerdatei.
 
+## Einstieg und Einrichtungshinweise
+
+Zeige bei einem Aufruf ohne Einrichtungshinweis zu Beginn einmal kurz:
+
+> Du kannst die Modellauswahl auf einen Provider eingrenzen, zum Beispiel mit `/setup-atlas "Bitte nur Modelle meines OpenAI-Providers vorschlagen"`. Du kannst deinen Wunsch auch direkt im laufenden Setup nennen.
+
+Fahre anschließend mit der Einrichtung fort. Für diesen Hinweis ist weder ein erneuter Aufruf noch eine Bestätigung erforderlich. Ist bereits ein Einrichtungshinweis angegeben, berücksichtige ihn direkt und wiederhole den allgemeinen Tipp nicht. Wende eine gewünschte Provider-Eingrenzung auf die Modellvorschläge an; ist der Provider unklar, kläre ihn im Auswahldialog.
+
 ## Ziel und vorhandene Einstellungen
 
 1. Verwende die Atlas-Installation, aus der dieser Skill geladen wurde. Ihr Stamm liegt zwei Verzeichnisse über der Skill-Basis und enthält `atlas.json.example`, `agents/` und `commands/`. Global liegt sie normalerweise in `~/.config/opencode/`, projektlokal in `<projekt>/.opencode/`. Bei beiden Installationen gilt die projektlokale. Löse den Pfad aus der Skill-Basis auf, nicht aus einem angenommenen Shell-Arbeitsverzeichnis.
