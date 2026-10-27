@@ -123,7 +123,7 @@ gesammelt.
 ## Ein veröffentlichter Skill, vollständiger Inhalt
 
 Der öffentliche Einstieg heißt `atlas`. Seine `SKILL.md` bleibt kurz und
-steuert Installation bzw. erneute Einrichtung. Rollen und Handbücher sind
+steuert Installation, erneute Einrichtung und Updates. Rollen und Handbücher sind
 Dateien im Paket und werden erst bei ihrem tatsächlichen Einsatz geladen.
 
 Für das Ziel „nur ein Skill“ wird der Modell-Setup-Ablauf aus
@@ -185,7 +185,8 @@ einem Branch veröffentlicht werden. `atlas.json` bleibt dabei lokal.
 
 - Ein Release bindet Einstieg, Payload und Manifest an denselben Git-Stand.
   Das Manifest nennt Version, Quellcommit und enthaltene Dateien/Prüfsummen.
-  Laufzeitinhalte werden nicht aus einem wechselnden Branch nachgeladen.
+  Bei einer Branch-Quelle wird der Branch einmalig auf einen konkreten
+  Commit aufgelöst; alle Paketdateien stammen anschließend aus diesem Stand.
 - Ein HTTP-Katalog für OpenCode V2 kann im selben Repository erzeugt und
   beispielsweise über GitHub Pages veröffentlicht werden. Er benötigt
   `index.json`, sichere relative Dateipfade und eine neue `version` bei
@@ -197,13 +198,70 @@ einem Branch veröffentlicht werden. `atlas.json` bleibt dabei lokal.
   keine persönliche Konfiguration. Bereits vorhandene manuelle Atlas-Kopien
   werden berücksichtigt.
 - Ein Update des Einstiegsskills über `skills update` aktualisiert nicht
-  automatisch die bereits ins Ziel kopierten Atlas-Dateien. Erneutes
-  `/atlas` muss einen expliziten Abgleich anbieten und lokale Änderungen als
-  Konflikte zeigen.
+  automatisch die bereits ins Ziel kopierten Atlas-Dateien. Dafür dient
+  ausdrücklich `/atlas update <branchOrVersion>` mit dem folgenden Abgleich.
 - Der MVP darf bei Änderungen an verwalteten Dateien gezielt anhalten.
   Ein eigener allgemeiner Merge- oder Rollback-Manager ist nicht erforderlich.
   Vor Änderungen werden betroffene vorhandene Dateien gesichert; bei einem
   Fehler wird kein vollständig abgeschlossenes Setup behauptet.
+
+## Updates: /atlas update <branchOrVersion>
+
+Der Command lautet `/atlas update <branchOrVersion>`. Der Platzhalter
+`branchOrVersion` wird durch den gewünschten Branch oder die gewünschte
+Release-Version ersetzt; er ist keine Shell-Variable.
+
+```text
+/atlas update opencode
+/atlas update v1.0.0
+```
+
+`opencode` ist zunächst die unterstützte Quelle für den aktuellen
+Entwicklungsstand. Das Versionsbeispiel beschreibt die spätere Auswahl
+eines tatsächlich veröffentlichten Releases; es behauptet kein bereits
+vorhandenes Release. Ein zusätzlicher Command wie `/atlas-refresh` ist
+nicht nötig. `/atlas` bleibt der Einstieg ins Setup,
+`/setup-atlas` dient weiterhin den persönlichen Modellpräferenzen.
+
+Ohne `branchOrVersion` zeigt der Command die Syntax und ändert nichts.
+Unbekannte oder mehrdeutige Quellen führen ebenfalls zu keiner Änderung;
+es gibt keinen stillen Wechsel auf einen anderen Branch oder ein Release.
+Ein Branch wird vor dem Download einmalig auf einen Commit aufgelöst.
+Auch ohne veröffentlichtes Release wird aus diesem Commit dasselbe
+vollständige Paket mit Manifest erzeugt. Es werden ausschließlich die
+vorgesehenen Atlas-Inhalte übernommen, keine beliebigen Repository-Dateien.
+
+### Eigene Anpassungen erhalten
+
+Neben dem Paketmanifest speichert Atlas am Installationsziel einen kleinen
+Installationsnachweis: angeforderte Quelle, aufgelöster Commit und die
+Prüfsummen der zuletzt installierten Originaldateien. Dieser technische
+Nachweis bleibt von der persönlichen `atlas.json` getrennt.
+Ein Update vergleicht den bisherigen Originalstand, den lokalen Stand
+und das neue Paket, bevor es Dateien ändert.
+
+| Lokaler Zustand | Verhalten beim Update |
+|---|---|
+| Verwaltete Datei entspricht dem bisherigen Original | Auf den neuen Paketstand bringen; nur entfernen, wenn sie auch im neuen Paket entfällt |
+| Verwaltete Datei wurde lokal geändert oder gelöscht | Anpassung erhalten; bei abweichendem neuen Paketstand als Konflikt zeigen |
+| Neuer Paketpfad ist bereits durch eine eigene Datei belegt | Eigene Datei erhalten und Kollision zeigen |
+| Eigene Datei außerhalb der verwalteten Inhalte | Unberührt lassen |
+
+Bei Konflikten hält der MVP vor dem Schreiben an und zeigt die betroffenen
+Pfade gesammelt. Es gibt kein stilles Überschreiben und keinen automatischen
+Merge durch das Modell. Fehlt bei einer alten manuellen Installation der
+Installationsnachweis, darf Atlas vorhandene Dateien nicht als unveränderte
+Originale behandeln; die Übernahme wird zunächst als Konflikt geklärt.
+
+Persönliche `atlas.json`, unbekannte JSON-Felder, eigene Regeln, fremde
+Agenten und JSONC-Kommentare bleiben erhalten. In gemeinsam genutzten
+Konfigurationen werden nur eindeutig Atlas zugeordnete Einträge angepasst;
+unklare Änderungen werden ebenfalls als Konflikt behandelt.
+Modellpräferenzen werden beim Update nicht erneut abgefragt.
+Die vorhandene Projekt-/Global-Auswahl gilt auch für das Update.
+Der neue Installationsstand wird erst nach erfolgreicher Anwendung und
+Prüfung vermerkt. Ein erneutes Update auf denselben Stand erzeugt keine
+Duplikate und lässt eigene Anpassungen bestehen.
 
 ## Kleine Umsetzungsschritte
 
@@ -213,7 +271,9 @@ einem Branch veröffentlicht werden. `atlas.json` bleibt dabei lokal.
    umsetzen. Vorhandene Regeln, JSONC und Ignore-Einträge berücksichtigen.
 3. `/atlas` registrieren und `/setup-atlas` als kompatiblen Wrapper anbinden.
    Falls der erste Aufruf schon `/atlas` sein muss: gemeinsamen Bootstrap
-   ebenfalls liefern.
+   ebenfalls liefern. `/atlas update <branchOrVersion>` samt
+   Installationsnachweis und Konfliktprüfung ergänzen; zunächst `opencode`
+   als Quelle unterstützen, später veröffentlichte Versionen.
 4. Installation und Wiederholung in isolierten Konfigurationen prüfen.
    Anschließend einen tatsächlichen OpenCode-V2-Dialog mit sauberer
    Ausgangskonfiguration und eine Migration einer bisherigen Atlas-Kopie
@@ -232,6 +292,12 @@ einem Branch veröffentlicht werden. `atlas.json` bleibt dabei lokal.
   nachvollziehbar Vorrang; das Modell-Setup schreibt ins gewählte Ziel.
 - Wiederholung verändert keine bereits identischen Dateien und erhält
   persönliche Präferenzen sowie unbekannte JSON-Felder.
+- `/atlas update opencode` übernimmt einen konkreten Commit aus diesem Branch.
+  Fehlende, unbekannte oder mehrdeutige Quellen ändern keine Dateien.
+- Updates erhalten lokale Änderungen und Löschungen, eigene Dateien und
+  Modellpräferenzen; Kollisionen halten vor dem Schreiben an.
+- Ein späteres Update auf eine veröffentlichte Version verwendet denselben
+  Abgleich; ein unveränderter Zielstand erzeugt keine weiteren Änderungen.
 - Abbruch oder Fehler lässt das Abschlussflag nicht fälschlich auf `true`.
 - `atlas.json` wird nicht getrackt; vorhandene Produkt-Tests bleiben sichtbar.
 - Command und Rollen sind nach der dokumentierten Neuladung tatsächlich
