@@ -2,7 +2,12 @@ name: Atlas release
 
 on:
   push:
-    tags: ['v*']
+    tags:
+      - 'v*'
+      - 'codex-*'
+      - 'claude-*'
+      - 'opencode-*'
+    
 
 permissions:
   contents: write
