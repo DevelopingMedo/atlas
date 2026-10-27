@@ -1,5 +1,19 @@
 # Atlas
 
+**Hier herunterladen:** [Neuestes Release](https://github.com/DevelopingMedo/atlas/releases/latest) · [ZIP direkt herunterladen](https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip)
+
+## So startest du
+
+1. Lade `atlas.zip` über den Link oben herunter.
+2. Entpacke den ZIP-Inhalt direkt in dein OpenCode-Konfigurationsverzeichnis:
+   - **Linux / macOS:** `~/.config/opencode/`
+   - **Windows:** `%USERPROFILE%\.config\opencode\`
+3. Starte eine neue OpenCode-Session und führe `/setup-atlas` aus, um deine Modelle auszuwählen.
+
+Die [Installationsanleitung](#installieren) enthält die passenden Terminal-Befehle und Hinweise zu vorhandenen eigenen Dateien.
+
+## Was ist Atlas?
+
 **Klare Rollen tragen komplexe Aufgaben.**
 
 Atlas bietet klare Agent-Rollen für OpenCode. Frische Kontexte, gezielte Delegation und kompakte Übergaben halten größere Aufgaben übersichtlich. Planung, Analyse, Umsetzung und Ausführung greifen ineinander. Wichtige Erkenntnisse bleiben erhalten und erreichen die passende Rolle. Für transparente, fokussierte Zusammenarbeit.
