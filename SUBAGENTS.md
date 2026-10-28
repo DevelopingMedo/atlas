@@ -24,8 +24,8 @@ Diese Regeln richten sich an den Agenten, der einen Subagenten startet oder fort
 | `deep` | Schwierige Ursachenabwägung oder weitreichende Entscheidung mit komplexen Folgen | Race Condition untersuchen, systemübergreifende Architektur planen |
 
 - Fehlende Belege allein rechtfertigen kein teureres Modell. Erhöhe die Stufe nur bei zusätzlicher fachlicher Schwierigkeit.
-- Übergib die konkrete ID aus `models[Stufe]` im nativen `subagent.model`-Parameter; eine Empfehlung im Prompt genügt nicht. Setze sie auch beim Fortsetzen einer abgeschlossenen Fachsession über `sessionID` ausdrücklich, damit eine einfache Folgeaufgabe wieder günstiger laufen kann.
-- `automatic` hält die im Setup erteilte Nutzerfreigabe für die drei gewählten Modelle fest. Bei `off` bleibt die native Modellwahl ohne Atlas-Override bestehen. Fehlt der Modus, empfehle einmal `/atlas init` zum Ergänzen der Auswahl; bis dahin keine automatische Modellwahl behaupten oder ohne ausdrückliche Modellvorgabe delegieren.
+- Bei `routing.mode: "automatic"` übergib die konkrete ID aus `models[Stufe]` im nativen `subagent.model`-Parameter; eine Empfehlung im Prompt genügt nicht. Setze sie auch beim Fortsetzen einer abgeschlossenen Fachsession über `sessionID` ausdrücklich, damit eine einfache Folgeaufgabe wieder günstiger laufen kann.
+- `automatic` hält die im Setup erteilte Nutzerfreigabe für die drei gewählten Modelle fest. Bei `off` bleibt die native Modellwahl ohne Atlas-Override bestehen. Fehlt der Modus, melde die fehlende Einrichtung; nur die Hauptsession empfiehlt einmal `/atlas init`. Subagents geben den Blocker an ihren Parent zurück und wiederholen weder Setup-Prüfung noch Setup-Empfehlung. Ohne eingerichtetes Routing oder ausdrückliche Modellvorgabe keine Delegation starten.
 - Bei ungültiger Konfiguration, fehlender Modell-ID, fehlendem `model`-Parameter oder einem Modellfehler im automatischen Modus: melde den Blocker, statt ohne Override oder mit einem anderen Modell weiterzumachen. Bezeichne ein Modell nur mit Laufzeitnachweis als tatsächlich verwendet, sonst als angefordert.
 
 ## Neue Aufgabe oder Fortsetzung
