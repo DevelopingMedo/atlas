@@ -40,7 +40,7 @@ Fahre anschließend mit der Einrichtung fort. Für diesen Hinweis ist weder ein 
 ### Ziel und vorhandene Einstellungen
 
 1. Verwende die unter „Gemeinsame Regeln“ ermittelte Atlas-Installation.
-2. Lies die Vorlage [`atlas.json.example`](../../atlas.json.example). Ist daneben bereits `atlas.json` vorhanden, übernimm ihre Einstellungen als Vorauswahl. Lies zunächst höchstens 100 Zeilen. Ist die Datei größer, extrahiere mit einem lokalen JSON-Parser ausschließlich `atlas-setup` und `models`, ohne den übrigen Inhalt auszugeben. Erhalte unbekannte Felder bei einer Aktualisierung. Bei ungültigem JSON erkläre den konkreten Fehler und kläre die Korrektur, statt die Datei durch die Vorlage zu ersetzen.
+2. Lies die Vorlage [`atlas.json.example`](../../atlas.json.example). Ist daneben bereits `atlas.json` vorhanden, übernimm ihre Einstellungen als Vorauswahl. Lies zunächst höchstens 100 Zeilen. Ist die Datei größer, extrahiere mit einem lokalen JSON-Parser ausschließlich `atlas-setup`, `routing` und `models`, ohne den übrigen Inhalt auszugeben. Erhalte unbekannte Felder bei einer Aktualisierung. Bei ungültigem JSON erkläre den konkreten Fehler und kläre die Korrektur, statt die Datei durch die Vorlage zu ersetzen.
 
 ### Modelle und Präferenzen
 
@@ -51,11 +51,19 @@ Fahre anschließend mit der Einrichtung fort. Für diesen Hinweis ist weder ein 
    - `deep`: anspruchsvolle Aufgaben mit hoher Unsicherheit oder weitreichenden Folgen.
 5. Schlage nur tatsächlich gefundene Modell-IDs im Format `provider/model` vor; verwende `#variant` nur bei nachgewiesener Unterstützung. Begründe Vorschläge kurz und kennzeichne Unsicherheit über Eignung oder Kosten. Ordne die Stufen nach der konkreten Aufgabe zu, nicht pauschal nach Agent-Rolle. Dasselbe Modell darf mehreren Stufen zugeordnet werden. `null` bedeutet keine persönliche Vorgabe. Ist OpenCode nicht verfügbar oder liefert keine Modelle, biete die Einrichtung ohne Modellvorgaben an; erfinde keine IDs und installiere oder verbinde keine Provider automatisch.
 
+### Automatische Anwendung freigeben
+
+Erkläre im selben Auswahldialog: „Soll Atlas für jede delegierte Aufgabe automatisch eines dieser drei Modelle wählen und beim Agentenstart setzen? Das gilt auch in späteren Sessions und für Fortsetzungen. Die Hauptsession behält ihr ausgewähltes Modell.“ Biete „Automatisch anwenden“ als Empfehlung und „Nur speichern“ als Alternative. Eine bereits ausdrücklich erteilte entsprechende Nutzeranweisung genügt; frage dann nicht erneut. Bei bestehendem `routing.mode: "automatic"` und `modelOverrideAuthorized: true` bleibt die Freigabe bei unveränderten Modellen erhalten. Bei geänderten Modellen bestätige die neue Auswahl gesammelt. Alte Dateien ohne `routing` enthalten noch keine Freigabe; übernimm ihre Modelle als Vorauswahl.
+
+Prüfe für automatische Anwendung, dass das angebotene native `subagent`-Werkzeug den Parameter `model` unterstützt und alle drei Modell-IDs im Katalog nachgewiesen sind. Lies dafür [MODEL_ROUTING.md](../../guide/MODEL_ROUTING.md). Starte keine kostenpflichtigen Testagents allein für das Setup. Ist die Schnittstelle nicht verfügbar oder eine Stufe `null`, erkläre den Blocker und biete Speichern ohne automatische Anwendung an. Behaupte keine Aktivierung.
+
+Speichere bei Freigabe `routing: {"mode": "automatic", "modelOverrideAuthorized": true}`, bei „Nur speichern“ `routing: {"mode": "off", "modelOverrideAuthorized": false}`. Die Freigabe ist Teil der persönlichen Konfiguration und wird nicht committed.
+
 ### Speichern und Abschluss
 
-6. Prüfe nach der Auswahl die vorgesehenen Werte gemäß Schritt 7. Speichere anschließend gültiges JSON neben der Vorlage als `atlas.json` mit `"atlas-setup": true` als erstem Eintrag; bei einem Abbruch lege keine neue Datei an und erhalte eine vorhandene unverändert. Speichere nur Setup-Status und Modellpräferenzen, keine Secrets, Modellkataloge oder Gesprächsverläufe. Für eine bestehende Datei erhalte außerdem die unbekannten Felder aus Schritt 2.
-7. Prüfe vor dem Speichern die vorgesehenen Werte und danach die Datei durch erneutes Parsen: `atlas-setup` ist der boolesche Wert `true`, `models` enthält `fast`, `standard` und `deep`, jeweils als Modell-ID oder `null`. Prüfe bei einer Git-Installation gezielt, dass `atlas.json` ignoriert und nicht bereits getrackt ist. Committe oder pushe persönliche Einstellungen niemals; falls die Datei bereits getrackt ist, melde das, ohne eigenständig den Git-Index zu ändern.
-8. Nenne den Speicherort und die gewählten Präferenzen knapp. Erkläre, dass dies Atlas-Präferenzen sind: OpenCode liest `atlas.json` nicht als eigene Konfiguration. Dieses Setup richtet keinen automatischen Modellwechsel ein und verändert weder Agent-Profile noch `opencode.json`. Behaupte keinen angewendeten Modellwechsel.
+6. Prüfe nach der Auswahl die vorgesehenen Werte gemäß Schritt 7. Speichere anschließend gültiges JSON neben der Vorlage als `atlas.json` mit `"atlas-setup": true` als erstem Eintrag; bei einem Abbruch lege keine neue Datei an und erhalte eine vorhandene unverändert. Speichere nur Setup-Status, Routing-Freigabe und Modellpräferenzen, keine Secrets, Modellkataloge oder Gesprächsverläufe. Für eine bestehende Datei erhalte außerdem die unbekannten Felder aus Schritt 2.
+7. Prüfe vor dem Speichern die vorgesehenen Werte und danach die Datei durch erneutes Parsen: `atlas-setup` ist der boolesche Wert `true`, `models` enthält `fast`, `standard` und `deep`, jeweils als Modell-ID oder `null`. Prüfe außerdem die oben definierte Kombination von `routing.mode` und `modelOverrideAuthorized`; im automatischen Modus darf keine Stufe `null` sein. Prüfe bei einer Git-Installation gezielt, dass `atlas.json` ignoriert und nicht bereits getrackt ist. Committe oder pushe persönliche Einstellungen niemals; falls die Datei bereits getrackt ist, melde das, ohne eigenständig den Git-Index zu ändern.
+8. Nenne Speicherort, drei Modelle und Status („Automatische Auswahl für delegierte Aufgaben aktiviert“ oder „Nur gespeichert; automatische Auswahl aus“). OpenCode liest `atlas.json` nicht selbst: Atlas liest sie vor Delegationen und setzt das native `model`-Argument nach `MODEL_ROUTING.md`. Agent-Profile und `opencode.json` bleiben unverändert. Die Hauptsession behält ihr Modell. Die Aktivierung ist noch kein Nachweis eines ausgeführten Modellwechsels; es wurde kein Modelltest gestartet.
 
 
 ## models
@@ -69,8 +77,9 @@ Fahre anschließend mit der Einrichtung fort. Für diesen Hinweis ist weder ein 
 1. Lies ausschließlich `atlas.json` der verwendeten Installation. Fehlt sie, nenne den geprüften Pfad und empfehle `/atlas init`; lege nichts an und zeige keine Vorlage als vorhandene Konfiguration.
 2. Parse die Datei lokal als JSON und prüfe, dass die Wurzel ein Objekt ist. Melde ungültiges JSON oder eine falsche Struktur konkret, ohne sie zu reparieren oder die Rohdatei auszugeben. Ist `models` kein Objekt, kennzeichne es als ungültig.
 3. Zeige den Dateipfad, den gespeicherten Setup-Status und eine Tabelle mit `fast`, `standard` und `deep`. Beschrifte sie als einfache, normale und anspruchsvolle Aufgaben. Übersetze `null` als „Keine persönliche Vorgabe“ und fehlende Felder als „Nicht gesetzt“. Nur der boolesche Wert `true` bestätigt das Setup; kennzeichne andere Datentypen und ungültige Modellwerte als ungültig. Zeige Modell-IDs nur als Strings im Format `provider/model`, optional mit nachweislich unterstützter `#variant`; gib andere Werte nicht ungefiltert aus.
-4. Nenne zusätzliche Feldnamen aus der Datei, gib ihre unbekannten Werte aber nicht ungeprüft aus. Maskiere geheime Inhalte; die Ausgabe ist eine lesbare Zusammenfassung, kein Rohdump.
-5. Erkläre knapp: Dies sind gespeicherte Atlas-Präferenzen. Sie belegen weder das gerade aktive OpenCode-Modell noch einen automatischen Modellwechsel.
+4. Zeige zusätzlich den Routing-Status: `automatic` mit boolescher Freigabe `true` bedeutet automatische Anwendung für Delegationen; `off` mit `false` bedeutet nur gespeicherte Präferenzen. Fehlendes `routing` ist ein Altbestand ohne Aktivierung; empfehle einmal `/atlas init` zum Ergänzen der Freigabe. Ungültige Kombinationen als Fehler kennzeichnen.
+5. Nenne zusätzliche Feldnamen aus der Datei, gib ihre unbekannten Werte aber nicht ungeprüft aus. Maskiere geheime Inhalte; die Ausgabe ist eine lesbare Zusammenfassung, kein Rohdump.
+6. Erkläre knapp: Gespeicherte Modelle und Routing-Freigabe belegen nicht das gerade aktive oder tatsächlich verwendete OpenCode-Modell.
 
 ## update
 
@@ -82,3 +91,4 @@ Fahre anschließend mit der Einrichtung fort. Für diesen Hinweis ist weder ein 
 6. Erhalte `atlas.json`, `opencode.json`, `opencode.jsonc`, Providerdaten und alle nicht zu Atlas gehörenden Dateien unverändert. Entferne keine Dateien allein deshalb, weil sie im neuen ZIP fehlen. Bei der Migration auf `/atlas` dürfen ausschließlich `commands/setup-atlas.md` und `skills/setup-atlas/SKILL.md` nach gesicherter Übernahme ihrer lokalen Anpassungen entfernt werden; fremde Dateien in diesem Skill-Verzeichnis bleiben erhalten.
 7. Prüfe vor der Übernahme alle Konflikte und den vorgesehenen Diff. Prüfe danach die übernommenen Dateien, Verweise und die unveränderte persönliche Konfiguration. Bei einem Fehler stelle die geänderten Dateien aus der Sicherung wieder her und entferne nur selbst neu angelegte Dateien.
 8. Nenne den Release-Tag, das Installationsziel, die übernommenen Änderungen und den Sicherungspfad. Bitte den Nutzer anschließend, eine neue OpenCode-Session zu beginnen; starte den laufenden OpenCode-Dienst niemals selbst neu.
+
