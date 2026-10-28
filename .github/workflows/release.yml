@@ -20,7 +20,7 @@ jobs:
       - name: Build installation ZIP
         run: |
           git archive --format=zip --output=atlas.zip HEAD
-          zip -d atlas.zip .gitignore LICENSE README.md '.github/*' 'tests/*'
+          zip -d atlas.zip .gitignore LICENSE README.md '.github/*'
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -29,4 +29,3 @@ jobs:
         run: |
           gh release create "$ATLAS_TAG" atlas.zip --verify-tag --generate-notes \
             --notes "Lizenz: https://github.com/${GH_REPO}/blob/${ATLAS_TAG}/LICENSE"
-

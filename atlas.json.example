@@ -6,7 +6,6 @@
     "deep": null
   },
   "routing": {
-    "mode": "off",
-    "modelOverrideAuthorized": false
+    "mode": "off"
   }
 }

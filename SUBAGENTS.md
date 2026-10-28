@@ -10,11 +10,23 @@
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
 - Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl und Autorisierung bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
-## Modellwahl vor jedem Start und jeder Fortsetzung
+## Modellwahl beim Delegieren
 
-- Wähle Rolle und Modellstufe unabhängig voneinander. Lies vor der ersten Delegation in dieser Session [`guide/MODEL_ROUTING.md`](guide/MODEL_ROUTING.md) und die dort benötigten Felder der wirksamen `atlas.json`. Das gilt auch für Child-Sessions; wiederhole dort weder Setup noch Einrichtungsfragen.
-- Bei freigegebenem automatischem Routing löse die Stufe in eine konkrete Modell-ID auf und übergib sie im nativen `subagent.model`-Parameter. Eine Stufenangabe im Auftrag oder eine Empfehlung im Chat ersetzt diesen Parameter nicht. Das gilt auch beim Fortsetzen über `sessionID`.
-- Prüfe vor dem Aufruf: Rolle, Stufe, Modell-ID und Autorisierung passen zusammen. Im automatischen Modus bei fehlender Unterstützung, ungültiger Konfiguration oder fehlendem Modell keinen Aufruf ohne Modell als Ersatz starten; melde den konkreten Blocker an den Parent.
+Diese Regeln richten sich an den Agenten, der einen Subagenten startet oder fortsetzt — unabhängig von seiner Rolle. Ein gestarteter Subagent bewertet sein eigenes Startmodell nicht erneut; erst wenn er selbst delegiert, wählt er das Modell für seinen nächsten Subagenten.
+
+- Lies vor deiner ersten Delegation `models` und `routing.mode` aus der `atlas.json` der verwendeten Atlas-Installation: projektlokales `.opencode/` vor globalem `~/.config/opencode/`. Verwende bekannte Werte weiter und lies sie nach einer Einstellungsänderung neu.
+- Bei `routing.mode: "automatic"` wähle unabhängig von der Fachrolle die kleinste ausreichende Stufe für den konkreten Auftrag:
+
+| Stufe | Kriterium | Beispiele |
+|---|---|---|
+| `fast` | Klar begrenzte, direkt lösbare Aufgabe | Stacktrace erklären, Fundstelle suchen, vorgegebenen Test ausführen |
+| `standard` | Mehrere zusammenhängende Schritte mit überschaubaren Wechselwirkungen | Aufrufkette untersuchen, normalen Bug beheben, begrenztes Feature implementieren |
+| `deep` | Schwierige Ursachenabwägung oder weitreichende Entscheidung mit komplexen Folgen | Race Condition untersuchen, systemübergreifende Architektur planen |
+
+- Fehlende Belege allein rechtfertigen kein teureres Modell. Erhöhe die Stufe nur bei zusätzlicher fachlicher Schwierigkeit.
+- Übergib die konkrete ID aus `models[Stufe]` im nativen `subagent.model`-Parameter; eine Empfehlung im Prompt genügt nicht. Setze sie auch beim Fortsetzen einer abgeschlossenen Fachsession über `sessionID` ausdrücklich, damit eine einfache Folgeaufgabe wieder günstiger laufen kann.
+- `automatic` hält die im Setup erteilte Nutzerfreigabe für die drei gewählten Modelle fest. Bei `off` bleibt die native Modellwahl ohne Atlas-Override bestehen. Fehlt der Modus, empfehle einmal `/atlas init` zum Ergänzen der Auswahl; bis dahin keine automatische Modellwahl behaupten oder ohne ausdrückliche Modellvorgabe delegieren.
+- Bei ungültiger Konfiguration, fehlender Modell-ID, fehlendem `model`-Parameter oder einem Modellfehler im automatischen Modus: melde den Blocker, statt ohne Override oder mit einem anderen Modell weiterzumachen. Bezeichne ein Modell nur mit Laufzeitnachweis als tatsächlich verwendet, sonst als angefordert.
 
 ## Neue Aufgabe oder Fortsetzung
 
@@ -66,4 +78,3 @@ Meldet Develop **Nachanalyse erforderlich**, bekommt der unmittelbar aufrufende 
 - Ist Analyze selbst der Parent von Develop, geht die Meldung direkt an diesen ursprünglichen Analysten zurück; er prüft Gegenbelege und bisherige Annahmen in seiner bestehenden Session neu, statt einen weiteren Analyze zu starten. Größere Neuplanung oder Umfangserweiterung geht an seinen eigenen Auftraggeber zurück.
 - Ist die ursprüngliche Fachsession nicht verfügbar oder ungeeignet, gilt die gezielte Ersatzübergabe mit benanntem Kontextverlust.
 - Nach der Klärung erhält möglichst dieselbe Develop-Session einen aktualisierten Auftrag; Änderungen und Commitstände bleiben erhalten. Zwischen den fachlichen Einsätzen ist keine Synchronisierung nötig.
-
