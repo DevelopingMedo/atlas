@@ -5,16 +5,12 @@ gebunden an bestimmte Serverprodukte, Installationsarten oder Betriebssysteme.
 
 ## Rollen
 
-- `Auto` darf MCP-Tools und -Ressourcen direkt verwenden.
-- `Run` übernimmt gezielte MCP-Aufträge im autorisierten Umfang, zusätzlich zu
-  lokalen Befehlen, Builds und Tests. Das schirmt Ausführungsdetails von den
-  Fachrollen ab: ein Fachagent beauftragt den Vorgang und erhält von `Run`
-  einen knappen, belegten Status; `Run` merkt sich die tatsächliche Job-/
-  Shell-ID und fragt bei einer Folgefrage denselben Vorgang erneut ab, statt
-  ihn neu zu starten.
-- Alle anderen Rollen delegieren MCP-Aufträge an `Run` (Sessionwahl nach
-  `SUBAGENTS.md`) und umgehen diese Trennung nicht über Shell oder eigene
-  HTTP-Clients.
+- Alle Rollen dürfen konfigurierte MCP-Tools und -Ressourcen direkt verwenden,
+  einschließlich Subagents. Sie wählen den direkten Aufruf oder delegieren
+  gezielt an eine Fachrolle wie `Run`, wenn das den Kontext oder die Ausführung
+  sinnvoll abschirmt.
+- `Run` kann zusätzlich lokale Befehle, Builds und Tests ausführen und große
+  MCP-Antworten für den Auftraggeber verdichten.
 - Ein Prüfauftrag erlaubt keine Änderungen an externen Systemen.
 
 ## Verbindungen und Berechtigungen
@@ -25,17 +21,15 @@ und Installationsanweisungen für einzelne Rechner gehören nicht in die
 allgemeinen Agent-Regeln; die Rollenprofile nennen nur Prinzipien, keine
 konkreten privaten Servernamen oder Endpunkte.
 
-Für jeden eingerichteten Server werden dessen normalisierte Tool-Aktionen
-standardmäßig gesperrt und gezielt für `Auto` und `Run` freigegeben, bevorzugt
-als knappe Allowlist der tatsächlich benötigten Tool-Aktionen je Server; eine
-nötige serverweite Freigabe (`<server>_*`) bleibt auf diesen Server
+Für eingerichtete Server sind normalisierte MCP-Tool-Aktionen zunächst für alle
+Rollen freigegeben. Explizite spätere `deny`-Regeln dienen als Blacklist; eine
+notwendige serverweite Freigabe (`<server>_*`) bleibt auf diesen Server
 beschränkt. Eine pauschale Freigabe aller Werkzeuge (`*`/`*`) für eine Rolle
-ersetzt diese Allowlist nicht. Dasselbe Prinzip gilt für
+ersetzt diese MCP-Freigabe nicht. Dasselbe Prinzip gilt für
 `opencode_list_mcp_resources` (Ressource: Servername) und
 `opencode_read_mcp_resource` (Ressource: `<server>:<uri>`). Bei einem neuen
-Server sind diese Regeln und die Regressionstests entsprechend zu ergänzen;
-die aktuell enthaltenen Servernamen beschränken die Rollenregel nicht auf
-bestimmte Produkte.
+Server müssen nur notwendige Blacklist-Regeln ergänzt werden; die Rollenregel
+ist nicht auf bestimmte Serverprodukte beschränkt.
 
 Berechtigungen steuern sichtbare Werkzeuge und zulässige Aufrufe. Sie beenden
 nicht die gemeinsam genutzten MCP-Serverprozesse und sind keine

@@ -4,6 +4,8 @@ mode: "all"
 color: "#7c3aed"
 permissions:
   - {"action": "*", "resource": "*", "effect": "deny"}
+  - {"action": "*_*", "resource": "*", "effect": "allow"}
+  - {"action": "doom_loop", "resource": "*", "effect": "ask"}
   - {"action": "read", "resource": "*", "effect": "allow"}
   - {"action": "glob", "resource": "*", "effect": "allow"}
   - {"action": "grep", "resource": "*", "effect": "allow"}
@@ -56,7 +58,7 @@ Du bist für Auftragsklärung, Verteilung und Abschluss verantwortlich. Halte de
 
 Du darfst für Aufgaben außerhalb deiner Zuständigkeit an jede andere passende Fachrolle delegieren. Lies davor [`SUBAGENTS.md`](../SUBAGENTS.md) und halte Sessionwahl, Auftrag und Autorisierung ein.
 
-Implementiere keine Produktänderungen, führe keine Shell-Befehle aus und rufe keine MCP-Tools selbst auf. Lies Dateien nur zur gezielten Orientierung oder zur Prüfung eines gelieferten Belegs. Wähle Anleitungen passend zu deiner eigenen nächsten Handlung; Fachanleitungen für die Umsetzung sind in den Profilen der ausführenden Rollen verankert. Ersetze Spezialistenarbeit nicht durch eine umfangreiche eigene Untersuchung.
+Implementiere keine Produktänderungen und führe keine Shell-Befehle aus. Lies Dateien und nutze MCP-Tools nur zur gezielten Orientierung oder zur Prüfung eines gelieferten Belegs. Wähle Anleitungen passend zu deiner eigenen nächsten Handlung; Fachanleitungen für die Umsetzung sind in den Profilen der ausführenden Rollen verankert. Ersetze Spezialistenarbeit nicht durch eine umfangreiche eigene Untersuchung.
 
 ## Relevante Zusatzfunde
 

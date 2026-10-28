@@ -4,6 +4,8 @@ mode: "all"
 color: "#a21caf"
 permissions:
   - {"action": "*", "resource": "*", "effect": "deny"}
+  - {"action": "*_*", "resource": "*", "effect": "allow"}
+  - {"action": "doom_loop", "resource": "*", "effect": "ask"}
   - {"action": "read", "resource": "*", "effect": "allow"}
   - {"action": "glob", "resource": "*", "effect": "allow"}
   - {"action": "grep", "resource": "*", "effect": "allow"}
@@ -27,11 +29,6 @@ permissions:
   - {"action": "subagent", "resource": "Run", "effect": "deny"}
   - {"action": "subagent", "resource": "Develop", "effect": "deny"}
   - {"action": "subagent", "resource": "Auto", "effect": "deny"}
-  - {"action": "mikrotik_*", "resource": "*", "effect": "deny"}
-  - {"action": "omada_*", "resource": "*", "effect": "deny"}
-  - {"action": "modrinth_*", "resource": "*", "effect": "deny"}
-  - {"action": "opencode_list_mcp_resources", "resource": "*", "effect": "deny"}
-  - {"action": "opencode_read_mcp_resource", "resource": "*", "effect": "deny"}
 ---
 
 # Build

@@ -4,6 +4,9 @@ mode: "all"
 color: "#64748b"
 permissions:
   - {"action": "*", "resource": "*", "effect": "allow"}
+  - {"action": "*_*", "resource": "*", "effect": "allow"}
+  - {"action": "external_directory", "resource": "*", "effect": "ask"}
+  - {"action": "doom_loop", "resource": "*", "effect": "ask"}
   - {"action": "read", "resource": "*.env", "effect": "ask"}
   - {"action": "read", "resource": "*.env.*", "effect": "ask"}
   - {"action": "read", "resource": "*.env.example", "effect": "allow"}

@@ -4,6 +4,8 @@ mode: "subagent"
 color: "#d97706"
 permissions:
   - {"action": "*", "resource": "*", "effect": "ask"}
+  - {"action": "*_*", "resource": "*", "effect": "allow"}
+  - {"action": "doom_loop", "resource": "*", "effect": "ask"}
   - {"action": "edit", "resource": "*", "effect": "deny"}
   - {"action": "subagent", "resource": "*", "effect": "deny"}
   - {"action": "read", "resource": "*", "effect": "allow"}
@@ -66,7 +68,7 @@ Ein bloßer Prüf- oder Statusauftrag erlaubt keine automatischen Neustarts, Lö
 
 Du darfst für Aufgaben außerhalb deiner Zuständigkeit an jede andere passende Fachrolle delegieren. Lies davor [`SUBAGENTS.md`](../SUBAGENTS.md) und halte Sessionwahl, Auftrag und Autorisierung ein.
 
-Du korrigierst keine Produktfehler selbst. Für nötige Analyse-, Entwicklungs- oder Planungsarbeit darfst du einen passenden Agent beauftragen, mit Sessionwahl nach `SUBAGENTS.md`. Halte Umfang und Autorisierung ein; eine Erweiterung des Auftrags gibst du an den Parent zurück. `edit` ist nur für `work/agent-artifacts/*` erlaubt; Shell-Befehle können dennoch Dateien erzeugen oder ändern und sind deshalb auf den beauftragten Ausführungszweck zu beschränken. MCP-Tools sind nur für die tatsächlich eingerichteten Server und ihre benötigten Aktionen freigegeben, als knappe Allowlist statt einer pauschalen Freigabe aller Werkzeuge; persönliche Servernamen und Endpunkte stehen nicht in diesem Profil, sondern in der lokalen Konfiguration und in [`guide/MCP.md`](../guide/MCP.md).
+Du korrigierst keine Produktfehler selbst. Für nötige Analyse-, Entwicklungs- oder Planungsarbeit darfst du einen passenden Agent beauftragen, mit Sessionwahl nach `SUBAGENTS.md`. Halte Umfang und Autorisierung ein; eine Erweiterung des Auftrags gibst du an den Parent zurück. `edit` ist nur für `work/agent-artifacts/*` erlaubt; Shell-Befehle können dennoch Dateien erzeugen oder ändern und sind deshalb auf den beauftragten Ausführungszweck zu beschränken. MCP-Tools sind für alle eingerichteten Server und Rollen freigegeben; explizite spätere `deny`-Regeln bilden bei Bedarf die Blacklist. Persönliche Servernamen und Endpunkte stehen nicht in diesem Profil, sondern in der lokalen Konfiguration und in [`guide/MCP.md`](../guide/MCP.md).
 
 ## Relevante Zusatzfunde
 

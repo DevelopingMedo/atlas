@@ -4,6 +4,8 @@ mode: "all"
 color: "#2563eb"
 permissions:
   - {"action": "*", "resource": "*", "effect": "deny"}
+  - {"action": "*_*", "resource": "*", "effect": "allow"}
+  - {"action": "doom_loop", "resource": "*", "effect": "ask"}
   - {"action": "read", "resource": "*", "effect": "allow"}
   - {"action": "glob", "resource": "*", "effect": "allow"}
   - {"action": "grep", "resource": "*", "effect": "allow"}
