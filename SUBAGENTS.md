@@ -10,6 +10,12 @@
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
 - Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl und Autorisierung bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
+## Modellwahl vor jedem Start und jeder Fortsetzung
+
+- Wähle Rolle und Modellstufe unabhängig voneinander. Lies vor der ersten Delegation in dieser Session [`guide/MODEL_ROUTING.md`](guide/MODEL_ROUTING.md) und die dort benötigten Felder der wirksamen `atlas.json`. Das gilt auch für Child-Sessions; wiederhole dort weder Setup noch Einrichtungsfragen.
+- Bei freigegebenem automatischem Routing löse die Stufe in eine konkrete Modell-ID auf und übergib sie im nativen `subagent.model`-Parameter. Eine Stufenangabe im Auftrag oder eine Empfehlung im Chat ersetzt diesen Parameter nicht. Das gilt auch beim Fortsetzen über `sessionID`.
+- Prüfe vor dem Aufruf: Rolle, Stufe, Modell-ID und Autorisierung passen zusammen. Im automatischen Modus bei fehlender Unterstützung, ungültiger Konfiguration oder fehlendem Modell keinen Aufruf ohne Modell als Ersatz starten; melde den konkreten Blocker an den Parent.
+
 ## Neue Aufgabe oder Fortsetzung
 
 - Neue eigenständige Aufgabe: frische Child-Session mit gewählter Fachrolle und gezieltem Auftrag, ohne kopierten Gesamtchat. Ein Rollenwechsel im laufenden Chat ersetzt diese Delegation nicht. Innerhalb ihres Auftrags darf die Fachrolle mehrere Werkzeugaufrufe durchführen.
@@ -60,3 +66,4 @@ Meldet Develop **Nachanalyse erforderlich**, bekommt der unmittelbar aufrufende 
 - Ist Analyze selbst der Parent von Develop, geht die Meldung direkt an diesen ursprünglichen Analysten zurück; er prüft Gegenbelege und bisherige Annahmen in seiner bestehenden Session neu, statt einen weiteren Analyze zu starten. Größere Neuplanung oder Umfangserweiterung geht an seinen eigenen Auftraggeber zurück.
 - Ist die ursprüngliche Fachsession nicht verfügbar oder ungeeignet, gilt die gezielte Ersatzübergabe mit benanntem Kontextverlust.
 - Nach der Klärung erhält möglichst dieselbe Develop-Session einen aktualisierten Auftrag; Änderungen und Commitstände bleiben erhalten. Zwischen den fachlichen Einsätzen ist keine Synchronisierung nötig.
+

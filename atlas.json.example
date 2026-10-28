@@ -4,5 +4,9 @@
     "fast": null,
     "standard": null,
     "deep": null
+  },
+  "routing": {
+    "mode": "off",
+    "modelOverrideAuthorized": false
   }
 }

@@ -50,6 +50,18 @@ Beispiele:
 `/atlas` zeigt die Hilfe. Angaben in eckigen Klammern sind optional.
 Updates erhalten deine `atlas.json` und lokale Anpassungen; danach eine neue Session öffnen.
 
+## Automatische Modellwahl
+
+`/atlas init` fragt einmal nach drei Modellen und ob Atlas sie automatisch für delegierte Aufgaben verwenden soll. In späteren Sessions liest Atlas diese Auswahl vor der Delegation und übergibt die konkrete Modell-ID an OpenCodes natives Subagent-Werkzeug.
+
+- **Fast:** direkt lösbare Aufgaben, etwa einen Stacktrace erklären oder eine Fundstelle suchen.
+- **Standard:** gewöhnliche Untersuchung, Implementierung und Review mit mehreren zusammenhängenden Schritten.
+- **Deep:** schwierige Ursachenanalyse oder Entscheidungen mit komplexen, weitreichenden Folgen.
+
+Rolle und Modell bleiben unabhängig: Analyze kann jede der drei Stufen nutzen. Fehlende Informationen allein rechtfertigen kein teureres Modell. Die Hauptsession behält das dort ausgewählte Modell; die Automatik betrifft delegierte Aufgaben. `/atlas config` zeigt die gespeicherte Auswahl und ihre Freigabe.
+
+Bestehende Setups ohne `routing` benötigen einmal `/atlas init`, um die Freigabe zu ergänzen; die Modelle werden übernommen. Voraussetzung ist ein natives Subagent-Werkzeug mit `model`-Parameter. Ohne diese Unterstützung meldet Atlas einen Blocker. Die Regeln steuern die Werkzeugaufrufe, sind aber keine technisch erzwungene Kostenobergrenze. Details: [Modellrouting](guide/MODEL_ROUTING.md).
+
 ## Was ist Atlas?
 
 **Klare Rollen tragen komplexe Aufgaben.**
@@ -109,3 +121,4 @@ Jede Übergabe enthält den konkreten Auftrag und die nötigen Belege. Zusammeng
 ## Lizenz
 
 [Apache License 2.0 mit Commons Clause 1.0](LICENSE).
+
