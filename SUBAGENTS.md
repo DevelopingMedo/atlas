@@ -10,6 +10,12 @@
 - Die verfügbaren Agent-Namen und Kurzbeschreibungen genügen zur Auswahl. Lies nicht die Prompts aller Kandidaten und kopiere keine fremden Rollenprofile in den Auftrag.
 - Jede Fachrolle darf jede andere passende Fachrolle beauftragen, einschließlich `Analyze` → `Develop` und `Run` → `Analyze`. Eigene Zuständigkeit, Sessionwahl und Autorisierung bleiben verbindlich. Ist eine Rolle durch zusätzliche Projektregeln nicht verfügbar, gib eine konkrete Delegationsanforderung an den Parent zurück.
 
+## Delegationstiefe
+
+- Die Tiefe zählt verschachtelte Parent-Child-Ebenen, nicht gleichzeitig laufende Agents. Fünf direkte Children benötigen eine Ebene; Hauptsession → Analyze → Run benötigt zwei. Plane nur die für den Auftrag nötige Kette, keine pauschale Mindesttiefe.
+- Für eine konkret benötigte Verschachtelung nutze eine bekannte wirksame Laufzeitangabe oder lies gezielt `experimental.subagent_depth` aus den bekannten OpenCode-Konfigurationsquellen. Berücksichtige deren Vorrang; ein einzelner globaler Dateiwert belegt bei möglichen Overrides nicht die wirksame Tiefe. Bekannte ausreichende Werte gelten bis zu einer relevanten Änderung als interne Voraussetzung für die Ausführung.
+- Ist die wirksame Tiefe unbekannt, führe den nächsten benötigten nativen Aufruf aus; OpenCode prüft die Grenze. Bei bekannter unzureichender Tiefe oder einem gemeldeten Tiefenlimit wähle zuerst eine flachere Rollenfolge mit denselben Zuständigkeiten und Berechtigungen. Ist das nicht möglich, melde die konkret blockierte Kette an den Parent beziehungsweise Nutzer und kläre die nötige Anpassung. Ändere die Konfiguration dafür nur auf ausdrücklichen Auftrag; wiederhole einen am Tiefenlimit gescheiterten Aufruf nicht unverändert.
+
 ## Modellwahl beim Delegieren
 
 Diese Regeln richten sich an den Agenten, der einen Subagenten startet oder fortsetzt — unabhängig von seiner Rolle. Ein gestarteter Subagent bewertet sein eigenes Startmodell nicht erneut; erst wenn er selbst delegiert, wählt er das Modell für seinen nächsten Subagenten.
