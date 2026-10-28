@@ -12,9 +12,8 @@
 
 ## Delegationstiefe
 
-- Die Tiefe zählt verschachtelte Parent-Child-Ebenen, nicht gleichzeitig laufende Agents. Fünf direkte Children benötigen eine Ebene; Hauptsession → Analyze → Run benötigt zwei. Plane nur die für den Auftrag nötige Kette, keine pauschale Mindesttiefe.
-- Für eine konkret benötigte Verschachtelung nutze eine bekannte wirksame Laufzeitangabe oder lies gezielt `experimental.subagent_depth` aus den bekannten OpenCode-Konfigurationsquellen. Berücksichtige deren Vorrang; ein einzelner globaler Dateiwert belegt bei möglichen Overrides nicht die wirksame Tiefe. Bekannte ausreichende Werte gelten bis zu einer relevanten Änderung als interne Voraussetzung für die Ausführung.
-- Ist die wirksame Tiefe unbekannt, führe den nächsten benötigten nativen Aufruf aus; OpenCode prüft die Grenze. Bei bekannter unzureichender Tiefe oder einem gemeldeten Tiefenlimit wähle zuerst eine flachere Rollenfolge mit denselben Zuständigkeiten und Berechtigungen. Ist das nicht möglich, melde die konkret blockierte Kette an den Parent beziehungsweise Nutzer und kläre die nötige Anpassung. Ändere die Konfiguration dafür nur auf ausdrücklichen Auftrag; wiederhole einen am Tiefenlimit gescheiterten Aufruf nicht unverändert.
+- Bemiss die nötige Tiefe nach der verschachtelten Rollenfolge; parallele Children liegen auf derselben Ebene. Nutze vorhandene Laufzeitwerte oder lies bei Bedarf gezielt `experimental.subagent_depth` unter Beachtung des Konfigurationsvorrangs. Ein ausreichender Wert ist eine interne Ausführungsvoraussetzung.
+- Bei unbekannter Tiefe starte den nächsten benötigten nativen Aufruf; OpenCode prüft das Limit. Bei unzureichender Tiefe wähle eine flachere Rollenfolge mit denselben Zuständigkeiten und Berechtigungen. Ist das nicht möglich, melde die blockierte Kette an Parent oder Nutzer. Konfigurationsänderungen benötigen einen ausdrücklichen Auftrag.
 
 ## Modellwahl beim Delegieren
 
