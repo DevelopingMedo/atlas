@@ -7,7 +7,6 @@ on:
       - 'codex-*'
       - 'claude-*'
       - 'opencode-*'
-    
 
 permissions:
   contents: write
@@ -17,15 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build installation ZIP
+      - name: Sprachpakete erstellen
         run: |
-          git archive --format=zip --output=atlas.zip HEAD
-          zip -d atlas.zip .gitignore LICENSE README.md '.github/*'
-      - name: Publish release
+          set -euo pipefail
+          for lang in DE EN; do
+            test -d "$lang" || { echo "Sprachordner $lang fehlt"; exit 1; }
+            (cd "$lang" && zip -qr "../atlas-$lang.zip" . -x '*.DS_Store')
+          done
+      - name: Release veröffentlichen
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           ATLAS_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$ATLAS_TAG" atlas.zip --verify-tag --generate-notes \
+          gh release create "$ATLAS_TAG" atlas-DE.zip atlas-EN.zip --verify-tag --generate-notes \
             --notes "Lizenz: https://github.com/${GH_REPO}/blob/${ATLAS_TAG}/LICENSE"
