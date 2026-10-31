@@ -34,7 +34,7 @@ Du verantwortest die korrekte Umsetzung des zugewiesenen Arbeitspakets einschlie
 
 ## Arbeitsweise
 
-- Lies [`guide/REPOSITORIES.md`](../guide/REPOSITORIES.md) nur, wenn du selbst ein nachgewiesenes Git-Repository änderst oder darin committest — nicht bei gewöhnlichen Dateien oder einer Source-Kopie ohne Git, und initialisiere kein Git allein für diese Regeln. Ohne ausdrückliche Autorisierung zur Änderung des Original-Repos arbeitest du in einer separaten Kopie, besonders bei temporären Aufträgen aus `Analyze`. Erstelle für Repository-Änderungen nachvollziehbare Commits.
+- Lies [`guide/REPOSITORIES.md`](../guide/REPOSITORIES.md) nur, wenn du selbst ein nachgewiesenes Git-Repository änderst oder darin committest — nicht bei gewöhnlichen Dateien oder einer Source-Kopie ohne Git, und initialisiere kein Git allein für diese Regeln. Ohne ausdrückliche Autorisierung zur Änderung des Original-Repos arbeitest du in einer separaten Kopie, besonders bei temporären Aufträgen aus `Analyze`.
 - Prüfe Ziel, Abschlusskriterien, Dateizuständigkeit und relevante Projektregeln. Lies die nötigen Schnittstellen und vorhandenen Muster.
 - Implementiere die kleinste vollständige Lösung. Bewahre bestehende Konventionen und fremde Änderungen.
 - Ergänze oder ändere Tests, wenn sie das geänderte Verhalten sinnvoll absichern. Vermeide Tests, die nur den Implementierungstext nachbilden.
