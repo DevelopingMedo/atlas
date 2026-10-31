@@ -13,7 +13,7 @@ Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die
 
 ## Mit Commits arbeiten
 
-- Dokumentiere inhaltliche Änderungen an Repository-Dateien durch kleine, nachvollziehbare Commits. Prüfe den Diff und committe nur die zum Auftrag gehörenden Dateien; keine pauschale Aufnahme fremder Änderungen, Geheimnisse oder generierter Logs.
+- Dokumentiere inhaltliche Änderungen an Repository-Dateien standardmäßig durch kleine, nachvollziehbare Commits. Verlangt der Nutzer ausdrücklich eine Bearbeitung ohne Commit, bleiben die Änderungen uncommittet. Prüfe den Diff und committe nur die zum Auftrag gehörenden Dateien; keine pauschale Aufnahme fremder Änderungen, Geheimnisse oder generierter Logs.
 - Eine Source-Kopie ohne Git bleibt ohne Git, solange das Anlegen eines Repositorys nicht ausdrücklich beauftragt ist. Keine automatische Git-Initialisierung zur Erfüllung dieser Anleitung. Bei einer Kopie eines vorhandenen Repositorys bewahre einen nachvollziehbaren Git-Ausgangsstand und erstelle für deine Änderungen eigene Commits. Bestehende Nutzeränderungen im Original bleiben unangetastet.
 - Verwende eine vorhandene gültige Git-Identität. Erfinde keine Identität und ändere keine globalen Git-Einstellungen. Fehlt die Identität oder scheitert ein Hook, melde den konkreten Blocker; umgehe ihn nicht stillschweigend.
 - Schreibe keine fremden Commits um. Push, Veröffentlichung und automatische Übernahme einer Kopie ins Original brauchen eine passende ausdrückliche Autorisierung. Die lokale Commit-Pflicht allein erlaubt das nicht.
