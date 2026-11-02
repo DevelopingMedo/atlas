@@ -1,17 +1,16 @@
 # Atlas
 
-**Download here:** [Releases](https://github.com/DevelopingMedo/atlas/releases) — download `atlas.zip` from the newest `opencode-*` release (or an OpenCode-verified `v*` release).
+**Download here:** [Latest release](https://github.com/DevelopingMedo/atlas/releases/latest) · [atlas.zip](https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip)
 
 ## How to get started
 
-Requirement: **OpenCode V2**. Download `atlas.zip` from the newest `opencode-*` release (see above) and extract it into `~/.config/opencode/`.
+Requirement: **OpenCode V2**. Extract the ZIP into `~/.config/opencode/`.
 
 <details>
 <summary><strong>macOS & Linux – show commands</strong></summary>
 
 ```sh
-# Replace <opencode-tag> with the newest opencode-* tag from the releases page
-curl -fL https://github.com/DevelopingMedo/atlas/releases/download/<opencode-tag>/atlas.zip -o atlas.zip
+curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
 mkdir -p "$HOME/.config/opencode"
 unzip -n atlas.zip -d "$HOME/.config/opencode/"
 ```
@@ -22,8 +21,7 @@ unzip -n atlas.zip -d "$HOME/.config/opencode/"
 <summary><strong>Windows (PowerShell) – show commands</strong></summary>
 
 ```powershell
-# Replace <opencode-tag> with the newest opencode-* tag from the releases page
-Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/download/<opencode-tag>/atlas.zip" -OutFile "atlas.zip"
+Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
 Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
 ```
