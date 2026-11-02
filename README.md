@@ -1,13 +1,13 @@
 # Atlas
 
-**Hier herunterladen:** [Neuestes Release](https://github.com/DevelopingMedo/atlas/releases/latest) · [atlas.zip](https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip)
+**Download here:** [Latest release](https://github.com/DevelopingMedo/atlas/releases/latest) · [atlas.zip](https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip)
 
-## So startest du
+## How to get started
 
-Voraussetzung: **OpenCode V2**. Entpacke das ZIP nach `~/.config/opencode/`.
+Requirement: **OpenCode V2**. Extract the ZIP into `~/.config/opencode/`.
 
 <details>
-<summary><strong>macOS & Linux – Befehle anzeigen</strong></summary>
+<summary><strong>macOS & Linux – show commands</strong></summary>
 
 ```sh
 curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
@@ -18,7 +18,7 @@ unzip -n atlas.zip -d "$HOME/.config/opencode/"
 </details>
 
 <details>
-<summary><strong>Windows (PowerShell) – Befehle anzeigen</strong></summary>
+<summary><strong>Windows (PowerShell) – show commands</strong></summary>
 
 ```powershell
 Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
@@ -28,59 +28,59 @@ Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\open
 
 </details>
 
-Öffne danach eine neue OpenCode-Session und starte `/atlas init`.
-Bestehende eigene Regeln in `AGENTS.md` mit den Atlas-Regeln zusammenführen.
+Then open a new OpenCode session and run `/atlas init`.
+Merge your existing own rules in `AGENTS.md` with the Atlas rules.
 
-## Usage: Atlas-Skill
+## Usage: Atlas skill
 
-| Befehl | Funktion |
+| Command | Function |
 |---|---|
-| `/atlas init` | Modelle auswählen und persönliche Einstellungen speichern |
-| `/atlas update [Release-Tag]` | Atlas auf das neueste oder ein bestimmtes Release aktualisieren |
-| `/atlas models [Filter]` | Verfügbare Modelle anzeigen |
-| `/atlas config` | Persönliche Konfiguration lesbar anzeigen |
+| `/atlas init` | Select models and save personal settings |
+| `/atlas update [release tag]` | Update Atlas to the latest or a specific release |
+| `/atlas models [filter]` | Show available models |
+| `/atlas config` | Show personal configuration in readable form |
 
-Beispiele:
+Examples:
 
 ```text
-/atlas init Bitte nur Modelle meines OpenAI-Providers vorschlagen
+/atlas init Please only suggest models from my OpenAI provider
 /atlas models openai
 ```
 
-`/atlas` zeigt die Hilfe. Angaben in eckigen Klammern sind optional.
-Updates erhalten deine `atlas.json` und lokale Anpassungen; danach eine neue Session öffnen.
+`/atlas` shows the help. Arguments in square brackets are optional.
+Updates keep your `atlas.json` and local customizations; open a new session afterwards.
 
-## Was ist Atlas?
+## What is Atlas?
 
-**Klare Rollen tragen komplexe Aufgaben.**
+**Clear roles carry complex tasks.**
 
-Atlas bietet Agent-Rollen für OpenCode. Jede Rolle erhält gezielt die Informationen, die sie für ihren Auftrag braucht; Ergebnisse und wichtige Erkenntnisse gehen an die passende Rolle zurück.
+Atlas provides agent roles for OpenCode. Each role receives exactly the information it needs for its task; results and important findings flow back to the appropriate role.
 
-## Der Grundgedanke
+## The Core Idea
 
-Ein guter Agent muss nicht die gesamte Unterhaltung, jeden Build-Log und alle Werkzeugantworten gleichzeitig im Kopf behalten. Atlas verteilt Arbeit auf klar beschriebene Rollen — nicht um Tokens um jeden Preis zu sparen, sondern um den Kontext einer Rolle so groß zu halten, wie die Aufgabe es erfordert. Neue eigenständige Aufgaben beginnen mit frischem Kontext und gezielter Übergabe, ohne Gesamtchat; zusammengehörige Folgefragen gehen möglichst an dieselbe Fachsession. Zurück kommen Ergebnis, belastbare Belege und wichtige neue Erkenntnisse.
+A good agent does not need to keep the entire conversation, every build log, and all tool responses in mind at once. Atlas distributes work across clearly described roles — not to save tokens at any cost, but to keep the context of a role as large as the task requires. New independent tasks begin with fresh context and a targeted handover, without the overall chat; related follow-up questions preferably go to the same specialist session. What comes back are the result, reliable evidence, and important new findings.
 
-Der Name greift das Bild des Atlas auf: Komplexe Aufgaben werden von einer nachvollziehbaren Struktur getragen. Die Rollen unterstützen einander; der Orchestrator hält den Gesamtauftrag zusammen.
+The name draws on the image of Atlas: complex tasks are carried by a traceable structure. The roles support one another; the orchestrator holds the overall task together.
 
 
-## Die Rollen
+## The Roles
 
-| Rolle | Aufgabe |
+| Role | Task |
 |---|---|
-| **Orchestrate** | Arbeit verteilen, Ergebnisse einordnen und den Nutzer auf dem Laufenden halten |
-| **Plan** | Architektur, Lösungswege und Arbeitspakete entwickeln |
-| **Analyze** | Zusammenhänge und Ursachen mit Belegen untersuchen |
-| **Develop** | Abgegrenzte Änderungen umsetzen und passende Tests ergänzen |
-| **Run** | Befehle, Tests, Dienste und MCP-Aufträge gemeinsam ausführen; große Ausgaben und Antworten verdichten |
-| **Review** | Ergebnisse unabhängig auf Fehler und Regressionen prüfen |
-| **Auto** | Ohne Rückfragen fast alle Werkzeuge nutzen und einen Auftrag eigenständig bearbeiten |
-| **Build** | Wie Auto eigenständig arbeiten, aber vor jedem Shell-Befehl eine Nutzerbestätigung einholen |
+| **Orchestrate** | Distribute work, classify results, and keep the user informed |
+| **Plan** | Develop architecture, solution approaches, and work packages |
+| **Analyze** | Investigate relationships and causes with evidence |
+| **Develop** | Implement clearly delimited changes and add suitable tests |
+| **Run** | Execute commands, tests, services, and MCP tasks together; condense large outputs and responses |
+| **Review** | Independently check results for errors and regressions |
+| **Auto** | Use nearly all tools without asking for confirmation and work on a task autonomously |
+| **Build** | Work autonomously like Auto, but request user confirmation before every shell command |
 
-Auto und Build bearbeiten Aufträge eigenständig; Build fragt vor jedem Shell-Befehl nach. Orchestrate koordiniert Aufgaben, die von gezielter Aufteilung profitieren.
+Auto and Build work on tasks autonomously; Build asks before every shell command. Orchestrate coordinates tasks that benefit from targeted division of labor.
 
-## Wenn eine Umsetzung neue Fragen aufwirft
+## When an implementation raises new questions
 
-**Beispiel:** Ein Ticket-Bot soll Tickets bei einem Provider anlegen. Während der Umsetzung zeigt eine API-Antwort ein zusätzliches Pflichtfeld. Die neuen Belege gehen zurück an die ursprüngliche Analyse-Session; anschließend wird möglichst dieselbe Umsetzungs-Session fortgesetzt.
+**Example:** A ticket bot is supposed to create tickets with a provider. During implementation, an API response shows an additional required field. The new evidence goes back to the original analysis session; afterwards, the same implementation session is preferably continued.
 
 ```mermaid
 sequenceDiagram
@@ -90,22 +90,22 @@ sequenceDiagram
     participant R as Run
     participant V as Review
 
-    O->>A: Provider-API für Ticketanlage untersuchen
-    A-->>O: Analyse mit bekannten Pflichtfeldern
-    O->>D: Ticketanlage anhand der Analyse umsetzen
-    D-->>O: Nachanalyse nötig: API verlangt eine Projekt-ID
-    O->>A: Dieselbe Analyse-Session mit neuen Belegen fortsetzen
-    A-->>O: Ergänzte Analyse: Projekt-ID aus Konfiguration übernehmen
-    O->>D: Dieselbe Umsetzungs-Session mit ergänzter Analyse fortsetzen
-    D->>R: Provider-Aufruf und Fehlerfälle testen
-    R-->>D: Testergebnisse und relevante Belege
-    D-->>O: Umsetzung mit Diff und Prüfungen
-    O->>V: Ergebnis unabhängig prüfen
-    V-->>O: Review-Ergebnis
+    O->>A: Investigate the provider API for ticket creation
+    A-->>O: Analysis with known required fields
+    O->>D: Implement ticket creation based on the analysis
+    D-->>O: Follow-up analysis needed: API requires a project ID
+    O->>A: Continue the same analysis session with new evidence
+    A-->>O: Supplemented analysis: take project ID from configuration
+    O->>D: Continue the same implementation session with the supplemented analysis
+    D->>R: Test provider call and error cases
+    R-->>D: Test results and relevant evidence
+    D-->>O: Implementation with diff and checks
+    O->>V: Review the result independently
+    V-->>O: Review result
 ```
 
-Jede Übergabe enthält den konkreten Auftrag und die nötigen Belege. Zusammengehörige Rückfragen gehen möglichst an dieselbe Fachsession, damit frühere Erkenntnisse weiterverwendet und neue Belege geprüft werden. Ist sie nicht verfügbar, erhält eine neue Session eine gezielte Ersatzübergabe. Die Rollenfolge richtet sich nach der Aufgabe; das Beispiel ist keine Pflichtpipeline. Details: [SUBAGENTS.md](SUBAGENTS.md).
+Every handover contains the specific task and the necessary evidence. Related follow-up questions preferably go to the same specialist session, so that earlier findings can be reused and new evidence can be checked. If it is not available, a new session receives a targeted replacement handover. The order of roles depends on the task; the example is not a mandatory pipeline. Details: [SUBAGENTS.md](SUBAGENTS.md).
 
-## Lizenz
+## License
 
-[Apache License 2.0 mit Commons Clause 1.0](LICENSE).
+[Apache License 2.0 with Commons Clause 1.0](LICENSE).
