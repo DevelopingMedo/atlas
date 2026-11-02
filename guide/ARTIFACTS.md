@@ -1,11 +1,11 @@
-# Große Ausgaben und Artefakte
+# Large Outputs and Artifacts
 
-Nur lesen, wenn du große Logs, Testausgaben oder externe/MCP-Antworten tatsächlich verarbeitest.
+Read only when you actually process large logs, test output, or external/MCP responses.
 
-- Halte vollständige Rohdaten außerhalb der Rückgabe. Nutze einen bestehenden Projektstandard oder eindeutige Pfade unter `work/agent-artifacts/<auftrag-id>/`.
-- Führe erwartbar umfangreiche Befehle mit Ausgabe in eine Logdatei aus und werte gezielt Ausschnitte aus. Bewahre den tatsächlichen Exitcode; ein erfolgreicher nachfolgender Anzeige-Befehl ersetzt ihn nicht.
-- Bei MCP nutze Filter, begrenzte Ergebnisse oder Paginierung, soweit verfügbar. Erhebe nur benötigte Daten. Ein nötiger großer Payload bleibt beim ausführenden Spezialisten; der Elternagent bekommt einen gezielten Befund.
-- Bewahre entscheidende Fehlerzeilen, Gegenbelege und Unsicherheiten in der Zusammenfassung. Verdichtung darf einen fehlgeschlagenen Test nicht als Erfolg erscheinen lassen.
-- Ein Ausführungsnachweis nennt Befehl bzw. Tool und relevante Argumente, Arbeitsverzeichnis, Exitcode bzw. Fehlerstatus, entscheidenden Auszug und Artefaktpfad. Behaupte nur tatsächlich durchgeführte Prüfungen.
-- Unterscheide Produkt-, Umgebungs- und Infrastrukturprobleme anhand von Belegen. Melde unklare Ursachen als unklar. Wiederhole teure Läufe nur für eine konkrete offene Frage oder nach relevanten Änderungen.
-- Speichere keine unnötigen Geheimnisse. Dateien, Datenbankzustände oder fremde Änderungen dürfen nicht allein zur Vereinfachung der Prüfung verändert werden.
+- Keep complete raw data out of the return. Use an existing project standard or clear paths under `work/agent-artifacts/<task-id>/`.
+- Run commands with expectedly large output into a log file, and evaluate excerpts in a targeted way. Preserve the actual exit code; a successful subsequent display command does not replace it.
+- For MCP, use filters, limited results, or pagination where available. Retrieve only the data needed. A necessary large payload stays with the executing specialist; the parent agent receives a targeted finding.
+- Keep decisive error lines, counter-evidence, and uncertainties in the summary. Condensation must not make a failed test appear as a success.
+- An execution record names the command or tool and the relevant arguments, the working directory, the exit code or error status, the decisive excerpt, and the artifact path. Claim only checks that were actually performed.
+- Distinguish product, environment, and infrastructure problems on the basis of evidence. Report unclear causes as unclear. Repeat expensive runs only for a specific open question or after relevant changes.
+- Do not store unnecessary secrets. Files, database states, or foreign changes must not be altered solely to simplify the check.
