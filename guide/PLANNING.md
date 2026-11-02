@@ -1,80 +1,78 @@
-# Planungsdateien durch Plan pflegen
+# Maintaining planning files through Plan
 
-`Plan` darf beauftragte Tickets, Architekturunterlagen und Implementierungshinweise
-selbst speichern und aktualisieren. Dafür ist kein Wechsel zu `Develop` nötig.
-Die Produktimplementierung bleibt bei `Develop`, tiefe Bestands- und
-Ursachenrecherche bei `Analyze`.
+`Plan` may save and update commissioned tickets, architecture documents and
+implementation notes itself. No switch to `Develop` is required for this.
+Product implementation remains with `Develop`, and deep inventory and root-cause
+research remains with `Analyze`.
 
-## Enger Schreibbereich und Autorisierung
+## Narrow write scope and authorization
 
-Die mitgelieferte Rolle gibt nur diese projektbezogenen Bereiche für
-Markdown-Planungsunterlagen frei:
+The bundled role only releases these project-related areas for Markdown
+planning documents:
 
 - `docs/planning/tickets/*.md`
 - `docs/planning/architecture/*.md`
 - `docs/planning/implementation/*.md`
 
-Ein Auftrag muss den Planungsbereich und die beauftragten Dateien autorisieren.
-Die Permission allein ist keine inhaltliche Schreibfreigabe. Produktquellen,
-Produktkonfigurationen und beliebige andere Markdown-Dateien bleiben gesperrt.
-Auch unter den freigegebenen Pfaden darf Plan keine Produktimplementierung
-ablegen. Keine Symlinks aus Planungsbereichen auf Produktdateien verwenden.
+A task must authorize the planning area and the commissioned files.
+The permission alone is not a content write approval. Product sources, product
+configurations and any other Markdown files remain blocked.
+Even within the released paths, Plan must not store product implementation.
+Do not use symlinks from planning areas to product files.
 
-Bei unbekanntem Ziel liefert Plan die Planung als Antwort und klärt nur das
-nötige Schreibziel. Er rät keinen Pfad, ändert keine Permissions und delegiert
-das bloße Speichern nicht als Umgehung an Develop. Verwendet ein Projekt andere
-Planungsbereiche, muss der Konfigurationsverantwortliche deren genaue Pfade
-ausdrücklich vereinbaren und die drei Pfadregeln entsprechend eng ersetzen;
-keine Freigabe für `*.md`, `docs/*` oder Produktkonfigurationen ergänzen.
+If the target is unknown, Plan returns the planning as its answer and only
+clarifies the necessary write target. It does not guess a path, does not change
+permissions, and does not delegate the mere saving to `Develop` as a
+workaround. If a project uses other planning areas, the configuration owner
+must explicitly agree on their exact paths and narrow the three path rules
+accordingly; do not add approval for `*.md`, `docs/*` or product configurations.
 
-Bei nachgewiesener Repository-Arbeit gelten auch für Plan die Regeln aus
-`REPOSITORIES.md`: ohne ausdrückliche Originalautorisierung eine separate Kopie,
-nachvollziehbare Commits und keine fremden Änderungen überschreiben. Da Plan
-keine Shell-Freigabe erhält, führt `Run`, mit Sessionwahl nach `SUBAGENTS.md`, nötige Git-, Kopier- und
-Commitbefehle im autorisierten Arbeitsbereich aus. Das delegiert nicht das
-Schreiben des Plans und ist kein Grund für einen zusätzlichen Develop-Auftrag.
+For demonstrated repository work, the rules from `REPOSITORIES.md` also apply
+to Plan: without explicit authorization for the original, a separate copy,
+traceable commits, and no overwriting of others' changes. Since Plan does not
+receive shell approval, `Run`, with session selection according to `SUBAGENTS.md`,
+executes the necessary git, copy and commit commands in the authorized work
+area. This does not delegate the writing of the plan and is not a reason for an
+additional `Develop` task.
 
-## Tatsächliche OpenCode-V2-Syntax
+## Actual OpenCode V2 syntax
 
-Grundlage: offizielle [V2-Agent-Dokumentation](https://dev.opencode.ai/v2/docs/agents/)
-und [V2-Permissions](https://dev.opencode.ai/v2/docs/permissions/), geprüft gegen
-die installierte CLI `opencode v2.1.3`.
+Basis: the official [V2 agent documentation](https://dev.opencode.ai/v2/docs/agents/)
+and [V2 permissions](https://dev.opencode.ai/v2/docs/permissions/), checked against
+the installed CLI `opencode v2.1.3`.
 
-- Markdown-Frontmatter verwendet `permissions` als geordnete Liste von
-  `action`, `resource`, `effect`; die letzte passende Regel gewinnt.
-- Die Aktion **`edit`** schützt alle drei Werkzeuge **edit, write und patch**;
-  eine erfundene Aktion `patch` würde diesen Schutz nicht korrekt konfigurieren.
-- Ressourcen sind normalisierte Pfade (intern relativ zur aktiven Location,
-  extern kanonisch absolut) und keine Shell-Globs; `*` erfasst auch `/`, daher
-  schließen die drei Muster Unterverzeichnisse ein.
-- Die grundsätzliche Sperre der Rolle bleibt bestehen; nur die drei
-  Planungsbereiche erhalten `edit: allow`, umgebungsdateiartige Namen bleiben
-  zusätzlich von Edits ausgeschlossen. Bestehende Leseregeln werden dadurch
-  nicht gelockert.
-- Berührt ein Patch mehrere Ressourcen, genügt ein einziges `deny` für die
-  Ablehnung. `execute` erlaubt Code Mode, nicht automatisch die darin
-  aufgerufenen Werkzeuge: deren Permissions gelten weiter.
+- Markdown frontmatter uses `permissions` as an ordered list of
+  `action`, `resource`, `effect`; the last matching rule wins.
+- The action **`edit`** protects all three tools **edit, write and patch**;
+  an invented action `patch` would not configure this protection correctly.
+- Resources are normalized paths (internally relative to the active location,
+  externally canonical absolute) and not shell globs; `*` also matches `/`, so
+  the three patterns include subdirectories.
+- The role's basic block remains in place; only the three planning areas receive
+  `edit: allow`, and environment-file-like names additionally remain excluded
+  from edits. Existing read rules are therefore not relaxed.
+- If a patch touches several resources, a single `deny` is sufficient for
+  rejection. `execute` allows Code Mode, but not automatically the tools called
+  within it: their permissions continue to apply.
 
-Diese Permissions sind keine Betriebssystem-Sandbox. Inhaltliche Autorisierung
-und die Unterscheidung „Planungsunterlage statt Produktcode“ sind Rollenregeln.
-Delegierte Agents verwenden eigene Permissions, nicht eine Schnittmenge mit
-Plan — ein erlaubter Delegationsweg darf deshalb nicht zur Umgehung des
-Plan-Schreibbereichs dienen. Eine abweichende aktive Location, spätere
-Konfigurations-/Policyänderungen oder projektspezifische Freigaben verlangen
-eine erneute Prüfung.
+These permissions are not an operating system sandbox. Content authorization
+and the distinction "planning document instead of product code" are role rules.
+Delegated agents use their own permissions, not an intersection with
+Plan — an allowed delegation path must therefore not serve as a workaround for
+the Plan write scope. A different active location, later configuration/policy
+changes or project-specific approvals require a new review.
 
-## Begrenzte Prüfung
+## Limited testing
 
-Eine gezielte Probe (`tests/plan_permission_probe.py`, isoliertes HOME/XDG,
-Kopie des Plan-Profils, synthetische Dateien, deterministischer Provider statt
-echtem Modell) prüft Editieren in allen drei Bereichen, Schreiben, die Sperren
-für Produktquellen/sonstige Markdown-/Konfigurationsdateien sowie normalisierte
-Traversal- und absolute Produktpfade — anhand tatsächlicher Dateiinhalte und
-Permission-Fehler, nicht nur des Exitcodes.
+A targeted probe (`tests/plan_permission_probe.py`, isolated HOME/XDG,
+copy of the Plan profile, synthetic files, deterministic provider instead of a
+real model) checks editing in all three areas, writing, the blocks for product
+sources/other Markdown/configuration files, and normalized traversal and
+absolute product paths — based on actual file contents and permission errors,
+not just the exit code.
 
-Das ist eine reine Strukturprüfung: Sie belegt Permission-Durchsetzung, aber
-nicht, dass ein echtes Modell Aufgaben richtig als Planung einordnet,
-unbekannte Ziele nachfragt oder nicht delegiert; solche Modellläufe bleiben
-separat zu prüfen. Patch-/Mehrdatei-Operationen, Code-Mode-Verschachtelung,
-Symlinks/Hardlinks und Betriebssystem-Sandboxing sind durch diese Probe
-ebenfalls nicht abgedeckt.
+This is a pure structural test: it proves permission enforcement, but not that a
+real model correctly classifies tasks as planning, asks about unknown targets or
+refrains from delegating; such model runs must be tested separately.
+Multi-file/patch operations, Code Mode nesting, symlinks/hardlinks and operating
+system sandboxing are likewise not covered by this probe.

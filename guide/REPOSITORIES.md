@@ -1,24 +1,24 @@
-# Repository-Arbeit: Kopie, Original und Commits
+# Repository Work: Copy, Original, and Commits
 
-Nur durch die tatsächlich ausführende Rolle lesen, wenn ein Git-Repository nachgewiesen ist und konkrete Änderungen, Commits oder eine Git-Arbeitskopie daran anstehen. Als Nachweis genügen bekannte Repository-Metadaten oder eine passende `.git`-Datei bzw. ein `.git`-Verzeichnis am Ziel oder im bekannten Projektstamm. Keine pauschale Dateisystemsuche zur Auslösung dieser Anleitung.
+Read only by the role that actually executes the work, when a Git repository has been verified and concrete changes, commits, or a Git working copy of it are pending. Known repository metadata or a matching `.git` file or `.git` directory at the target or in the known project root serves as verification. No blanket filesystem search to trigger this guide.
 
-Orchestrate und andere delegierende Parents lesen diese Anleitung nicht für die Arbeit ihrer Subagents. Reine Analyse, einfache Datei-/Konfigurationsarbeit ohne Git, MCP-Abfragen und ein bloß möglicher Repository-Bezug sind kein Leseanlass.
+Orchestrate and other delegating parents do not read this guide for the work of their subagents. Pure analysis, simple file/configuration work without Git, MCP queries, and a merely possible repository reference are not reasons to read it.
 
-## Arbeitsort
+## Working location
 
-- Ändere das Original nur, wenn der Nutzerauftrag oder ein davon gedeckter delegierter Auftrag dies ausdrücklich erlaubt und das Ziel eindeutig ist. Eine reine Analyse, ein Prüfauftrag oder ein temporärer Umsetzungsversuch autorisiert keine Originaländerung.
-- Fehlt diese Autorisierung, erstelle eine separate Kopie des Repos oder der benötigten Source unter einem eindeutigen Arbeitspfad. Das gilt insbesondere, wenn `Analyze` einen kurzen Auftrag an `Develop` gibt. Weise den Parent auf den Kopierpfad hin.
-- Übernimm den für die Reproduktion relevanten aktuellen Quellstand, einschließlich notwendiger uncommitteter Änderungen. Ein Clone nur des letzten Commits reicht dafür nicht immer. Dokumentiere Ausgangs-Commit und Abweichungen.
-- Halte Git-Metadaten der Kopie unabhängig. Übernimm keine `.git`-Datei, die auf das Original verweist. Prüfe vor Änderungen und Commits, welches Repository und welcher Arbeitsbaum tatsächlich betroffen sind. Nutze keine unnötigen Geheimnisse, Abhängigkeitssammlungen oder alten Artefakte als Kopierinhalt.
+- Change the original only if the user's task, or a delegated task covered by it, explicitly permits this and the target is unambiguous. A pure analysis, a review task, or a temporary implementation attempt does not authorize changes to the original.
+- If this authorization is absent, create a separate copy of the repository or of the required source under a unique working path. This applies in particular when `Analyze` gives a short task to `Develop`. Point the parent to the copy path.
+- Take over the current source state relevant for reproduction, including necessary uncommitted changes. A clone of only the latest commit is not always sufficient for this. Document the starting commit and any deviations.
+- Keep the Git metadata of the copy independent. Do not take over a `.git` file that points to the original. Before changes and commits, check which repository and which working tree are actually affected. Do not use unnecessary secrets, dependency collections, or old artifacts as copy content.
 
-## Mit Commits arbeiten
+## Working with commits
 
-- Dokumentiere inhaltliche Änderungen an Repository-Dateien standardmäßig durch kleine, nachvollziehbare Commits. Verlangt der Nutzer ausdrücklich eine Bearbeitung ohne Commit, bleiben die Änderungen uncommittet. Prüfe den Diff und committe nur die zum Auftrag gehörenden Dateien; keine pauschale Aufnahme fremder Änderungen, Geheimnisse oder generierter Logs.
-- Eine Source-Kopie ohne Git bleibt ohne Git, solange das Anlegen eines Repositorys nicht ausdrücklich beauftragt ist. Keine automatische Git-Initialisierung zur Erfüllung dieser Anleitung. Bei einer Kopie eines vorhandenen Repositorys bewahre einen nachvollziehbaren Git-Ausgangsstand und erstelle für deine Änderungen eigene Commits. Bestehende Nutzeränderungen im Original bleiben unangetastet.
-- Verwende eine vorhandene gültige Git-Identität. Erfinde keine Identität und ändere keine globalen Git-Einstellungen. Fehlt die Identität oder scheitert ein Hook, melde den konkreten Blocker; umgehe ihn nicht stillschweigend.
-- Schreibe keine fremden Commits um. Push, Veröffentlichung und automatische Übernahme einer Kopie ins Original brauchen eine passende ausdrückliche Autorisierung. Die lokale Commit-Pflicht allein erlaubt das nicht.
-- Wenn Tests, Implementierung und Git-Abschluss unterschiedliche Rollen benötigen, darf jede Rolle die passende andere Rolle beauftragen, mit Sessionwahl nach `SUBAGENTS.md`. Die Verantwortung für einen nachvollziehbaren Abschluss bleibt beim aufrufenden Agent.
+- Document substantive changes to repository files by default through small, traceable commits. If the user explicitly requests editing without a commit, the changes remain uncommitted. Review the diff and commit only the files belonging to the task; no blanket inclusion of foreign changes, secrets, or generated logs.
+- A source copy without Git stays without Git, as long as creating a repository is not explicitly commissioned. No automatic Git initialization to fulfill this guide. For a copy of an existing repository, preserve a traceable Git starting state and create your own commits for your changes. Existing user changes in the original remain untouched.
+- Use an existing valid Git identity. Do not invent an identity and do not change global Git settings. If the identity is missing or a hook fails, report the concrete blocker; do not work around it silently.
+- Do not rewrite other people's commits. Push, publication, and automatic transfer of a copy into the original require appropriate explicit authorization. The local commit obligation alone does not permit this.
+- If tests, implementation, and Git completion require different roles, each role may commission the appropriate other role, with session selection according to `SUBAGENTS.md`. Responsibility for a traceable completion remains with the calling agent.
 
-## Rückgabe an den Parent
+## Return to the parent
 
-Nenne Original oder Kopie, Arbeits-/Repository-Pfad, Ausgangsstand, eigene Commit-IDs, durchgeführte Prüfungen und deren Ergebnisse. Fasse relevante Zusatzfunde mit Belegen, Auswirkungen und offenen Folgen ausreichend genau zusammen. Sage ausdrücklich, ob das Original unverändert blieb und welche Änderungen noch übernommen werden müssten. Behaupte keine Commits, die nicht erstellt wurden.
+State whether it is the original or a copy, the working/repository path, the starting state, your own commit IDs, the checks performed, and their results. Summarize relevant additional findings with evidence, consequences, and open follow-up points with sufficient precision. State explicitly whether the original remained unchanged and which changes would still need to be transferred. Do not claim commits that were not created.
