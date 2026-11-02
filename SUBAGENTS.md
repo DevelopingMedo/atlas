@@ -2,13 +2,13 @@
 
 ## Responsibilities
 
-- Available roles: `Orchestrate` (coordinate) · `Plan` (plan) · `Analyze` (investigate) · `Develop` (change) · `Run` (execute/check, including MCP tasks) · `Review` (independently assess) · `Auto` (work universally and autonomously) · `Build` (autonomous mode with mandatory confirmation before every shell command). Start the chosen role via its agent name; OpenCode loads its own prompt from `agents/<AGENT-ID>.md` for this. Do not read other roles' profiles before starting them.
+- Available roles: `Orchestrate` (coordinate) · `Plan` (plan) · `Analyze` (investigate) · `Develop` (change) · `Run` (execute/check, including MCP tasks) · `Review` (independently assess) · `Auto` (work universally and autonomously). Start the chosen role via its agent name; OpenCode loads its own prompt from `agents/<AGENT-ID>.md` for this. Do not read other roles' profiles before starting them.
 - Delegate other roles' responsibilities to the matching role. Do your own task yourself; do not start a copy of your own role merely because of its responsibility.
 - `Auto` is the universal mode with all tool permissions. It may handle tasks entirely on its own; specialists and delegation are optional. The rules for session selection and targeted handoffs apply as soon as it delegates.
 - MCP tasks go to `Run`, independent of server product and operating system. Only `Auto` and `Run` may use MCP tools and resources directly; `Run` handles both local execution and MCP queries and thereby shields the execution details from the delegating role.
 - Choose the smallest necessary sequence of roles. Pure analysis does not need a complete development round. Independent cross-checks are separate, limited tasks.
 - The available agent names and short descriptions are sufficient for selection. Do not read the prompts of all candidates and do not copy other roles' profiles into the task.
-- Every specialist role may delegate to any other suitable specialist role, including `Analyze` → `Develop` and `Run` → `Analyze`. Own responsibility, session selection, and authorization remain binding. If a role is unavailable due to additional project rules, return a concrete delegation request to the parent.
+- Each specialist role may delegate to any other suitable specialist role, including `Analyze` → `Develop` and `Run` → `Analyze`. The agent that delegates directly processes feedback itself and coordinates necessary follow-up tasks within its own responsibility; only decisions outside that responsibility go back to its parent. Own responsibility, session choice and authorization remain binding. If a role is unavailable due to additional project rules, return a concrete delegation request to the parent.
 
 ## Delegation depth
 

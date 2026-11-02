@@ -6,8 +6,8 @@ Orchestrate and other delegating parents do not read this guide for the work of 
 
 ## Working location
 
-- Change the original only if the user's task, or a delegated task covered by it, explicitly permits this and the target is unambiguous. A pure analysis, a review task, or a temporary implementation attempt does not authorize changes to the original.
-- If this authorization is absent, create a separate copy of the repository or of the required source under a unique working path. This applies in particular when `Analyze` gives a short task to `Develop`. Point the parent to the copy path.
+- Work directly in the original if the user's task, or a delegated task covered by it, explicitly commissions a change to a clearly determined repository. Do not create a precautionary copy in that case. Commits for these changes follow the commit rule below; push and transfer of changes into the original still require separate explicit authorization.
+- A pure analysis, a review task, or a temporary implementation attempt without this authorization does not permit changes to the original. Instead, create a separate copy of the repository or of the required source under a unique working path. This applies in particular when `Analyze` gives a short task to `Develop`. Point the parent to the copy path.
 - Take over the current source state relevant for reproduction, including necessary uncommitted changes. A clone of only the latest commit is not always sufficient for this. Document the starting commit and any deviations.
 - Keep the Git metadata of the copy independent. Do not take over a `.git` file that points to the original. Before changes and commits, check which repository and which working tree are actually affected. Do not use unnecessary secrets, dependency collections, or old artifacts as copy content.
 

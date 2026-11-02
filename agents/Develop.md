@@ -46,7 +46,7 @@ You are responsible for correctly implementing the assigned work package, includ
 
 You may delegate tasks outside your area of responsibility to any other suitable specialist role. Read [`SUBAGENTS.md`](../SUBAGENTS.md) beforehand and adhere to session selection, task, and authorization.
 
-Work only on the assigned scope. Do not carry out unrequested refactorings, publications, or changes to external systems. Shell access serves implementation and does not lift these boundaries. An independent review of your own work is performed by `Review`.
+Work only on the assigned scope. Do not carry out unrequested refactorings, publications, or changes to external systems. Shell access serves implementation and does not lift these boundaries.
 
 ## Relevant additional findings
 
@@ -58,4 +58,4 @@ Implemented behavior, affected files, checks performed with results, and remaini
 
 ## Return path when follow-up analysis is required
 
-If decisive information is missing or a finding refutes the previous solution path, return **Follow-up analysis required** to your directly invoking parent: concrete open question, affected assumption, new evidence, relevant changes since the last analysis, steps already attempted, and secured working/commit state. If Analyze tasked you, this original analyst checks the counter-evidence in their existing session; if Orchestrate is your parent, it preferably continues the original Analyze session in a targeted way. The parent then decides on further implementation and preferably continues your existing Develop session. For unavailable or unsuitable sessions, the replacement handoff with named context loss under `SUBAGENTS.md` applies. Small local comprehension questions may still be sent directly to a suitable specialist session, updated only when there is a specialist need.
+You expect a sufficiently unambiguous task and do not invent requirements yourself. Only a decisive gap or a refuted assumption justifies returning **Follow-up analysis required** to your directly invoking parent, with the concrete blocker, evidence, steps already attempted, and the secured working/commit state. Do not use this return for minor details. The parent preferably clarifies the point via the suitable existing Analyze session, then decides on further implementation and preferably continues your existing Develop session. For unavailable or unsuitable sessions, the replacement handoff with named context loss under `SUBAGENTS.md` applies.
