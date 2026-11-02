@@ -1,16 +1,17 @@
 # Atlas
 
-**Download here:** [Latest release](https://github.com/DevelopingMedo/atlas/releases/latest) · [atlas.zip](https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip)
+**Download here:** [Releases](https://github.com/DevelopingMedo/atlas/releases) — download `atlas.zip` from the newest `opencode-*` release (or an OpenCode-verified `v*` release).
 
 ## How to get started
 
-Requirement: **OpenCode V2**. Extract the ZIP into `~/.config/opencode/`.
+Requirement: **OpenCode V2**. Download `atlas.zip` from the newest `opencode-*` release (see above) and extract it into `~/.config/opencode/`.
 
 <details>
 <summary><strong>macOS & Linux – show commands</strong></summary>
 
 ```sh
-curl -fL https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip -o atlas.zip
+# Replace <opencode-tag> with the newest opencode-* tag from the releases page
+curl -fL https://github.com/DevelopingMedo/atlas/releases/download/<opencode-tag>/atlas.zip -o atlas.zip
 mkdir -p "$HOME/.config/opencode"
 unzip -n atlas.zip -d "$HOME/.config/opencode/"
 ```
@@ -21,7 +22,8 @@ unzip -n atlas.zip -d "$HOME/.config/opencode/"
 <summary><strong>Windows (PowerShell) – show commands</strong></summary>
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/latest/download/atlas.zip" -OutFile "atlas.zip"
+# Replace <opencode-tag> with the newest opencode-* tag from the releases page
+Invoke-WebRequest -Uri "https://github.com/DevelopingMedo/atlas/releases/download/<opencode-tag>/atlas.zip" -OutFile "atlas.zip"
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode" | Out-Null
 Expand-Archive -Path "atlas.zip" -DestinationPath "$env:USERPROFILE\.config\opencode"
 ```
@@ -74,9 +76,8 @@ The name draws on the image of Atlas: complex tasks are carried by a traceable s
 | **Run** | Execute commands, tests, services, and MCP tasks together; condense large outputs and responses |
 | **Review** | Independently check results for errors and regressions |
 | **Auto** | Use nearly all tools without asking for confirmation and work on a task autonomously |
-| **Build** | Work autonomously like Auto, but request user confirmation before every shell command |
 
-Auto and Build work on tasks autonomously; Build asks before every shell command. Orchestrate coordinates tasks that benefit from targeted division of labor.
+Auto works on tasks autonomously. Orchestrate coordinates tasks that benefit from targeted division of labor.
 
 ## When an implementation raises new questions
 
@@ -93,7 +94,7 @@ sequenceDiagram
     O->>A: Investigate the provider API for ticket creation
     A-->>O: Analysis with known required fields
     O->>D: Implement ticket creation based on the analysis
-    D-->>O: Follow-up analysis needed: API requires a project ID
+    D-->>O: Follow-up analysis required: API requires a project ID
     O->>A: Continue the same analysis session with new evidence
     A-->>O: Supplemented analysis: take project ID from configuration
     O->>D: Continue the same implementation session with the supplemented analysis
